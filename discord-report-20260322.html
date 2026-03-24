@@ -135,6 +135,26 @@
     .action-body strong { display: block; margin-bottom: 4px; }
     .action-body p { font-size: 12px; color: var(--text-sub); }
 
+    /* OKR */
+    .okr-objective { display: flex; gap: 12px; align-items: flex-start; background: linear-gradient(135deg, #eef0ff 0%, #f0fdf4 100%); border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; border: 1.5px solid #c7d0fa; }
+    .okr-o-label { flex-shrink: 0; font-size: 11px; font-weight: 900; background: var(--primary); color: white; padding: 3px 12px; border-radius: 6px; margin-top: 2px; letter-spacing: 0.05em; }
+    .okr-o-text { font-size: 13px; font-weight: 700; line-height: 1.6; }
+    .okr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 14px 0; }
+    .okr-card { border-radius: 12px; padding: 18px 16px; border: 1.5px solid #c7d0fa; background: var(--primary-light); }
+    .okr-kr-label { font-size: 10px; font-weight: 900; color: var(--primary); letter-spacing: 0.08em; margin-bottom: 4px; }
+    .okr-kr-title { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+    .okr-formula { font-size: 10px; color: var(--text-sub); margin-bottom: 12px; line-height: 1.5; }
+    .okr-value { font-size: 34px; font-weight: 900; color: var(--primary); line-height: 1; margin-bottom: 4px; }
+    .okr-fraction { font-size: 11px; color: var(--text-sub); margin-bottom: 10px; }
+    .okr-targets { display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #c7d0fa; padding-top: 8px; margin-top: 4px; }
+    .okr-targets span { font-size: 10px; color: var(--text-sub); }
+    .health-box { background: var(--neutral-light); border-radius: 10px; padding: 14px 18px; border: 1.5px solid var(--border); margin-top: 4px; }
+    .health-box-label { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; color: var(--text-sub); margin-bottom: 12px; }
+    .health-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .health-name { font-size: 12px; font-weight: 700; width: 160px; flex-shrink: 0; }
+    .health-formula { font-size: 10px; color: var(--text-sub); flex: 1; min-width: 160px; }
+    .health-val { font-size: 22px; font-weight: 900; color: var(--text); }
+
     /* Data legend */
     .data-legend { display: flex; flex-wrap: wrap; gap: 8px; }
     .dl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-sub); background: var(--neutral-light); border-radius: 6px; padding: 5px 10px; }
@@ -159,8 +179,8 @@
     <div class="header-badge">🆕 新チャンネル構成 ローンチ初週レポート</div>
     <h1>Discord チャンネルアクセス週次レポート</h1>
     <div class="header-meta">
-      <span>📅 対象期間：2026年3月15日〜3月22日（7日間）</span>
-      <span>👥 会員総数：約13,000人</span>
+      <span>📅 対象期間：2026年3月16日〜3月22日（7日間）</span>
+      <span>👥 会員総数：12,677人（認証会員）</span>
       <span>🗓 作成日：2026年3月23日</span>
     </div>
   </div>
@@ -181,7 +201,6 @@
         <div class="ba-item">入会時は7カテゴリー・19チャンネルのみ表示（迷わせない）</div>
         <div class="ba-item">自己紹介→ボット誘導→フォーラム分散の明確な導線</div>
         <div class="ba-item">日報→週報→フォーラム交流のアウトプットループ</div>
-        <div class="ba-item">ウェビナー→パスコード→ゼミ限定チャンネルで深化設計</div>
       </div>
     </div>
   </div>
@@ -230,78 +249,69 @@
           <div class="funnel-sub">前週92人 → -27%</div>
           <span class="funnel-badge">△ 要観察</span>
         </div>
-        <div class="funnel-arrow">→</div>
-        <div class="funnel-step fs-good">
-          <div class="funnel-num">6</div>
-          <div class="funnel-step-title">ウェビナー<br>→パスコード→ゼミ</div>
-          <div class="funnel-val">320人+</div>
-          <div class="funnel-sub">限定チャンネルにアクセス</div>
-          <span class="funnel-badge">◎ 機能</span>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- KPI・参加率 -->
+  <!-- OKR -->
   <div class="section">
-    <div class="section-title"><span>📊</span>全体KPI・会員参加率サマリー</div>
+    <div class="section-title"><span>📊</span>OKR（週次モニタリング）</div>
 
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">合計発言数</div>
-        <div class="kpi-value">2,631</div>
-        <div class="kpi-change">↑ +256%</div>
-        <div class="kpi-sub">前週：738件</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">合計リアクション数</div>
-        <div class="kpi-value">14,903</div>
-        <div class="kpi-change">↑ +312%</div>
-        <div class="kpi-sub">前週：2,911件</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">週3回以上発言（継続指標）</div>
-        <div class="kpi-value">400人</div>
-        <div class="kpi-change">→ 維持</div>
-        <div class="kpi-sub">全会員比：3.1%</div>
-      </div>
+    <div class="okr-objective">
+      <span class="okr-o-label">O</span>
+      <div class="okr-o-text">Discordを、会員がAI学習・実践・交流を継続できるコミュニティとして機能させる。</div>
     </div>
 
-    <div class="section-subtitle">📐 会員13,000人を分母にした参加率ファネル</div>
-    <div class="pf-row">
-      <div class="pf-label">会員総数</div>
-      <div class="pf-bar-wrap"><div class="pf-bar" style="width:100%;background:#c7d0fa;"><span style="color:#1e293b;">100%</span></div></div>
-      <div class="pf-count">約13,000人</div>
-    </div>
-    <div class="pf-row">
-      <div class="pf-label">週1回以上アクセス</div>
-      <div class="pf-bar-wrap"><div class="pf-bar" style="width:40.2%;background:var(--primary);"><span>40.2%</span></div></div>
-      <div class="pf-count">5,225人</div>
-    </div>
-    <div class="pf-row">
-      <div class="pf-label">何らかのアクション</div>
-      <div class="pf-bar-wrap"><div class="pf-bar" style="width:14.5%;background:#7c3aed;"><span>14.5%</span></div></div>
-      <div class="pf-count">1,884人</div>
-    </div>
-    <div class="pf-row">
-      <div class="pf-label">　うち発言（1回以上）</div>
-      <div class="pf-bar-wrap"><div class="pf-bar" style="width:5.1%;background:var(--success);"><span>5.1%</span></div></div>
-      <div class="pf-count">669人</div>
-    </div>
-    <div class="pf-row">
-      <div class="pf-label">　うちリアクションのみ</div>
-      <div class="pf-bar-wrap"><div class="pf-bar" style="width:9.3%;background:#6ee7b7;"><span style="color:#065f46;">9.3%</span></div></div>
-      <div class="pf-count">1,215人</div>
-    </div>
-    <div class="pf-row">
-      <div class="pf-label">週3回以上発言（継続行動）</div>
-      <div class="pf-bar-wrap"><div class="pf-bar" style="width:3.1%;background:var(--warning);"><span>3.1%</span></div></div>
-      <div class="pf-count">400人</div>
+    <div class="note" style="margin-bottom:14px;">
+      📌 <strong>O（週リテンション率）について：</strong>「今週と先週の両方で発言した人数 ÷ 今週発言人数」で計測しますが、今回は前週データが取得できないため、<strong>Oの数値は来週から表記します。</strong>
     </div>
 
-    <div class="note">
-      ⚠️ <strong>アクション人数の前週比について：</strong>今週1,884人・前週2,412人と見かけ上減少していますが、前週の集計にはお知らせ系チャンネルへのリアクションが含まれており測定条件が異なります。条件を揃えた比較では実態は改善傾向です。次週以降は統一条件で計測します。<br>
-      ※ 発言者数・アクション人数はユニーク（1人1カウント）、発言数・リアクション数は累積値です。自己紹介・週報はボット管理のためCSV非反映（別途集計値を使用）。
+    <div class="okr-grid">
+      <div class="okr-card">
+        <div class="okr-kr-label">KR1</div>
+        <div class="okr-kr-title">週ビジター率</div>
+        <div class="okr-formula">週ビジター数 ÷ 認証会員数</div>
+        <div class="okr-value">41.2%</div>
+        <div class="okr-fraction">5,225 ÷ 12,677</div>
+        <div class="okr-targets">
+          <span>初期値：43%</span>
+          <span>1ヶ月目標：47%</span>
+          <span>3ヶ月目標：50%</span>
+        </div>
+      </div>
+      <div class="okr-card">
+        <div class="okr-kr-label">KR2</div>
+        <div class="okr-kr-title">週発言率</div>
+        <div class="okr-formula">週1回以上発言した人数 ÷ 週ビジター数</div>
+        <div class="okr-value">16.3%</div>
+        <div class="okr-fraction">849 ÷ 5,225</div>
+        <div class="okr-targets">
+          <span>初期値：23%</span>
+          <span>1ヶ月目標：25%</span>
+          <span>3ヶ月目標：28%</span>
+        </div>
+      </div>
+      <div class="okr-card">
+        <div class="okr-kr-label">KR3</div>
+        <div class="okr-kr-title">新規発言率</div>
+        <div class="okr-formula">7日以内に発言した人数 ÷ 7日以内に参加した人数</div>
+        <div class="okr-value">49.7%</div>
+        <div class="okr-fraction">145 ÷ 292</div>
+        <div class="okr-targets">
+          <span>初期値：設定中</span>
+          <span>1ヶ月目標：設定中</span>
+          <span>3ヶ月目標：設定中</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="health-box">
+      <div class="health-box-label">🩺 健全性指標</div>
+      <div class="health-row">
+        <div class="health-name">Discord参加率</div>
+        <div class="health-formula">Discord登録完了人数 ÷ SHIFT AI会員人数</div>
+        <div class="health-val">43.67%</div>
+      </div>
     </div>
   </div>
 
@@ -383,27 +393,6 @@
         </div>
       </div>
 
-      <div class="sei great">
-        <div class="sei-badge">🔐</div>
-        <div class="sei-body">
-          <div class="sei-verdict">◎ 機能 ― STEP 6</div>
-          <div class="sei-title">ウェビナー → 秘密パスコード → ゼミ限定チャンネル</div>
-          <div class="sei-numbers">
-            <div><div class="sei-num-val">320人+</div><div class="sei-num-label">ゼミ限定チャンネル合計アクション人数</div></div>
-          </div>
-          <div class="sei-comment">
-            コミュニティで参加ハードルを下げながらDiscordに慣れてもらい、ウェビナーに参加した方が秘密パスコードを入力してゼミ・合宿の限定チャンネルにアクセス。さらに深く行動し、アクションノートを提出しながらゼロイチ達成者を生み出す——という出口戦略が初週から機能しています。
-          </div>
-          <table>
-            <tr><th>ゼミ限定チャンネル</th><th>アクション人数</th><th>形式</th></tr>
-            <tr><td>📹 SNS運用代行ゼミ</td><td>134人</td><td>講師投稿＋リアクション参加</td></tr>
-            <tr><td>💰 マネタイズゼミ</td><td>115人</td><td>同上</td></tr>
-            <tr><td>💻 AI開発ゼミ</td><td>49人</td><td>同上</td></tr>
-            <tr><td>🧬 エージェントゼミ</td><td>22人</td><td>同上</td></tr>
-          </table>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -439,13 +428,6 @@
       <div class="action-item high">
         <span class="priority-tag">優先度：高</span>
         <div class="action-body">
-          <strong>自己紹介後の各チャンネルへの分散状況を検証する</strong>
-          <p>205人が自己紹介を投稿しました。ボット誘導によりどのフォーラム・チャンネルに何人が流入したかを確認し、誘導精度を把握することが次週の重要アクションです。</p>
-        </div>
-      </div>
-      <div class="action-item high">
-        <span class="priority-tag">優先度：高</span>
-        <div class="action-body">
           <strong>アクションノートの提出者をさらに増やすアナウンスを行う</strong>
           <p>初週67人が提出しました。「提出＝行動継続の証」としての価値を発信し、2週目は提出者数の増加を目指します。</p>
         </div>
@@ -453,7 +435,7 @@
       <div class="action-item mid">
         <span class="priority-tag">優先度：中</span>
         <div class="action-body">
-          <strong>Discord未参加会員（約7,800人・60%）への楽しみ方設計を検討する</strong>
+          <strong>Discord未参加会員（7,452人・58.7%）への楽しみ方設計を検討する</strong>
           <p>入口設計が整った今、次フェーズは未参加会員の引き込みです。「19チャンネルで迷わない」「ボットが導く」「仲間がいる」という体験価値を訴求するコンテンツ設計を進めてください。</p>
         </div>
       </div>
