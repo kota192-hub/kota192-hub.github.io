@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discord 週次レポート｜2026.3.23〜3.29</title>
+  <title>Discord 週次レポート｜2026.3.30〜4.5</title>
   <style>
     :root {
       --primary: #5b67f7;
       --primary-light: #eef0ff;
       --success: #22c55e;
       --success-light: #f0fdf4;
-      --danger: #ef4444;
-      --danger-light: #fef2f2;
       --warning: #f59e0b;
       --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
       --neutral: #94a3b8;
       --neutral-light: #f8fafc;
       --text: #1e293b;
@@ -26,71 +26,90 @@
     body { background: var(--bg); font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: var(--text); font-size: 14px; line-height: 1.6; }
     .page { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
 
-    /* Header */
-    .header { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%); border-radius: 16px; padding: 32px 36px; color: white; margin-bottom: 20px; }
-    .header-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 99px; padding: 4px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 12px; }
-    .header h1 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    /* Header — Week 1 color scheme */
+    .header { background: linear-gradient(135deg, #3b4fd8 0%, #7c3aed 100%); border-radius: 16px; padding: 32px 36px; color: white; margin-bottom: 20px; }
+    .header-badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 99px; padding: 4px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .header h1 { font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.3; }
     .header-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; opacity: 0.85; }
 
     /* Section */
     .section { background: var(--white); border-radius: 14px; padding: 24px 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
     .section-title { font-size: 15px; font-weight: 800; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
-    .sub-title { font-size: 12px; font-weight: 700; color: var(--text-sub); margin: 16px 0 10px; letter-spacing: 0.03em; }
+    .sub-title { font-size: 12px; font-weight: 700; color: var(--text-sub); margin: 18px 0 10px; }
     .note { font-size: 11px; color: var(--text-sub); background: var(--neutral-light); border-radius: 8px; padding: 10px 14px; margin-top: 12px; line-height: 1.7; border-left: 3px solid var(--border); }
 
     /* O card */
-    .o-card { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%); border-radius: 14px; padding: 20px 24px; color: white; display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+    .o-card { border-radius: 14px; padding: 20px 24px; color: white; display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+    .o-card.on-target  { background: linear-gradient(135deg, #14532d, #15803d); }
+    .o-card.near-target { background: linear-gradient(135deg, #78350f, #b45309); }
+    .o-card.off-target  { background: linear-gradient(135deg, #7f1d1d, #b91c1c); }
     .o-left { flex: 1; min-width: 200px; }
-    .o-tag { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 99px; padding: 2px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 8px; }
-    .o-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .o-desc { font-size: 11px; opacity: 0.75; line-height: 1.6; }
-    .o-right { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
-    .o-metric { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 12px 18px; text-align: center; min-width: 90px; }
+    .o-tag  { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 99px; padding: 2px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .o-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .o-desc  { font-size: 11px; opacity: 0.8; line-height: 1.6; }
+    .o-right { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+    .o-metric { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; padding: 12px 16px; text-align: center; min-width: 90px; }
     .o-metric-label { font-size: 10px; opacity: 0.8; margin-bottom: 4px; }
-    .o-metric-val { font-size: 26px; font-weight: 900; line-height: 1; }
-    .o-metric-sub { font-size: 10px; opacity: 0.7; margin-top: 3px; }
+    .o-metric-val   { font-size: 26px; font-weight: 900; line-height: 1; }
+    .o-metric-sub   { font-size: 10px; opacity: 0.7; margin-top: 3px; }
+    .o-diff { font-size: 13px; font-weight: 800; padding: 2px 10px; border-radius: 99px; background: rgba(255,255,255,0.2); margin-top: 6px; display: inline-block; }
 
-    /* KR grid */
+    /* KR cards */
     .kr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
     .kr-card { border-radius: 12px; padding: 18px 16px; border: 2px solid; position: relative; }
-    .kr-card.up   { background: var(--success-light); border-color: #86efac; }
-    .kr-card.down { background: var(--danger-light);  border-color: #fca5a5; }
-    .kr-indicator { position: absolute; top: 12px; right: 12px; font-size: 16px; }
+    .kr-card.on-target   { background: var(--success-light); border-color: #86efac; }
+    .kr-card.near-target { background: #fffbeb;              border-color: #fde68a; }
+    .kr-card.off-target  { background: var(--danger-light);  border-color: #fca5a5; }
+    .kr-icon { position: absolute; top: 12px; right: 12px; font-size: 16px; }
     .kr-num  { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 3px; }
-    .kr-card.up   .kr-num  { color: #15803d; }
-    .kr-card.down .kr-num  { color: #b91c1c; }
+    .kr-card.on-target   .kr-num { color: #15803d; }
+    .kr-card.near-target .kr-num { color: #b45309; }
+    .kr-card.off-target  .kr-num { color: #b91c1c; }
     .kr-name { font-size: 11px; font-weight: 600; color: var(--text-sub); margin-bottom: 10px; line-height: 1.5; }
     .kr-val  { font-size: 32px; font-weight: 900; line-height: 1; margin-bottom: 3px; }
-    .kr-card.up   .kr-val  { color: #16a34a; }
-    .kr-card.down .kr-val  { color: #dc2626; }
+    .kr-card.on-target   .kr-val { color: #16a34a; }
+    .kr-card.near-target .kr-val { color: #d97706; }
+    .kr-card.off-target  .kr-val { color: #dc2626; }
     .kr-fraction { font-size: 11px; color: var(--text-sub); margin-bottom: 8px; }
-    .kr-change { display: inline-block; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
-    .kr-card.up   .kr-change { background: #dcfce7; color: #15803d; }
-    .kr-card.down .kr-change { background: #fee2e2; color: #b91c1c; }
-    .kr-prev { font-size: 11px; color: var(--text-sub); margin-top: 4px; }
+    .kr-tags { display: flex; flex-direction: column; gap: 4px; }
+    .kr-tag  { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .kr-tag.target-tag { }
+    .kr-card.on-target   .kr-tag.target-tag { background: #dcfce7; color: #15803d; }
+    .kr-card.near-target .kr-tag.target-tag { background: #fef9c3; color: #a16207; }
+    .kr-card.off-target  .kr-tag.target-tag { background: #fee2e2; color: #b91c1c; }
+    .kr-tag.week-tag-up   { background: #dbeafe; color: #1d4ed8; }
+    .kr-tag.week-tag-down { background: #f1f5f9; color: var(--neutral); }
+    .kr-goal { font-size: 11px; color: var(--text-sub); margin-top: 6px; }
 
     /* Numbers table */
     .num-table { width: 100%; border-collapse: collapse; font-size: 12px; }
     .num-table thead th { text-align: left; padding: 8px 12px; background: var(--neutral-light); font-weight: 700; font-size: 11px; color: var(--text-sub); border-bottom: 2px solid var(--border); }
     .num-table tbody td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .num-table tbody tr:last-child td { border-bottom: none; }
-    .num-table tbody tr:hover { background: var(--neutral-light); }
-    .bold-up   { font-weight: 800; color: #16a34a; font-size: 14px; }
-    .bold-down { font-weight: 800; color: #dc2626; font-size: 14px; }
-    .bold-neu  { font-weight: 800; color: var(--text); font-size: 14px; }
-    .ch-up   { color: #16a34a; font-weight: 700; font-size: 12px; }
-    .ch-down { color: #dc2626; font-weight: 700; font-size: 12px; }
-    .ch-neu  { color: var(--neutral); font-weight: 700; font-size: 12px; }
-    .tag-up   { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 99px; }
-    .tag-down { display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 99px; }
-    .tag-neu  { display: inline-block; background: var(--border); color: var(--neutral); font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 99px; }
+    .num-table tbody tr:hover { background: #fafafa; }
+    .val-green  { font-weight: 800; color: #16a34a; font-size: 14px; }
+    .val-amber  { font-weight: 800; color: #d97706; font-size: 14px; }
+    .val-red    { font-weight: 800; color: #dc2626; font-size: 14px; }
+    .val-neu    { font-weight: 800; color: var(--text); font-size: 14px; }
+    .tag-green  { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .tag-amber  { display: inline-block; background: #fef9c3; color: #a16207; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .tag-red    { display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .tag-neu    { display: inline-block; background: var(--border); color: var(--neutral); font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .wow-up     { color: #2563eb; font-weight: 700; font-size: 11px; }
+    .wow-down   { color: #dc2626; font-weight: 700; font-size: 11px; }
+    .wow-flat   { color: var(--neutral); font-weight: 600; font-size: 11px; }
 
-    /* Health card */
-    .health-row { display: flex; align-items: center; justify-content: space-between; background: var(--neutral-light); border-radius: 10px; padding: 14px 18px; border: 1.5px solid var(--border); margin-top: 14px; }
-    .health-label { font-size: 12px; font-weight: 700; color: var(--text-sub); }
-    .health-desc  { font-size: 11px; color: var(--neutral); margin-top: 2px; }
-    .health-val   { font-size: 22px; font-weight: 900; color: var(--text); }
-    .health-sub   { font-size: 11px; color: var(--neutral); text-align: right; margin-top: 2px; }
+    /* Health row */
+    .health-row { display: flex; align-items: center; justify-content: space-between; background: var(--neutral-light); border-radius: 10px; padding: 14px 18px; border: 1.5px solid var(--border); margin-top: 14px; flex-wrap: wrap; gap: 10px; }
+    .health-left  .label { font-size: 12px; font-weight: 700; color: var(--text-sub); }
+    .health-left  .desc  { font-size: 11px; color: var(--neutral); margin-top: 2px; }
+    .health-right .val   { font-size: 24px; font-weight: 900; color: var(--text); text-align: right; }
+    .health-right .sub   { font-size: 11px; color: var(--neutral); text-align: right; margin-top: 2px; }
+
+    /* Color legend bar */
+    .color-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+    .cl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; }
+    .cl-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
     /* Comparison table */
     .cmp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -100,25 +119,16 @@
     .cmp-table td:first-child { text-align: left; font-weight: 600; }
     .cmp-table tr:last-child td { border-bottom: none; }
 
-    /* Ranking */
-    .rank-list { display: flex; flex-direction: column; gap: 8px; }
-    .rank-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--neutral-light); border-radius: 10px; border: 1px solid var(--border); }
-    .rank-num { width: 26px; height: 26px; border-radius: 50%; color: white; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .rank-ch { flex: 1; font-size: 13px; font-weight: 700; }
-    .rank-stats { display: flex; gap: 18px; flex-shrink: 0; }
-    .rank-stat-val   { font-size: 15px; font-weight: 800; color: var(--primary); text-align: right; }
-    .rank-stat-label { font-size: 10px; color: var(--text-sub); text-align: right; }
-
     /* Insight */
-    .insight { background: linear-gradient(135deg, #eef0ff 0%, #f0fdf4 100%); border-radius: 12px; padding: 18px 22px; border-left: 4px solid var(--primary); font-size: 13px; line-height: 1.85; }
+    .insight { border-radius: 12px; padding: 18px 22px; border-left: 4px solid var(--primary); background: linear-gradient(135deg, #eef0ff 0%, #f0fdf4 100%); font-size: 13px; line-height: 1.85; }
     .insight strong { color: var(--primary); }
     .insight-block { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
-    .insight-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .insight-block:last-child { margin: 0; padding: 0; border: none; }
 
     /* Actions */
     .action-list { display: flex; flex-direction: column; gap: 10px; }
-    .action-item { display: flex; gap: 12px; padding: 13px 16px; border-radius: 10px; border: 1.5px solid var(--border); align-items: flex-start; }
-    .action-item.high { background: #fef2f2; border-color: #fca5a5; }
+    .action-item { display: flex; gap: 12px; padding: 13px 16px; border-radius: 10px; border: 1.5px solid; align-items: flex-start; }
+    .action-item.high { background: var(--danger-light); border-color: #fca5a5; }
     .action-item.mid  { background: var(--primary-light); border-color: #c7d0fa; }
     .priority-tag { flex-shrink: 0; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 99px; white-space: nowrap; margin-top: 2px; }
     .action-item.high .priority-tag { background: #dc2626; color: white; }
@@ -139,7 +149,6 @@
       .section { padding: 18px 16px; }
       .kr-grid { grid-template-columns: 1fr; }
       .o-card { flex-direction: column; }
-      .rank-stats { display: none; }
     }
   </style>
 </head>
@@ -148,12 +157,12 @@
 
   <!-- ===== HEADER ===== -->
   <div class="header">
-    <div class="header-badge">📅 Week 2｜新チャンネル構成</div>
+    <div class="header-badge">📅 Week 3｜新チャンネル構成</div>
     <h1>Discord チャンネルアクセス週次レポート</h1>
     <div class="header-meta">
-      <span>📅 対象期間：2026年3月23日〜3月29日（7日間）</span>
-      <span>👥 認証会員総数：12,677人</span>
-      <span>🗓 作成日：2026年3月30日</span>
+      <span>📅 対象期間：2026年3月30日〜4月5日（7日間）</span>
+      <span>👥 認証会員総数：12,856人</span>
+      <span>🗓 作成日：2026年3月31日</span>
     </div>
   </div>
 
@@ -161,23 +170,31 @@
   <div class="section">
     <div class="section-title">🎯 OKR（週次モニタリング）</div>
 
-    <!-- O card -->
-    <div class="o-card">
+    <!-- カラーレジェンド -->
+    <div class="color-legend">
+      <div class="cl-item"><div class="cl-dot" style="background:#16a34a;"></div>🟢 目標達成（実績 ≥ 目標）</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#d97706;"></div>🟡 惜しい（目標まで3%以内）</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#dc2626;"></div>🔴 要改善（目標より3%以上下回る）</div>
+    </div>
+
+    <!-- O card: 46.9% vs 47% → 🟡 惜しい（-0.1%） -->
+    <div class="o-card near-target">
       <div class="o-left">
         <div class="o-tag">O — OBJECTIVE</div>
-        <div class="o-title">会員様が行動を継続しやすいコミュニティを実現する</div>
-        <div class="o-desc">継続発言者 = 先週・今週の両方で発言した人数<br>※ 今週より初計測開始</div>
+        <div class="o-title">Discordを、会員がAI学習・実践・交流を継続できるコミュニティとして機能させる。</div>
+        <div class="o-desc">週リテンション率 = 今週と先週の両方で発言した人数 ÷ 今週発言人数</div>
+        <div class="o-diff">🟡 目標まで あと 0.1%</div>
       </div>
       <div class="o-right">
         <div class="o-metric">
-          <div class="o-metric-label">継続発言者（O）</div>
-          <div class="o-metric-val">315人</div>
-          <div class="o-metric-sub">今週初計測</div>
+          <div class="o-metric-label">今週実績</div>
+          <div class="o-metric-val">46.9%</div>
+          <div class="o-metric-sub">393人 ÷ 838人</div>
         </div>
         <div class="o-metric">
-          <div class="o-metric-label">前週発言者比</div>
-          <div class="o-metric-val">37.1%</div>
-          <div class="o-metric-sub">315 ÷ 849人</div>
+          <div class="o-metric-label">1ヶ月目標</div>
+          <div class="o-metric-val">47%</div>
+          <div class="o-metric-sub">前週：37.1%</div>
         </div>
       </div>
     </div>
@@ -185,34 +202,46 @@
     <!-- KR cards -->
     <div class="kr-grid">
 
-      <div class="kr-card down">
-        <div class="kr-indicator">🔴</div>
+      <!-- KR1: 39.3% vs 47% → 🔴 -7.7% -->
+      <div class="kr-card off-target">
+        <div class="kr-icon">🔴</div>
         <div class="kr-num">KR1</div>
         <div class="kr-name">週ビジター率<br>週ビジター ÷ 認証会員</div>
-        <div class="kr-val">39.2%</div>
-        <div class="kr-fraction">4,973人 ÷ 12,677人</div>
-        <span class="kr-change">▼ -2.0%</span>
-        <div class="kr-prev">前週：41.2%（5,225人）</div>
+        <div class="kr-val">39.3%</div>
+        <div class="kr-fraction">5,046人 ÷ 12,856人</div>
+        <div class="kr-tags">
+          <span class="kr-tag target-tag">目標比 ▼ -7.7%</span>
+          <span class="kr-tag week-tag-up">前週比 ▲ +0.1%</span>
+        </div>
+        <div class="kr-goal">1ヶ月目標：47%</div>
       </div>
 
-      <div class="kr-card up">
-        <div class="kr-indicator">🟢</div>
+      <!-- KR2: 16.6% vs 25% → 🔴 -8.4% -->
+      <div class="kr-card off-target">
+        <div class="kr-icon">🔴</div>
         <div class="kr-num">KR2</div>
         <div class="kr-name">週発言率<br>週発言者 ÷ 週ビジター</div>
-        <div class="kr-val">16.9%</div>
-        <div class="kr-fraction">839人 ÷ 4,973人</div>
-        <span class="kr-change">▲ +0.6%</span>
-        <div class="kr-prev">前週：16.3%（849人）</div>
+        <div class="kr-val">16.6%</div>
+        <div class="kr-fraction">838人 ÷ 5,046人</div>
+        <div class="kr-tags">
+          <span class="kr-tag target-tag">目標比 ▼ -8.4%</span>
+          <span class="kr-tag week-tag-down">前週比 ▼ -0.3%</span>
+        </div>
+        <div class="kr-goal">1ヶ月目標：25%</div>
       </div>
 
-      <div class="kr-card down">
-        <div class="kr-indicator">🔴</div>
+      <!-- KR3: 47.5% vs 47% → 🟢 +0.5% -->
+      <div class="kr-card on-target">
+        <div class="kr-icon">🟢</div>
         <div class="kr-num">KR3</div>
         <div class="kr-name">新規発言率<br>7日以内発言 ÷ 7日以内参加</div>
-        <div class="kr-val">45.6%</div>
-        <div class="kr-fraction">139人 ÷ 305人</div>
-        <span class="kr-change">▼ -4.1%</span>
-        <div class="kr-prev">前週：49.7%（145 ÷ 292）</div>
+        <div class="kr-val">47.5%</div>
+        <div class="kr-fraction">139人 ÷ 292人</div>
+        <div class="kr-tags">
+          <span class="kr-tag target-tag">目標達成 ▲ +0.5%</span>
+          <span class="kr-tag week-tag-up">前週比 ▲ +1.9%</span>
+        </div>
+        <div class="kr-goal">1ヶ月目標：47%</div>
       </div>
 
     </div>
@@ -225,191 +254,72 @@
           <th>指標</th>
           <th>分子（今週）</th>
           <th>分母（今週）</th>
-          <th>今週（率）</th>
-          <th>前週（率）</th>
+          <th>今週実績</th>
+          <th>1ヶ月目標</th>
+          <th>目標比</th>
           <th>前週比</th>
           <th>評価</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>O：継続発言者</td>
-          <td><span class="bold-neu">315人</span></td>
-          <td>前週発言者 849人</td>
-          <td>37.1%</td>
-          <td>— 初計測</td>
-          <td><span class="ch-neu">初計測</span></td>
-          <td><span class="tag-neu">基準なし</span></td>
+          <td>O：週リテンション率</td>
+          <td><span class="val-amber">393人</span></td>
+          <td>今週発言者 838人</td>
+          <td>46.9%</td>
+          <td>47%</td>
+          <td><span class="wow-down">▼ -0.1%</span></td>
+          <td><span class="wow-up">▲ +9.8%</span></td>
+          <td><span class="tag-amber">🟡 惜しい</span></td>
         </tr>
         <tr>
-          <td>KR1：週ビジター</td>
-          <td><span class="bold-down">4,973人</span></td>
-          <td>認証会員 12,677人</td>
-          <td>39.2%</td>
-          <td>41.2%（5,225人）</td>
-          <td><span class="ch-down">▼ -252人</span></td>
-          <td><span class="tag-down">🔴 低下</span></td>
+          <td>KR1：週ビジター率</td>
+          <td><span class="val-red">5,046人</span></td>
+          <td>認証会員 12,856人</td>
+          <td>39.3%</td>
+          <td>47%</td>
+          <td><span class="wow-down">▼ -7.7%</span></td>
+          <td><span class="wow-up">▲ +0.1%</span></td>
+          <td><span class="tag-red">🔴 要改善</span></td>
         </tr>
         <tr>
-          <td>KR2：週発言者</td>
-          <td><span class="bold-up">839人</span></td>
-          <td>週ビジター 4,973人</td>
-          <td>16.9%</td>
-          <td>16.3%（849人）</td>
-          <td><span class="ch-up">▲ +0.6pt</span></td>
-          <td><span class="tag-up">🟢 改善</span></td>
+          <td>KR2：週発言率</td>
+          <td><span class="val-red">838人</span></td>
+          <td>週ビジター 5,046人</td>
+          <td>16.6%</td>
+          <td>25%</td>
+          <td><span class="wow-down">▼ -8.4%</span></td>
+          <td><span class="wow-down">▼ -0.3%</span></td>
+          <td><span class="tag-red">🔴 要改善</span></td>
         </tr>
         <tr>
-          <td>KR3：新規発言者</td>
-          <td><span class="bold-down">139人</span></td>
-          <td>7日以内参加 305人</td>
-          <td>45.6%</td>
-          <td>49.7%（145 ÷ 292）</td>
-          <td><span class="ch-down">▼ -4.1pt</span></td>
-          <td><span class="tag-down">🔴 低下</span></td>
+          <td>KR3：新規発言率</td>
+          <td><span class="val-green">139人</span></td>
+          <td>7日以内参加 292人</td>
+          <td>47.5%</td>
+          <td>47%</td>
+          <td><span class="wow-up">▲ +0.5%</span></td>
+          <td><span class="wow-up">▲ +1.9%</span></td>
+          <td><span class="tag-green">🟢 目標達成</span></td>
         </tr>
       </tbody>
     </table>
 
     <!-- Health indicator -->
     <div class="health-row">
-      <div>
-        <div class="health-label">🏥 健全性指標：Discord参加率（認証会員 ÷ SHIFT AI総会員数）</div>
-        <div class="health-desc">12,677人 ÷ SHIFT AI総会員数</div>
+      <div class="health-left">
+        <div class="label">🏥 健全性指標：Discord参加率（認証会員 ÷ SHIFT AI総会員）</div>
+        <div class="desc">認証会員 12,856人 ÷ SHIFT AI総会員数 ／ 1ヶ月目標：45%</div>
       </div>
-      <div>
-        <div class="health-val">43.67%</div>
-        <div class="health-sub">前週と同水準</div>
+      <div class="health-right">
+        <div class="val">44.29% <span style="font-size:13px;color:#d97706;">🟡</span></div>
+        <div class="sub">前週：43.67%（▲ +0.62%）／ 目標比：▼ -0.71%</div>
       </div>
     </div>
 
     <div class="note">
-      ⚠️ <strong>OKR目標値について：</strong>目標値は現在設定中です。今週・来週のデータを踏まえてベースラインを確定後、目標値を正式に設定予定です。現在は前週比で評価しています。<br>
-      ⚠️ <strong>色の意味：</strong>🟢 = 前週より改善　🔴 = 前週より低下　グレー = 基準なし（初計測）
-    </div>
-  </div>
-
-  <!-- ===== 導線ステップ前週比 ===== -->
-  <div class="section">
-    <div class="section-title">📊 導線ステップ 前週比</div>
-    <table class="cmp-table">
-      <thead>
-        <tr>
-          <th>ステップ</th>
-          <th>前週（3/15–3/22）</th>
-          <th>今週（3/23–3/29）</th>
-          <th>変化</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>👋 自己紹介投稿（ユニーク）</td>
-          <td>205人</td>
-          <td>168人</td>
-          <td><span class="tag-down">▼ -37人</span></td>
-        </tr>
-        <tr>
-          <td>🙋 今日の宣言・日報（発言者）</td>
-          <td>153人</td>
-          <td>154人</td>
-          <td><span class="tag-up">▲ +1人</span></td>
-        </tr>
-        <tr>
-          <td>📊 アクションノート・週報（提出者）</td>
-          <td>67人</td>
-          <td>65人</td>
-          <td><span class="tag-down">▼ -2人</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="note">
-      📌 自己紹介の減少は新規参加者数の変化と連動しています。新規参加者数は292人→305人と増えていますが、発言率が49.7%→45.6%に低下しており、入会後の最初の一歩への誘導が課題です。
-    </div>
-  </div>
-
-  <!-- ===== チャンネルランキング ===== -->
-  <div class="section">
-    <div class="section-title">🏆 注目チャンネル TOP5（アクション人数順）</div>
-    <div class="rank-list">
-
-      <div class="rank-item">
-        <div class="rank-num" style="background:#f59e0b">1</div>
-        <div class="rank-ch">☕ テーマに分かれて交流しよう</div>
-        <div class="rank-stats">
-          <div>
-            <div class="rank-stat-val">287人</div>
-            <div class="rank-stat-label">アクション</div>
-          </div>
-          <div>
-            <div class="rank-stat-val">608件</div>
-            <div class="rank-stat-label">発言数</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rank-item">
-        <div class="rank-num" style="background:#94a3b8">2</div>
-        <div class="rank-ch">🧬 資格確認 <span style="font-size:10px;color:#f59e0b;font-weight:600;">★今週新規ランクイン</span></div>
-        <div class="rank-stats">
-          <div>
-            <div class="rank-stat-val">199人</div>
-            <div class="rank-stat-label">アクション</div>
-          </div>
-          <div>
-            <div class="rank-stat-val">256件</div>
-            <div class="rank-stat-label">発言数</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rank-item">
-        <div class="rank-num" style="background:#b45309">3</div>
-        <div class="rank-ch">🙋 今日の宣言・やったこと（日報）</div>
-        <div class="rank-stats">
-          <div>
-            <div class="rank-stat-val">154人</div>
-            <div class="rank-stat-label">アクション</div>
-          </div>
-          <div>
-            <div class="rank-stat-val">232件</div>
-            <div class="rank-stat-label">発言数</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rank-item">
-        <div class="rank-num" style="background:#6366f1">4</div>
-        <div class="rank-ch">🗾 都道府県別に交流しよう</div>
-        <div class="rank-stats">
-          <div>
-            <div class="rank-stat-val">133人</div>
-            <div class="rank-stat-label">アクション</div>
-          </div>
-          <div>
-            <div class="rank-stat-val">148件</div>
-            <div class="rank-stat-label">発言数</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rank-item">
-        <div class="rank-num" style="background:#6366f1">5</div>
-        <div class="rank-ch">💰 マネタイズゼミ</div>
-        <div class="rank-stats">
-          <div>
-            <div class="rank-stat-val">116人</div>
-            <div class="rank-stat-label">アクション</div>
-          </div>
-          <div>
-            <div class="rank-stat-val">5件</div>
-            <div class="rank-stat-label">発言数</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="note">
-      📌 🧬資格確認チャンネルが今週2位に急浮上（先週は未計上）。199人が手続きを行っており、新規入会者の受け入れフローとして機能しています。
+      📌 <strong>目標値の基準について：</strong>カラーコードは1ヶ月目標との比較です。🟢 目標達成 ／ 🟡 目標まで3%以内 ／ 🔴 3%以上下回る。<br>
+      📌 <strong>KR2（週発言率）の目標（25%）について：</strong>目標値は新チャンネル構成前のデータをもとに設定されています。現在の計測方式（週ビジターを分母）への切り替えにより、実態との乖離が生じています。来月の目標設定時に見直し予定です。
     </div>
   </div>
 
@@ -418,16 +328,16 @@
     <div class="section-title">💡 今週の所見・考察</div>
     <div class="insight">
       <div class="insight-block">
-        <strong>【訪問者は減少、来た人の発言率は向上（KR2 ▲）】</strong><br>
-        週ビジター数は前週より252人減少しましたが、来た人の発言率（KR2）は16.3%→16.9%と改善しています。「訪問する人が減ったが、来た人はより積極的に発言している」状態です。コアメンバーの活動密度が高まっている兆しと見られます。
+        <strong>【O（週リテンション率）が目標まで0.1%に迫る ▲ 37.1% → 46.9%】</strong><br>
+        先週から9.8ポイントの大幅改善。先週・今週の両方で発言した会員様が393人に増加し、コミュニティの継続利用が着実に根付きつつあります。目標（47%）まであと0.1%と、来週の達成が期待できます。
       </div>
       <div class="insight-block">
-        <strong>【新規参加者の発言率が低下（KR3 ▼ 49.7%→45.6%）】</strong><br>
-        新規参加者数は292人→305人と増加しているにもかかわらず、発言に至った割合が下がっています。入会後の最初の一歩（自己紹介・日報）への誘導精度の向上が次の重点課題です。
+        <strong>【KR3（新規発言率）が目標を初達成 ▲ 47.5%】</strong><br>
+        7日以内の参加者292人のうち139人が発言。目標（47%）を0.5%上回り、新規参加者の最初の発言を促す設計が機能しています。前週（45.6%）からも改善しており、良いトレンドです。
       </div>
       <div class="insight-block">
-        <strong>【日報・週報は安定継続】</strong><br>
-        日報154人・週報65人と前週（153人・67人）からほぼ横ばいを維持。継続性が確認できています。今週初計測の継続発言者（O）は315人（前週発言者の37.1%）でした。来週以降の変化に注目します。
+        <strong>【KR1・KR2は目標に対して大きなギャップ】</strong><br>
+        週ビジター率（39.3% vs 47%）・週発言率（16.6% vs 25%）は目標を大きく下回っています。ただし週発言率の目標（25%）は旧チャンネル構成の測定方式で設定されたため、来月の目標改定時に実態に合わせた見直しが必要です。認証会員は12,677人→12,856人（+179人）と増加しており、母数の増加が率を押し下げている面もあります。
       </div>
     </div>
   </div>
@@ -440,16 +350,24 @@
       <div class="action-item high">
         <span class="priority-tag">優先度：高</span>
         <div class="action-body">
-          <strong>新規参加者（305人）の発言率改善に取り組む</strong>
-          <p>先週49.7%→今週45.6%と2週連続で低下。305人中166人がまだ発言していません。自己紹介→ボット誘導→日報への最初の一歩を促すアナウンスを強化してください。</p>
+          <strong>週ビジター率（KR1）の改善に向け、来訪を促す導線を強化する</strong>
+          <p>目標47%に対して39.3%と7.7ポイントのギャップがあります。認証会員のうち週1回もアクセスしていない方（約7,800人）への案内・アナウンスを強化し、来訪のきっかけを増やしてください。</p>
+        </div>
+      </div>
+
+      <div class="action-item high">
+        <span class="priority-tag">優先度：高</span>
+        <div class="action-body">
+          <strong>KR2（週発言率）の目標値を来月に向けて見直す</strong>
+          <p>現目標（25%）は旧チャンネル構成・旧測定方式で設定されたもので、現在の計測方法と乖離しています。2週分の実績（16.6〜16.9%）をもとに、現実的な目標値への改定を検討してください。</p>
         </div>
       </div>
 
       <div class="action-item mid">
         <span class="priority-tag">優先度：中</span>
         <div class="action-body">
-          <strong>アクションノート提出者のさらなる増加を促すアナウンスを継続する</strong>
-          <p>67人→65人とほぼ横ばい。提出者数の拡大に向けてアナウンスを継続してください。</p>
+          <strong>O（週リテンション率）47%達成に向け、継続発言を促すアクションを継続する</strong>
+          <p>目標まであと0.1%。来週の達成を確実にするため、日報・週報のアナウンスや仲間への声かけを続けてください。</p>
         </div>
       </div>
 
@@ -468,12 +386,11 @@
   <div class="section">
     <div class="section-title" style="font-size:13px;">📋 データ定義・注記</div>
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#22c55e;"></div>🟢 = 前週比 改善</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div>🔴 = 前週比 低下</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#94a3b8;"></div>グレー = 初計測・基準なし</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#16a34a;"></div>🟢 = 目標達成（実績 ≥ 1ヶ月目標）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div>🟡 = 惜しい（目標まで3%以内）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div>🔴 = 要改善（目標より3%以上下回る）</div>
       <div class="legend-item"><div class="legend-dot" style="background:#5b67f7;"></div>アクション人数・発言者数 = ユニーク（1人1カウント）</div>
       <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div>発言数・リアクション数 = 累積</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#4c1d95;"></div>自己紹介・週報はボット管理のためCSV非反映（別途集計値使用）</div>
     </div>
   </div>
 
