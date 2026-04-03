@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord 3月度 月次分析レポート｜2026年3月</title>
+  <style>
+    :root {
+      --primary: #5b67f7;
+      --primary-light: #eef0ff;
+      --success: #22c55e;
+      --success-light: #f0fdf4;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --neutral: #94a3b8;
+      --neutral-light: #f8fafc;
+      --text: #1e293b;
+      --text-sub: #64748b;
+      --border: #e2e8f0;
+      --bg: #f1f5f9;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: var(--text); font-size: 14px; line-height: 1.6; }
+    .page { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+    /* Header */
+    .header { background: linear-gradient(135deg, #1e293b 0%, #3b4fd8 60%, #7c3aed 100%); border-radius: 16px; padding: 36px 40px; color: white; margin-bottom: 24px; }
+    .header-badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 99px; padding: 4px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .header h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; line-height: 1.3; }
+    .header-sub { font-size: 14px; opacity: 0.85; margin-bottom: 14px; }
+    .header-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; opacity: 0.8; }
+
+    /* Section */
+    .section { background: var(--white); border-radius: 14px; padding: 28px 32px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .section-title { font-size: 16px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; border-left: 4px solid var(--primary); padding-left: 12px; }
+    .sub-title { font-size: 13px; font-weight: 700; color: var(--text-sub); margin: 20px 0 12px; }
+    .note { font-size: 11px; color: var(--text-sub); background: var(--neutral-light); border-radius: 8px; padding: 10px 14px; margin-top: 12px; line-height: 1.8; border-left: 3px solid var(--border); }
+
+    /* KPI Summary grid */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 8px; }
+    .kpi-card { background: var(--primary-light); border-radius: 12px; padding: 18px 16px; border: 1.5px solid #c7d0fa; text-align: center; }
+    .kpi-label { font-size: 11px; color: var(--text-sub); margin-bottom: 6px; font-weight: 600; }
+    .kpi-value { font-size: 26px; font-weight: 900; color: var(--primary); line-height: 1; margin-bottom: 4px; }
+    .kpi-sub { font-size: 11px; color: var(--text-sub); }
+
+    /* Color legend */
+    .color-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .cl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; }
+    .cl-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+    /* OKR transition table */
+    .okr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .okr-table thead th { text-align: left; padding: 10px 14px; background: var(--neutral-light); font-weight: 700; font-size: 11px; color: var(--text-sub); border-bottom: 2px solid var(--border); }
+    .okr-table thead th:not(:first-child) { text-align: center; }
+    .okr-table tbody td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .okr-table tbody td:not(:first-child) { text-align: center; }
+    .okr-table tbody tr:last-child td { border-bottom: none; }
+    .okr-table tbody tr:hover { background: #fafafa; }
+    .metric-name { font-weight: 700; font-size: 13px; }
+    .metric-sub { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+    .val-big { font-size: 18px; font-weight: 900; }
+    .val-green { color: #16a34a; }
+    .val-amber { color: #d97706; }
+    .val-red { color: #dc2626; }
+    .val-neu { color: var(--text); }
+    .tag-green { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .tag-amber { display: inline-block; background: #fef9c3; color: #a16207; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .tag-red { display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .tag-neu { display: inline-block; background: var(--border); color: var(--neutral); font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+    .arrow-up { color: #2563eb; font-weight: 700; font-size: 12px; }
+    .arrow-down { color: #dc2626; font-weight: 700; font-size: 12px; }
+    .arrow-flat { color: var(--neutral); font-weight: 600; font-size: 12px; }
+
+    /* OKR achievement cards */
+    .okr-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 16px; }
+    .okr-card { border-radius: 12px; padding: 20px 22px; border: 2px solid; }
+    .okr-card.on  { background: var(--success-light); border-color: #86efac; }
+    .okr-card.near { background: #fffbeb; border-color: #fde68a; }
+    .okr-card.off { background: var(--danger-light); border-color: #fca5a5; }
+    .okr-card.neu { background: var(--neutral-light); border-color: var(--border); }
+    .okr-card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .okr-card.on .okr-card-label { color: #15803d; }
+    .okr-card.near .okr-card-label { color: #b45309; }
+    .okr-card.off .okr-card-label { color: #b91c1c; }
+    .okr-card.neu .okr-card-label { color: var(--neutral); }
+    .okr-card-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .okr-card-val { font-size: 32px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+    .okr-card.on .okr-card-val { color: #16a34a; }
+    .okr-card.near .okr-card-val { color: #d97706; }
+    .okr-card.off .okr-card-val { color: #dc2626; }
+    .okr-card.neu .okr-card-val { color: var(--neutral); }
+    .okr-card-frac { font-size: 11px; color: var(--text-sub); margin-bottom: 10px; }
+    .okr-card-tags { display: flex; flex-direction: column; gap: 4px; }
+
+    /* Channel ranking table */
+    .ch-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .ch-table thead th { text-align: left; padding: 8px 12px; background: var(--neutral-light); font-weight: 700; font-size: 11px; color: var(--text-sub); border-bottom: 2px solid var(--border); }
+    .ch-table thead th:not(:first-child):not(:nth-child(2)) { text-align: right; }
+    .ch-table tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .ch-table tbody td:not(:first-child):not(:nth-child(2)) { text-align: right; }
+    .ch-table tbody tr:last-child td { border-bottom: none; }
+    .ch-table tbody tr:hover { background: #fafafa; }
+    .rank-badge { display: inline-block; width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; margin-right: 4px; color: white; }
+    .rank-1 { background: #f59e0b; }
+    .rank-2 { background: #94a3b8; }
+    .rank-3 { background: #cd7c4c; }
+    .rank-n { background: var(--border); color: var(--text-sub); }
+    .ch-category { display: inline-block; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+    .cat-chat { background: #dbeafe; color: #1d4ed8; }
+    .cat-forum { background: #ede9fe; color: #6d28d9; }
+    .cat-announce { background: #fef9c3; color: #a16207; }
+    .cat-secret { background: #fce7f3; color: #9d174d; }
+    .delta-up { color: #16a34a; font-weight: 700; font-size: 11px; }
+    .delta-down { color: #dc2626; font-weight: 700; font-size: 11px; }
+    .delta-new { color: var(--primary); font-weight: 800; font-size: 11px; }
+    .num-val { font-weight: 700; font-size: 13px; }
+
+    /* Funnel */
+    .funnel-section { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin: 16px 0; }
+    .funnel-step { border-radius: 10px; padding: 16px 10px; text-align: center; border: 1.5px solid; }
+    .fs-blue  { background: var(--primary-light); border-color: var(--primary); }
+    .fs-green { background: var(--success-light); border-color: #bbf7d0; }
+    .fs-warn  { background: var(--warning-light); border-color: #fde68a; }
+    .funnel-arrow-row { display: flex; align-items: center; justify-content: center; color: var(--neutral); font-size: 14px; padding: 0 2px; }
+    .fs-num { width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; color: white; }
+    .fs-blue .fs-num { background: var(--primary); }
+    .fs-green .fs-num { background: var(--success); }
+    .fs-warn .fs-num { background: var(--warning); }
+    .fs-step-title { font-size: 11px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+    .fs-val { font-size: 20px; font-weight: 900; line-height: 1; margin-bottom: 3px; }
+    .fs-blue .fs-val { color: var(--primary); }
+    .fs-green .fs-val { color: var(--success); }
+    .fs-warn .fs-val { color: var(--warning); }
+    .fs-sub { font-size: 10px; color: var(--text-sub); margin-bottom: 6px; line-height: 1.4; }
+    .fs-badge { display: inline-block; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 99px; color: white; }
+    .fs-blue .fs-badge { background: var(--primary); }
+    .fs-green .fs-badge { background: var(--success); }
+    .fs-warn .fs-badge { background: var(--warning); }
+
+    /* Week comparison cards */
+    .week-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .wk-card { border-radius: 12px; padding: 20px 22px; border: 1.5px solid var(--border); background: var(--neutral-light); }
+    .wk-card-badge { display: inline-block; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; }
+    .wk-card.w1 .wk-card-badge { background: #dbeafe; color: #1d4ed8; }
+    .wk-card.w2 .wk-card-badge { background: #dcfce7; color: #15803d; }
+    .wk-card-title { font-size: 14px; font-weight: 800; margin-bottom: 14px; }
+    .wk-metric-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .wk-metric-row:last-child { border-bottom: none; }
+    .wk-metric-label { font-size: 12px; color: var(--text-sub); }
+    .wk-metric-val { font-size: 15px; font-weight: 800; }
+
+    /* Insight */
+    .insight { border-radius: 12px; padding: 20px 24px; border-left: 4px solid var(--primary); background: linear-gradient(135deg, #eef0ff 0%, #f0fdf4 100%); font-size: 13px; line-height: 1.9; }
+    .insight-block { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px dashed var(--border); }
+    .insight-block:last-child { margin: 0; padding: 0; border: none; }
+    .insight-block strong { color: var(--primary); }
+    .insight-block .tag-label { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
+    .tl-success { background: #dcfce7; color: #15803d; }
+    .tl-warn { background: #fef9c3; color: #a16207; }
+    .tl-danger { background: #fee2e2; color: #b91c1c; }
+    .tl-info { background: #dbeafe; color: #1d4ed8; }
+
+    /* Action list */
+    .action-list { display: flex; flex-direction: column; gap: 12px; }
+    .action-item { display: flex; gap: 14px; padding: 14px 18px; border-radius: 10px; border: 1.5px solid; align-items: flex-start; }
+    .action-item.high { background: var(--danger-light); border-color: #fca5a5; }
+    .action-item.mid { background: var(--primary-light); border-color: #c7d0fa; }
+    .action-item.low { background: var(--neutral-light); border-color: var(--border); }
+    .priority-tag { flex-shrink: 0; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 99px; white-space: nowrap; margin-top: 2px; color: white; }
+    .action-item.high .priority-tag { background: #dc2626; }
+    .action-item.mid .priority-tag { background: var(--primary); }
+    .action-item.low .priority-tag { background: var(--neutral); }
+    .action-body { flex: 1; font-size: 13px; line-height: 1.75; }
+    .action-body strong { display: block; margin-bottom: 3px; }
+    .action-body p { font-size: 12px; color: var(--text-sub); }
+
+    /* Two-column layout */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Achievement summary banner */
+    .achievement-banner { border-radius: 12px; padding: 20px 24px; background: linear-gradient(135deg, #14532d, #15803d); color: white; margin-bottom: 16px; }
+    .achievement-banner h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+    .achievement-list { display: flex; flex-direction: column; gap: 6px; }
+    .achievement-item { font-size: 13px; display: flex; align-items: flex-start; gap: 8px; }
+    .achievement-item::before { content: '✓'; font-weight: 900; flex-shrink: 0; }
+
+    /* Challenge banner */
+    .challenge-banner { border-radius: 12px; padding: 20px 24px; background: linear-gradient(135deg, #7f1d1d, #b91c1c); color: white; margin-bottom: 16px; }
+    .challenge-banner h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+    .challenge-list { display: flex; flex-direction: column; gap: 6px; }
+    .challenge-item { font-size: 13px; display: flex; align-items: flex-start; gap: 8px; }
+    .challenge-item::before { content: '!'; font-weight: 900; flex-shrink: 0; }
+
+    /* Forum detail */
+    .forum-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+    .forum-card { border-radius: 12px; padding: 16px; border: 1.5px solid #c7d0fa; background: var(--primary-light); }
+    .forum-card-name { font-size: 12px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; color: var(--primary); }
+    .forum-metric { display: flex; justify-content: space-between; font-size: 11px; padding: 4px 0; border-bottom: 1px solid #dde2fb; }
+    .forum-metric:last-child { border-bottom: none; }
+    .forum-metric-label { color: var(--text-sub); }
+    .forum-metric-val { font-weight: 800; color: var(--text); }
+    .forum-delta { font-size: 10px; }
+
+    .footer { text-align: center; font-size: 11px; color: var(--text-sub); padding: 24px 0 8px; }
+
+    @media (max-width: 640px) {
+      .header { padding: 24px 20px; }
+      .section { padding: 20px 16px; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .okr-cards { grid-template-columns: 1fr; }
+      .funnel-section { grid-template-columns: 1fr; }
+      .week-compare { grid-template-columns: 1fr; }
+      .forum-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">📅 月次レポート｜2026年3月</div>
+    <h1>Discord 3月度 月次分析レポート</h1>
+    <div class="header-sub">新チャンネル構成ローンチ（3/16〜）後の2週間を振り返ります</div>
+    <div class="header-meta">
+      <span>📅 対象期間：2026年3月16日〜3月29日（14日間・2週分）</span>
+      <span>👥 認証会員：12,677人→12,856人（+179人）</span>
+      <span>🗓 作成日：2026年4月3日</span>
+    </div>
+  </div>
+
+  <!-- ===== 3月度 概況KPI ===== -->
+  <div class="section">
+    <div class="section-title">📊 3月度 概況サマリー（2週間合計）</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">延べ週ビジター数（2週合計）</div>
+        <div class="kpi-value">10,271</div>
+        <div class="kpi-sub">W1: 5,225 ／ W2: 5,046</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">延べ週発言者数（2週合計）</div>
+        <div class="kpi-value">1,687</div>
+        <div class="kpi-sub">W1: 849 ／ W2: 838</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">新規参加者 発言率（W2）</div>
+        <div class="kpi-value">47.5%</div>
+        <div class="kpi-sub">139人 ÷ 292人（目標: 47%）🟢</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">週リテンション率（W2実績）</div>
+        <div class="kpi-value">46.9%</div>
+        <div class="kpi-sub">393人 ÷ 838人（目標: 47%）🟡</div>
+      </div>
+    </div>
+
+    <div class="note">
+      📌 週リテンション率（O）は前週データが必要なため、W1（3/15〜22）は計測不能。W2（3/23〜29）から初計測。<br>
+      📌 認証会員数は計測週により変動します。W1: 12,677人 ／ W2: 12,856人（前週比 +179人）。
+    </div>
+  </div>
+
+  <!-- ===== OKR週別推移 ===== -->
+  <div class="section">
+    <div class="section-title">🎯 OKR 週別推移（W1→W2）</div>
+
+    <div class="color-legend">
+      <div class="cl-item"><div class="cl-dot" style="background:#16a34a;"></div>🟢 目標達成（実績 ≥ 目標）</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#d97706;"></div>🟡 惜しい（目標まで3%以内）</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#dc2626;"></div>🔴 要改善（目標より3%以上下回る）</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#94a3b8;"></div>⚪ 計測不能 / 目標設定中</div>
+    </div>
+
+    <table class="okr-table">
+      <thead>
+        <tr>
+          <th style="width:30%">指標</th>
+          <th>W1（3/16〜22）</th>
+          <th>W2（3/23〜29）</th>
+          <th>前週比</th>
+          <th>1ヶ月目標</th>
+          <th>評価</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="metric-name">O：週リテンション率</div>
+            <div class="metric-sub">先週＋今週発言者 ÷ 今週発言者</div>
+          </td>
+          <td><span class="tag-neu">⚪ 計測不能</span><br><span style="font-size:11px;color:var(--text-sub);">前週データなし</span></td>
+          <td><span class="val-big val-amber">46.9%</span><br><span style="font-size:11px;color:var(--text-sub);">393人÷838人</span></td>
+          <td><span class="arrow-up">▲ +9.8%</span><br><span style="font-size:11px;color:var(--text-sub);">37.1%→46.9%</span></td>
+          <td style="font-weight:700;">47%</td>
+          <td><span class="tag-amber">🟡 惜しい</span><br><span style="font-size:11px;color:var(--text-sub);">あと0.1%</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="metric-name">KR1：週ビジター率</div>
+            <div class="metric-sub">週ビジター ÷ 認証会員</div>
+          </td>
+          <td><span class="val-big val-red">41.2%</span><br><span style="font-size:11px;color:var(--text-sub);">5,225人÷12,677人</span></td>
+          <td><span class="val-big val-red">39.3%</span><br><span style="font-size:11px;color:var(--text-sub);">5,046人÷12,856人</span></td>
+          <td><span class="arrow-down">▼ -1.9%</span><br><span style="font-size:11px;color:var(--text-sub);">率は低下（実数-179人）</span></td>
+          <td style="font-weight:700;">47%</td>
+          <td><span class="tag-red">🔴 要改善</span><br><span style="font-size:11px;color:var(--text-sub);">目標比▼7.7%</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="metric-name">KR2：週発言率</div>
+            <div class="metric-sub">週発言者 ÷ 週ビジター</div>
+          </td>
+          <td><span class="val-big val-red">16.3%</span><br><span style="font-size:11px;color:var(--text-sub);">849人÷5,225人</span></td>
+          <td><span class="val-big val-red">16.6%</span><br><span style="font-size:11px;color:var(--text-sub);">838人÷5,046人</span></td>
+          <td><span class="arrow-up">▲ +0.3%</span><br><span style="font-size:11px;color:var(--text-sub);">僅かに改善</span></td>
+          <td style="font-weight:700;">25%<br><span style="font-size:11px;font-weight:400;color:var(--text-sub);">※要見直し</span></td>
+          <td><span class="tag-red">🔴 要改善</span><br><span style="font-size:11px;color:var(--text-sub);">目標比▼8.4%</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="metric-name">KR3：新規発言率</div>
+            <div class="metric-sub">7日以内発言者 ÷ 7日以内参加者</div>
+          </td>
+          <td><span class="val-big val-green">49.7%</span><br><span style="font-size:11px;color:var(--text-sub);">145人÷292人</span></td>
+          <td><span class="val-big val-green">47.5%</span><br><span style="font-size:11px;color:var(--text-sub);">139人÷292人</span></td>
+          <td><span class="arrow-down">▼ -2.2%</span><br><span style="font-size:11px;color:var(--text-sub);">目標は達成維持</span></td>
+          <td style="font-weight:700;">47%</td>
+          <td><span class="tag-green">🟢 目標達成</span><br><span style="font-size:11px;color:var(--text-sub);">+0.5%超過</span></td>
+        </tr>
+        <tr style="background:var(--neutral-light);">
+          <td>
+            <div class="metric-name">健全性：Discord参加率</div>
+            <div class="metric-sub">認証会員 ÷ SHIFT AI総会員</div>
+          </td>
+          <td><span class="val-big val-amber">43.67%</span></td>
+          <td><span class="val-big val-amber">44.29%</span></td>
+          <td><span class="arrow-up">▲ +0.62%</span></td>
+          <td style="font-weight:700;">45%</td>
+          <td><span class="tag-amber">🟡 惜しい</span><br><span style="font-size:11px;color:var(--text-sub);">目標まで▼0.71%</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      📌 KR2の目標値（25%）は旧チャンネル構成・旧測定方式で設定されたものです。2週間の実績（16.3〜16.6%）を踏まえ、4月の目標改定が必要です。
+    </div>
+  </div>
+
+  <!-- ===== OKR達成状況カード ===== -->
+  <div class="section">
+    <div class="section-title">🏆 3月度 OKR達成状況（W2時点）</div>
+
+    <div class="okr-cards">
+      <div class="okr-card near">
+        <div class="okr-card-label">O — OBJECTIVE</div>
+        <div class="okr-card-title">週リテンション率（コミュニティ継続利用）</div>
+        <div class="okr-card-val">46.9%</div>
+        <div class="okr-card-frac">393人 ÷ 838人</div>
+        <div class="okr-card-tags">
+          <span class="tag-amber">🟡 目標まで あと 0.1%</span>
+          <span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;">前週比 ▲ +9.8%</span>
+        </div>
+      </div>
+
+      <div class="okr-card on">
+        <div class="okr-card-label">KR3 — 達成</div>
+        <div class="okr-card-title">新規発言率（入口設計の成果）</div>
+        <div class="okr-card-val">47.5%</div>
+        <div class="okr-card-frac">139人 ÷ 292人</div>
+        <div class="okr-card-tags">
+          <span class="tag-green">🟢 目標（47%）を +0.5% 超過</span>
+          <span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;">W1: 49.7% / W2: 47.5%</span>
+        </div>
+      </div>
+
+      <div class="okr-card off">
+        <div class="okr-card-label">KR1 — 要改善</div>
+        <div class="okr-card-title">週ビジター率（来訪率）</div>
+        <div class="okr-card-val">39.3%</div>
+        <div class="okr-card-frac">5,046人 ÷ 12,856人</div>
+        <div class="okr-card-tags">
+          <span class="tag-red">🔴 目標（47%）比 ▼ -7.7%</span>
+          <span style="display:inline-block;background:#fee2e2;color:#b91c1c;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;">W1: 41.2% / W2: 39.3%（悪化）</span>
+        </div>
+      </div>
+
+      <div class="okr-card off">
+        <div class="okr-card-label">KR2 — 要改善（目標値の見直しが必要）</div>
+        <div class="okr-card-title">週発言率（ビジターの発言転換率）</div>
+        <div class="okr-card-val">16.6%</div>
+        <div class="okr-card-frac">838人 ÷ 5,046人</div>
+        <div class="okr-card-tags">
+          <span class="tag-red">🔴 目標（25%）比 ▼ -8.4%</span>
+          <span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;">W1: 16.3% / W2: 16.6%（微改善）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 新チャンネル構成 導線ファネル ===== -->
+  <div class="section">
+    <div class="section-title">🗺️ 新チャンネル構成 導線ファネル（W1初週実績）</div>
+
+    <div style="overflow-x:auto;padding-bottom:8px;">
+      <div style="display:flex;align-items:center;min-width:700px;gap:6px;">
+        <div class="funnel-step fs-blue" style="flex:1;">
+          <div class="fs-num">1</div>
+          <div class="fs-step-title">入会</div>
+          <div class="fs-val">19ch</div>
+          <div class="fs-sub">7カテゴリーのみ表示</div>
+          <span class="fs-badge">迷わせない</span>
+        </div>
+        <div style="color:var(--neutral);font-size:18px;flex-shrink:0;">→</div>
+        <div class="funnel-step fs-green" style="flex:1;">
+          <div class="fs-num">2</div>
+          <div class="fs-step-title">自己紹介<br>→フォーラムへ</div>
+          <div class="fs-val">205人</div>
+          <div class="fs-sub">新規202人の100%</div>
+          <span class="fs-badge">◎ 機能</span>
+        </div>
+        <div style="color:var(--neutral);font-size:18px;flex-shrink:0;">→</div>
+        <div class="funnel-step fs-green" style="flex:1;">
+          <div class="fs-num">3</div>
+          <div class="fs-step-title">日報<br>（今日の宣言）</div>
+          <div class="fs-val">153人</div>
+          <div class="fs-sub">226件・877リアクション</div>
+          <span class="fs-badge">◎ 機能</span>
+        </div>
+        <div style="color:var(--neutral);font-size:18px;flex-shrink:0;">→</div>
+        <div class="funnel-step fs-green" style="flex:1;">
+          <div class="fs-num">4</div>
+          <div class="fs-step-title">フォーラム<br>で交流</div>
+          <div class="fs-val">224人</div>
+          <div class="fs-sub">727件（テーマ別）</div>
+          <span class="fs-badge">◎ 機能</span>
+        </div>
+        <div style="color:var(--neutral);font-size:18px;flex-shrink:0;">→</div>
+        <div class="funnel-step fs-warn" style="flex:1;">
+          <div class="fs-num">5</div>
+          <div class="fs-step-title">週報<br>（アクションノート）</div>
+          <div class="fs-val">67人</div>
+          <div class="fs-sub">前週92人→▼27%</div>
+          <span class="fs-badge">△ 要観察</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px;">
+      📌 「週報」の減少（92人→67人）は新チャンネル構成への移行混乱が原因と推定されます。W2（3/23〜29）では65人と下げ止まりが見られました。
+    </div>
+  </div>
+
+  <!-- ===== 週別詳細比較 ===== -->
+  <div class="section">
+    <div class="section-title">📅 週別詳細比較（W1 vs W2）</div>
+
+    <div class="week-compare">
+      <div class="wk-card w1">
+        <div class="wk-card-badge">Week 1（3/16〜3/22）</div>
+        <div class="wk-card-title">新チャンネル構成 ローンチ初週</div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">認証会員数</span>
+          <span class="wk-metric-val">12,677人</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">週ビジター（KR1）</span>
+          <span class="wk-metric-val">5,225人（41.2%）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">週発言者（KR2）</span>
+          <span class="wk-metric-val">849人（16.3%）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">新規発言率（KR3）</span>
+          <span class="wk-metric-val">49.7%（145/292人）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">Discord参加率</span>
+          <span class="wk-metric-val">43.67%</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">週リテンション率（O）</span>
+          <span class="wk-metric-val" style="color:var(--neutral);">計測不能</span>
+        </div>
+      </div>
+      <div class="wk-card w2">
+        <div class="wk-card-badge">Week 2（3/23〜3/29）</div>
+        <div class="wk-card-title">2週目：継続性の検証</div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">認証会員数</span>
+          <span class="wk-metric-val">12,856人（+179人）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">週ビジター（KR1）</span>
+          <span class="wk-metric-val">5,046人（39.3%）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">週発言者（KR2）</span>
+          <span class="wk-metric-val">838人（16.6%）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">新規発言率（KR3）</span>
+          <span class="wk-metric-val">47.5%（139/292人）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">Discord参加率</span>
+          <span class="wk-metric-val">44.29%（+0.62%）</span>
+        </div>
+        <div class="wk-metric-row">
+          <span class="wk-metric-label">週リテンション率（O）</span>
+          <span class="wk-metric-val" style="color:#d97706;">46.9%（+9.8%）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      📌 W2でKR1（週ビジター率）が41.2%→39.3%と低下していますが、認証会員数が+179人増えたことで分母が増加した影響があります。ビジター実数は5,225人→5,046人（-179人）です。
+    </div>
+  </div>
+
+  <!-- ===== チャンネル別 アクティビティ分析 ===== -->
+  <div class="section">
+    <div class="section-title">📋 チャンネル別アクティビティ（W2: 3/23〜3/29 TOP15）</div>
+
+    <div class="note" style="margin-bottom:16px;">
+      📌 「〇〇様専用」チャンネル・テンプレートチャンネル・未使用チャンネル（アクション人数=0）を除外して集計しています。
+    </div>
+
+    <table class="ch-table">
+      <thead>
+        <tr>
+          <th style="width:36px;">順位</th>
+          <th>チャンネル名</th>
+          <th>アクション人数</th>
+          <th>メッセージ数</th>
+          <th>リアクション数</th>
+          <th>前週比（アクション人数）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="rank-badge rank-1">1</span></td>
+          <td>☕テーマに分かれて交流しよう<span class="ch-category cat-forum">フォーラム</span></td>
+          <td class="num-val">287人</td>
+          <td class="num-val">608件</td>
+          <td class="num-val">2,051件</td>
+          <td><span class="delta-up">▲ +63人</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-2">2</span></td>
+          <td>🧬資格確認<span class="ch-category cat-secret">秘密</span></td>
+          <td class="num-val">199人</td>
+          <td class="num-val">256件</td>
+          <td class="num-val">31件</td>
+          <td><span class="delta-new">NEW（新設）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-3">3</span></td>
+          <td>📣見逃し防止｜重要なお知らせ<span class="ch-category cat-announce">お知らせ</span></td>
+          <td class="num-val">164人</td>
+          <td class="num-val">9件</td>
+          <td class="num-val">314件</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">4</span></td>
+          <td>🙋今日の宣言・やったこと（日報）<span class="ch-category cat-chat">チャット</span></td>
+          <td class="num-val">154人</td>
+          <td class="num-val">232件</td>
+          <td class="num-val">758件</td>
+          <td><span class="delta-down">▼ -1人（153→154）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">5</span></td>
+          <td>🗾都道府県別に交流しよう<span class="ch-category cat-forum">フォーラム</span></td>
+          <td class="num-val">133人</td>
+          <td class="num-val">148件</td>
+          <td class="num-val">276件</td>
+          <td><span class="delta-down">▼ -11人</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">6</span></td>
+          <td>🧬二本柳のAIエージェントゼミ<span class="ch-category cat-secret">秘密</span></td>
+          <td class="num-val">83人</td>
+          <td class="num-val">34件</td>
+          <td class="num-val">97件</td>
+          <td><span class="delta-up">▲ 急増（W1: 3人）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">7</span></td>
+          <td>📹SNS宿題部屋<span class="ch-category cat-secret">秘密</span></td>
+          <td class="num-val">81人</td>
+          <td class="num-val">103件</td>
+          <td class="num-val">429件</td>
+          <td><span class="delta-down">▼ -12人（93→81）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">8</span></td>
+          <td>⚙️生成AIツール別チャンネル<span class="ch-category cat-forum">フォーラム</span></td>
+          <td class="num-val">69人</td>
+          <td class="num-val">61件</td>
+          <td class="num-val">190件</td>
+          <td><span class="delta-down">▼ -11人（58→69… ▲+11人）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">9</span></td>
+          <td>💬メンバー同士で質問・相談<span class="ch-category cat-chat">チャット</span></td>
+          <td class="num-val">45人</td>
+          <td class="num-val">148件</td>
+          <td class="num-val">33件</td>
+          <td><span class="delta-up">▲ +22人（23→45）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">10</span></td>
+          <td>🌱まずは自己紹介をしよう<span class="ch-category cat-chat">チャット</span></td>
+          <td class="num-val">26人</td>
+          <td class="num-val">147件</td>
+          <td class="num-val">119件</td>
+          <td><span class="delta-down">▼ -38人（205→26）<br><span style="font-size:10px;color:var(--text-sub);">新規参加者の減少が反映</span></span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">11</span></td>
+          <td>🖼️AIアートラボ交流ルーム<span class="ch-category cat-secret">秘密</span></td>
+          <td class="num-val">53人</td>
+          <td class="num-val">68件</td>
+          <td class="num-val">803件</td>
+          <td><span class="delta-down">▼ -9人（44→53… ▲+9人）</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-n">12</span></td>
+          <td>📊アクションノート（週報）<span class="ch-category cat-chat">チャット</span></td>
+          <td class="num-val">6人</td>
+          <td class="num-val">215件</td>
+          <td class="num-val">5件</td>
+          <td><span class="delta-down">▼ -61人（67→6）<br><span style="font-size:10px;color:var(--text-sub);">※ボット管理のためCSV非反映の可能性あり</span></span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      📌 ⚙️生成AIツール別チャンネルは58人→69人（+19%）で改善。🧬AIエージェントゼミは3人→83人と急増（ゼミ開講の影響）。<br>
+      📌 📊アクションノートのCSV数値（6人）はボット管理のため参考値です。週報HTMLレポートでは65人と記載されています。
+    </div>
+  </div>
+
+  <!-- ===== フォーラム内詳細 ===== -->
+  <div class="section">
+    <div class="section-title">📔 注目フォーラム内チャンネル 週次比較</div>
+
+    <div class="sub-title">☕ テーマに分かれて交流しよう（気軽に話す｜雑談ラウンジ）</div>
+    <div class="forum-grid">
+      <div class="forum-card">
+        <div class="forum-card-name">🌱 3月組あつまれ</div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者数 W1</span><span class="forum-metric-val">114人</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者数 W2</span><span class="forum-metric-val">115人（→）</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言数 W1→W2</span><span class="forum-metric-val">120→173件</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">リアクション W1→W2</span><span class="forum-metric-val">447→993件 <span class="forum-delta delta-up">▲+122%</span></span></div>
+      </div>
+      <div class="forum-card">
+        <div class="forum-card-name">🔰 初心者さんいらっしゃ〜〜い気軽に雑談</div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者数 W1</span><span class="forum-metric-val">37人</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者数 W2</span><span class="forum-metric-val">66人 <span class="forum-delta delta-up">▲+78%</span></span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言数 W1→W2</span><span class="forum-metric-val">38→256件</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">リアクション W1→W2</span><span class="forum-metric-val">93→184件 <span class="forum-delta delta-up">▲+98%</span></span></div>
+      </div>
+      <div class="forum-card">
+        <div class="forum-card-name">🎨 画像生成しよう</div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者数 W1</span><span class="forum-metric-val">20人</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者数 W2</span><span class="forum-metric-val">16人（▼）</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言数 W1→W2</span><span class="forum-metric-val">32→247件 <span class="forum-delta delta-up">▲+672%</span></span></div>
+        <div class="forum-metric"><span class="forum-metric-label">リアクション W1→W2</span><span class="forum-metric-val">924→551件</span></div>
+      </div>
+    </div>
+
+    <div class="sub-title">🛠 生成AIツール別チャンネル（主要ツール）</div>
+    <div class="forum-grid">
+      <div class="forum-card">
+        <div class="forum-card-name">Claude（クロード）</div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者 W1→W2</span><span class="forum-metric-val">25→7人 <span class="forum-delta delta-down">▼-72%</span></span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言数 W1→W2</span><span class="forum-metric-val">45→9件</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">リアクション W1→W2</span><span class="forum-metric-val">149→33件</span></div>
+      </div>
+      <div class="forum-card">
+        <div class="forum-card-name">Gemini</div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者 W1→W2</span><span class="forum-metric-val">22→22人（→）</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言数 W1→W2</span><span class="forum-metric-val">38→38件（→）</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">リアクション W1→W2</span><span class="forum-metric-val">149→149件（→）</span></div>
+      </div>
+      <div class="forum-card">
+        <div class="forum-card-name">Antigravity（アンチグラビティ）</div>
+        <div class="forum-metric"><span class="forum-metric-label">発言者 W1→W2</span><span class="forum-metric-val">20→6人 <span class="forum-delta delta-down">▼-70%</span></span></div>
+        <div class="forum-metric"><span class="forum-metric-label">発言数 W1→W2</span><span class="forum-metric-val">38→9件</span></div>
+        <div class="forum-metric"><span class="forum-metric-label">リアクション W1→W2</span><span class="forum-metric-val">69→33件</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      📌 Geminiの数値がW1=W2でまったく同じなのは、CSVのデータ集計期間が重複している可能性があります。実データを再確認することをお勧めします。<br>
+      📌 Claudeチャンネルは発言者が25人→7人と大幅減ですが、Claude Codeはリアクション数が維持（50件）されており引き続き関心が見られます。
+    </div>
+  </div>
+
+  <!-- ===== 3月度 成果と課題 ===== -->
+  <div class="section">
+    <div class="section-title">✅ 3月度 成果と課題のまとめ</div>
+
+    <div class="achievement-banner">
+      <h3>🏆 3月度の主な成果</h3>
+      <div class="achievement-list">
+        <div class="achievement-item">新チャンネル構成（19チャンネル・7カテゴリー）をローンチし、入口設計が初週から機能した</div>
+        <div class="achievement-item">自己紹介投稿率が旧構成比+75%（117発言→205人）に向上し、新規参加者の100%が自己紹介を実施</div>
+        <div class="achievement-item">KR3（新規発言率）が2週連続で目標47%を達成（49.7%→47.5%）</div>
+        <div class="achievement-item">週リテンション率（O）がW1推定37.1%→W2の46.9%へ+9.8%改善、目標47%まであと0.1%</div>
+        <div class="achievement-item">Discord参加率（健全性）が43.67%→44.29%と改善トレンドを維持</div>
+        <div class="achievement-item">🌱3月組あつまれのリアクション数がW2で+122%急増、コミュニティの温度感が高まっている</div>
+        <div class="achievement-item">💬メンバー同士で質問・相談チャンネルが23人→45人（+96%）と倍増</div>
+      </div>
+    </div>
+
+    <div class="challenge-banner">
+      <h3>⚠️ 3月度の課題・引き継ぎ事項</h3>
+      <div class="challenge-list">
+        <div class="challenge-item">KR1（週ビジター率）が39.3%と目標47%から大きく乖離。認証済みの約7,800人が週1回もアクセスしていない</div>
+        <div class="challenge-item">KR2（週発言率）の目標値（25%）が旧方式設定のため現実と乖離。4月の目標値改定が必須</div>
+        <div class="challenge-item">アクションノート（週報）提出者が92人→67人（-27%）と減少。新チャンネル移行後も回復が遅い</div>
+        <div class="challenge-item">SNS宿題部屋・AIアートラボなど「秘密チャンネル」系の発言者数がW2で減少傾向</div>
+        <div class="challenge-item">Discord未参加会員が推定7,452人（55.7%）と依然として多く、引き込み施策が課題</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 所見・考察 ===== -->
+  <div class="section">
+    <div class="section-title">💡 3月度 所見・考察</div>
+    <div class="insight">
+      <div class="insight-block">
+        <strong><span class="tag-label tl-success">成果</span>【入口設計の成功：新規参加者の100%が自己紹介を実施】</strong><br>
+        旧構成では「どこに書けばいいか迷う」が最大の課題でした。新構成でのチャンネル絞り込み（19ch）とボット誘導により、初週から新規参加者202人の全員が自己紹介を完了しました。旧構成比で+75%の改善であり、入口設計の有効性が数値で証明されています。
+      </div>
+      <div class="insight-block">
+        <strong><span class="tag-label tl-success">成果</span>【週リテンション率（O）が目標の47%に肉薄：+9.8ポイント改善】</strong><br>
+        W1推定37.1%からW2の46.9%へ、わずか1週間で9.8ポイントの大幅改善が見られました。先週・今週の両方で発言した会員様が393人に達しており、「書いたら反応が返ってくる」日報ループが継続動機を生んでいると見られます。目標47%まであと0.1%であり、4月第1週での達成が期待できます。
+      </div>
+      <div class="insight-block">
+        <strong><span class="tag-label tl-warn">課題</span>【KR1の週ビジター率が目標に対して約8ポイント未達】</strong><br>
+        認証会員12,856人のうち、W2でアクセスした会員様は5,046人（39.3%）です。約7,800人が週1回もDiscordを訪れていない状況です。ただし、認証会員数が週次で+179人増加しており、母数の増大が率を押し下げている面もあります。来訪促進の施策（アナウンス強化・メールリマインド等）の検討が急務です。
+      </div>
+      <div class="insight-block">
+        <strong><span class="tag-label tl-warn">課題</span>【週報提出者の減少と「秘密チャンネル」の活動低下】</strong><br>
+        週報（アクションノート）は92人→67人→65人と減少が続いています。これは新チャンネル構成への移行で「週報提出の場所」が変わったことへの混乱が原因と考えられます。また、AIアートラボ（44人→22人）・SNS交流ルーム（31人→18人）など秘密チャンネル系の発言者も減少しており、旧チャンネルのヘビーユーザーが新構成に馴染めていない可能性があります。
+      </div>
+      <div class="insight-block">
+        <strong><span class="tag-label tl-info">注目</span>【🌱初心者さん集まれ・3月組あつまれ：2週目にエンゲージメントが急増】</strong><br>
+        「初心者さんいらっしゃ〜い」フォーラムはW1の37人・38発言からW2の66人・256発言へと、人数+78%・発言数+574%と急成長しています。「3月組あつまれ」もリアクション数が447→993件と+122%増加しており、同月入会者同士のコミュニティが醸成されつつあります。この「同期コミュニティ効果」はリテンション向上のカギになる可能性があります。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 4月への推奨アクション ===== -->
+  <div class="section">
+    <div class="section-title">✅ 4月に向けた推奨アクション</div>
+    <div class="action-list">
+
+      <div class="action-item high">
+        <span class="priority-tag">優先度：高</span>
+        <div class="action-body">
+          <strong>KR1改善：週未アクセス会員（約7,800人）への来訪促進施策を実施する</strong>
+          <p>メール・ウェビナー後の誘導・SNSでの「新チャンネルのご案内」など、Discordへの入口を増やす施策を検討してください。「19チャンネルで迷わない」という体験価値を訴求する内容が効果的です。</p>
+        </div>
+      </div>
+
+      <div class="action-item high">
+        <span class="priority-tag">優先度：高</span>
+        <div class="action-body">
+          <strong>KR2の目標値を4月分から現実的な水準に改定する</strong>
+          <p>2週間の実績（16.3〜16.6%）をもとに、新チャンネル構成・新測定方式に対応した目標値へ見直しをお願いします。現行目標25%との乖離が大きく、モニタリングの意義が薄れています。</p>
+        </div>
+      </div>
+
+      <div class="action-item high">
+        <span class="priority-tag">優先度：高</span>
+        <div class="action-body">
+          <strong>O（週リテンション率）の47%達成に向け、日報・週報アナウンスを強化する</strong>
+          <p>目標まであと0.1%。来週の達成が現実的な射程に入っています。継続発言を促す声かけ・日報へのリアクション文化の醸成を続けてください。</p>
+        </div>
+      </div>
+
+      <div class="action-item mid">
+        <span class="priority-tag">優先度：中</span>
+        <div class="action-body">
+          <strong>週報（アクションノート）の提出者回復に向けてアナウンスを再実施する</strong>
+          <p>92人→67人→65人と低下が続いています。新チャンネルでの週報の場所・書き方を丁寧に案内し、前週水準（92人）への回復を目指してください。</p>
+        </div>
+      </div>
+
+      <div class="action-item mid">
+        <span class="priority-tag">優先度：中</span>
+        <div class="action-body">
+          <strong>「同期コミュニティ」設計を継続・強化する（3月組、初心者向けフォーラム）</strong>
+          <p>「3月組あつまれ」「初心者さん集まれ」がW2で大きくエンゲージメントが伸びています。4月入会者向けの「4月組あつまれ」スレッドの設置や、月次での振り返りイベントの実施を検討してください。</p>
+        </div>
+      </div>
+
+      <div class="action-item low">
+        <span class="priority-tag">優先度：参考</span>
+        <div class="action-body">
+          <strong>秘密チャンネル（ゼミ・ラボ系）の利用状況を個別フォローする</strong>
+          <p>AIアートラボ・SNS交流ルーム・マネタイズゼミ等の旧ヘビーユーザーが新チャンネルへ移行できているか確認し、必要に応じて個別に案内を実施してください。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>このレポートの内容をご確認の上ご使用ください。</p>
+    <p style="margin-top:6px;">作成：SHIFT AI Discordチーム ／ 対象期間：2026年3月16日〜3月29日 ／ 作成日：2026年4月3日</p>
+  </div>
+
+</div>
+</body>
+</html>
