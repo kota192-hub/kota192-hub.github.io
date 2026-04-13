@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord チャンネル改修後 分析レポート | ShiftAI</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg2: #1a1d2e;
+      --bg3: #242840;
+      --card: #1e2235;
+      --card2: #252a3d;
+      --border: #2e3450;
+      --text: #e2e8f0;
+      --text-sub: #94a3b8;
+      --text-dim: #64748b;
+      --primary: #7c6af7;
+      --primary-light: #a89bfa;
+      --success: #22d3a0;
+      --success-dark: #134e3f;
+      --warning: #f59e0b;
+      --warning-dark: #451a03;
+      --danger: #f87171;
+      --danger-dark: #450a0a;
+      --info: #38bdf8;
+      --info-dark: #0c2a3e;
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      font-family: 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    a { color: var(--primary-light); text-decoration: none; }
+
+    .page { max-width: 1080px; margin: 0 auto; padding: 32px 20px 64px; }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 70%, #6b21a8 100%);
+      border-radius: 20px;
+      padding: 40px 48px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(124,106,247,0.25) 0%, transparent 60%);
+    }
+    .header-inner { position: relative; z-index: 1; }
+    .header-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 16px;
+    }
+    .header h1 {
+      font-size: 26px; font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .header-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 20px;
+    }
+    .header-meta {
+      display: flex; flex-wrap: wrap; gap: 16px;
+    }
+    .header-meta-item {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .header-meta-item span { color: rgba(255,255,255,0.9); font-weight: 700; }
+
+    /* ===== SECTION ===== */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 15px; font-weight: 800;
+      color: var(--text);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title .icon { font-size: 18px; }
+    .section-sub {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin: 20px 0 10px;
+    }
+
+    /* ===== EXEC SUMMARY ===== */
+    .exec-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 4px;
+    }
+    .exec-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .exec-card-label { font-size: 11px; font-weight: 700; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .exec-card-value { font-size: 28px; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+    .exec-card-desc { font-size: 12px; color: var(--text-sub); line-height: 1.5; }
+    .exec-card.alert .exec-card-value { color: var(--danger); }
+    .exec-card.warning .exec-card-value { color: var(--warning); }
+    .exec-card.ok .exec-card-value { color: var(--success); }
+
+    .alert-banner {
+      background: linear-gradient(135deg, var(--danger-dark), #5a0a0a);
+      border: 1px solid #7f1d1d;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 13px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .alert-banner strong { color: var(--danger); }
+
+    /* ===== KPI TREND ===== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .kpi-week { font-size: 10px; font-weight: 700; color: var(--text-dim); margin-bottom: 2px; }
+    .kpi-date { font-size: 10px; color: var(--text-dim); margin-bottom: 10px; }
+    .kpi-metric { margin-bottom: 4px; }
+    .kpi-metric-label { font-size: 10px; color: var(--text-sub); }
+    .kpi-metric-val { font-size: 18px; font-weight: 900; }
+    .badge-up { display: inline-block; background: rgba(34,211,160,0.15); color: var(--success); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 99px; margin-left: 3px; }
+    .badge-down { display: inline-block; background: rgba(248,113,113,0.15); color: var(--danger); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 99px; margin-left: 3px; }
+
+    .chart-wrap { position: relative; height: 260px; }
+
+    /* ===== NORTH STAR ===== */
+    .ns-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .ns-card {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .ns-card.primary { border-color: var(--primary); background: rgba(124,106,247,0.1); }
+    .ns-label { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .ns-value { font-size: 24px; font-weight: 900; color: var(--primary-light); }
+    .ns-desc { font-size: 11px; color: var(--text-sub); margin-top: 4px; }
+    .trend-arrow { font-size: 13px; }
+    .trend-down { color: var(--danger); }
+    .trend-up { color: var(--success); }
+
+    /* ===== HEALTH MAP TABLE ===== */
+    .health-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .health-table th {
+      background: var(--bg3);
+      color: var(--text-sub);
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 9px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .health-table td { padding: 9px 12px; border-bottom: 1px solid rgba(46,52,80,0.5); vertical-align: middle; }
+    .health-table tr:hover td { background: rgba(124,106,247,0.04); }
+    .health-table .section-row td {
+      background: var(--bg3);
+      color: var(--text-dim);
+      font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 6px 12px;
+    }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 99px;
+      font-size: 10px; font-weight: 700; white-space: nowrap;
+    }
+    .status-core { background: rgba(34,211,160,0.15); color: var(--success); border: 1px solid rgba(34,211,160,0.3); }
+    .status-watch { background: rgba(245,158,11,0.15); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+    .status-decline { background: rgba(248,113,113,0.15); color: var(--danger); border: 1px solid rgba(248,113,113,0.3); }
+    .status-dead { background: rgba(100,116,139,0.15); color: var(--text-dim); border: 1px solid rgba(100,116,139,0.3); }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .num-down { color: var(--danger); }
+    .num-up { color: var(--success); }
+    .num-neutral { color: var(--text-sub); }
+    .action-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 99px;
+      font-size: 10px; font-weight: 700;
+    }
+    .action-delete { background: rgba(248,113,113,0.15); color: var(--danger); }
+    .action-merge { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .action-fix { background: rgba(56,189,248,0.15); color: var(--info); }
+    .action-keep { background: rgba(34,211,160,0.1); color: var(--success); }
+
+    /* ===== SEGMENTS ===== */
+    .segment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .segment-card {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+    }
+    .segment-card.s1 { border-top: 3px solid var(--success); }
+    .segment-card.s2 { border-top: 3px solid var(--primary); }
+    .segment-card.s3 { border-top: 3px solid var(--danger); }
+    .seg-icon { font-size: 28px; margin-bottom: 10px; }
+    .seg-name { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+    .seg-desc { font-size: 12px; color: var(--text-sub); line-height: 1.6; margin-bottom: 12px; }
+    .seg-tag { display: inline-block; background: var(--bg3); border-radius: 4px; padding: 2px 8px; font-size: 10px; color: var(--text-sub); margin: 2px 2px 2px 0; }
+    .seg-risk { font-size: 11px; font-weight: 700; margin-top: 10px; padding: 6px 10px; border-radius: 6px; }
+    .risk-low { background: rgba(34,211,160,0.1); color: var(--success); }
+    .risk-high { background: rgba(248,113,113,0.1); color: var(--danger); }
+
+    /* ===== SWOT ===== */
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .swot-card {
+      border-radius: 12px; padding: 20px 22px;
+    }
+    .swot-card.strength { background: rgba(34,211,160,0.08); border: 1px solid rgba(34,211,160,0.25); }
+    .swot-card.weakness { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); }
+    .swot-card.opportunity { background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.25); }
+    .swot-card.threat { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); }
+    .swot-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .swot-card.strength .swot-label { color: var(--success); }
+    .swot-card.weakness .swot-label { color: var(--danger); }
+    .swot-card.opportunity .swot-label { color: var(--info); }
+    .swot-card.threat .swot-label { color: var(--warning); }
+    .swot-item { font-size: 12px; color: var(--text-sub); margin-bottom: 8px; padding-left: 14px; position: relative; line-height: 1.5; }
+    .swot-item::before { content: '▸'; position: absolute; left: 0; font-size: 10px; top: 1px; }
+    .swot-card.strength .swot-item::before { color: var(--success); }
+    .swot-card.weakness .swot-item::before { color: var(--danger); }
+    .swot-card.opportunity .swot-item::before { color: var(--info); }
+    .swot-card.threat .swot-item::before { color: var(--warning); }
+
+    /* ===== ACTION LIST ===== */
+    .action-group { margin-bottom: 24px; }
+    .action-group-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 800;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .action-card {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+      margin-bottom: 10px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .action-card.delete { border-left: 3px solid var(--danger); }
+    .action-card.merge { border-left: 3px solid var(--warning); }
+    .action-card.fix { border-left: 3px solid var(--info); }
+    .action-card-icon { font-size: 20px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+    .action-card-body { flex: 1; }
+    .action-card-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .action-card-reason { font-size: 12px; color: var(--text-sub); margin-bottom: 6px; line-height: 1.5; }
+    .action-card-alt { font-size: 11px; color: var(--text-dim); background: var(--bg3); border-radius: 6px; padding: 5px 10px; }
+    .action-card-alt strong { color: var(--text-sub); }
+
+    /* ===== NEXT STEPS ===== */
+    .priority-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .priority-card {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+    }
+    .priority-tag {
+      display: inline-block; padding: 3px 10px; border-radius: 99px;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .priority-high { background: rgba(248,113,113,0.2); color: var(--danger); border: 1px solid rgba(248,113,113,0.3); }
+    .priority-medium { background: rgba(245,158,11,0.2); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+    .priority-low { background: rgba(34,211,160,0.15); color: var(--success); border: 1px solid rgba(34,211,160,0.2); }
+    .priority-title { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+    .priority-desc { font-size: 12px; color: var(--text-sub); line-height: 1.6; margin-bottom: 10px; }
+    .priority-metric { font-size: 11px; background: var(--bg3); border-radius: 6px; padding: 5px 10px; color: var(--text-dim); }
+    .priority-metric strong { color: var(--text-sub); }
+
+    /* ===== FOOTER ===== */
+    .footer { text-align: center; margin-top: 40px; font-size: 11px; color: var(--text-dim); }
+
+    @media (max-width: 700px) {
+      .exec-cards, .ns-row, .kpi-grid, .segment-grid, .priority-grid { grid-template-columns: 1fr; }
+      .swot-grid { grid-template-columns: 1fr; }
+      .header { padding: 24px 20px; }
+      .header h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-eyebrow">📊 SHIFT AI Discord 分析レポート</div>
+      <h1>チャンネル大改修（3/15）後<br>4週間の効果検証と次期施策提言</h1>
+      <div class="header-sub">コミュニティの現状を正直に評価し、上長への意思決定支援レポートとしてまとめた分析です。</div>
+      <div class="header-meta">
+        <div class="header-meta-item">📅 集計期間：<span>2026.3.15（日）〜 4.12（日）</span></div>
+        <div class="header-meta-item">📋 分析対象：<span>全51チャンネル / 4週分</span></div>
+        <div class="header-meta-item">🗓 レポート作成：<span>2026.4.14</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EXEC SUMMARY ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">⚡</span>エグゼクティブサマリー</div>
+    <div class="exec-cards">
+      <div class="exec-card alert">
+        <div class="exec-card-label">全体エンゲージメント</div>
+        <div class="exec-card-value">低下傾向</div>
+        <div class="exec-card-desc">リアクション数が4週で<strong style="color:var(--danger)">−39%</strong>（11,246→6,874）。発言者数も−21%と全体エンゲージメントが衰退中。改修後の「慣れ」が定着していない兆候。</div>
+      </div>
+      <div class="exec-card warning">
+        <div class="exec-card-label">削除・統合が必要なチャンネル</div>
+        <div class="exec-card-value">9ch + 3統合</div>
+        <div class="exec-card-desc">休眠チャンネルが<strong style="color:var(--warning)">6チャンネル</strong>確認。さらに類似チャンネルの統合が<strong style="color:var(--warning)">3セット</strong>必要。チャンネル数の多さが逆にユーザーの迷いを生んでいる可能性。</div>
+      </div>
+      <div class="exec-card ok">
+        <div class="exec-card-label">唯一の成長シグナル</div>
+        <div class="exec-card-value">AIエージェント</div>
+        <div class="exec-card-desc">🧬AIエージェントゼミが発言数<strong style="color:var(--success)">+3,450%</strong>（4→142）と爆発的成長。今後の投資集中領域として最有力。</div>
+      </div>
+    </div>
+    <div class="alert-banner">
+      ⚠️ <div><strong>最優先の懸念</strong>：自己紹介チャンネルの発言者数が−42%（205→118人）。新規参入の減少は将来的なコミュニティ縮小につながる。<strong>オンボーディングの再設計が急務。</strong></div>
+    </div>
+  </div>
+
+  <!-- ===== NORTH STAR + KPI ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">⭐</span>North Star Metric ＆ KPI 週次推移</div>
+
+    <div class="ns-row">
+      <div class="ns-card primary">
+        <div class="ns-label">⭐ North Star Metric</div>
+        <div class="ns-value">週次アクティブ発言者数</div>
+        <div class="ns-desc">コミュニティが「交流が続く場所」として機能しているかを示す最重要指標。W1: 推定693名 → W4: 推定547名（−21%）</div>
+      </div>
+      <div class="ns-card">
+        <div class="ns-label">📥 Input Metric 1</div>
+        <div class="ns-value" style="color:var(--danger)">118名 <span class="trend-arrow trend-down">↓42%</span></div>
+        <div class="ns-desc">新規自己紹介者数（W4）<br>W1: 205名 → W4: 118名<br>新規参入の減少が深刻</div>
+      </div>
+      <div class="ns-card">
+        <div class="ns-label">📥 Input Metric 2</div>
+        <div class="ns-value" style="color:var(--danger)">−39% <span class="trend-arrow trend-down">↓</span></div>
+        <div class="ns-desc">全体リアクション率（W1→W4）<br>11,246 → 6,874<br>見るだけで終わる行動が増加</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-week">W1</div>
+        <div class="kpi-date">3/15-3/22</div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">発言数</div>
+          <div class="kpi-metric-val">2,058</div>
+        </div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">リアクション数</div>
+          <div class="kpi-metric-val">11,246</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-week">W2</div>
+        <div class="kpi-date">3/23-3/29</div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">発言数</div>
+          <div class="kpi-metric-val">1,943 <span class="badge-down">−6%</span></div>
+        </div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">リアクション数</div>
+          <div class="kpi-metric-val">8,321 <span class="badge-down">−26%</span></div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-week">W3</div>
+        <div class="kpi-date">3/30-4/5</div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">発言数</div>
+          <div class="kpi-metric-val">1,892 <span class="badge-down">−3%</span></div>
+        </div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">リアクション数</div>
+          <div class="kpi-metric-val">7,443 <span class="badge-down">−11%</span></div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-week">W4</div>
+        <div class="kpi-date">4/6-4/12</div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">発言数</div>
+          <div class="kpi-metric-val">1,837 <span class="badge-down">−3%</span></div>
+        </div>
+        <div class="kpi-metric">
+          <div class="kpi-metric-label">リアクション数</div>
+          <div class="kpi-metric-val">6,874 <span class="badge-down">−8%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="trendChart"></canvas>
+    </div>
+  </div>
+
+  <!-- ===== HEALTH MAP ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🗺</span>チャンネル健全性マップ</div>
+    <p style="font-size:12px;color:var(--text-sub);margin-bottom:16px">全チャンネルを「活動量」と「変化率」で4段階に分類。アクション列は推奨対応を示します。</p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+      <span class="status-badge status-core">🟢 コア資産</span><span style="font-size:11px;color:var(--text-sub)">継続・強化</span>
+      <span style="color:var(--border)">｜</span>
+      <span class="status-badge status-watch">🟡 要テコ入れ</span><span style="font-size:11px;color:var(--text-sub)">施策対象</span>
+      <span style="color:var(--border)">｜</span>
+      <span class="status-badge status-decline">🔴 衰退中</span><span style="font-size:11px;color:var(--text-sub)">統合検討</span>
+      <span style="color:var(--border)">｜</span>
+      <span class="status-badge status-dead">⚫ 休眠</span><span style="font-size:11px;color:var(--text-sub)">即削除候補</span>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="health-table">
+        <thead>
+          <tr>
+            <th>チャンネル名</th>
+            <th>健全性</th>
+            <th class="num">W1 発言数</th>
+            <th class="num">W4 発言数</th>
+            <th class="num">変化率</th>
+            <th>推奨アクション</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 一般 -->
+          <tr class="section-row"><td colspan="6">■ 一般チャンネル</td></tr>
+          <tr><td>☕テーマに分かれて交流しよう</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num">727</td><td class="num">570</td><td class="num num-down">−22%</td><td><span class="action-pill action-keep">継続・強化</span></td></tr>
+          <tr><td>🙋今日やること・やったこと（日報）</td><td><span class="status-badge status-watch">🟡 要テコ入れ</span></td><td class="num">222</td><td class="num">242</td><td class="num num-up">+9%</td><td><span class="action-pill action-fix">形骸化対策必須</span></td></tr>
+          <tr><td>🌱まずは自己紹介をしよう</td><td><span class="status-badge status-watch">🟡 要テコ入れ</span></td><td class="num">205</td><td class="num">118</td><td class="num num-down">−42%</td><td><span class="action-pill action-fix">オンボーディング再設計</span></td></tr>
+          <tr><td>🗾都道府県別に交流しよう</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num">182</td><td class="num">131</td><td class="num num-down">−28%</td><td><span class="action-pill action-keep">継続</span></td></tr>
+          <tr><td>⚙️生成AIツール別チャンネル</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">105</td><td class="num">36</td><td class="num num-down">−66%</td><td><span class="action-pill action-merge">フォーラムに統合</span></td></tr>
+          <tr><td>💬メンバー同士で質問相談</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">63</td><td class="num">11</td><td class="num num-down">−83%</td><td><span class="action-pill action-merge">☕交流に統合</span></td></tr>
+          <tr><td>📊アクションノート（週報）</td><td><span class="status-badge status-watch">🟡 要テコ入れ</span></td><td class="num">67</td><td class="num">34</td><td class="num num-down">−49%</td><td><span class="action-pill action-fix">日報との連動強化</span></td></tr>
+          <tr><td>🪧雑談・宣伝フリースペース</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">78</td><td class="num">25</td><td class="num num-down">−68%</td><td><span class="action-pill action-fix">目的を再定義</span></td></tr>
+          <tr><td>🎥ウェビナーごとの行動共有</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">11</td><td class="num">1</td><td class="num num-down">−91%</td><td><span class="action-pill action-delete">削除検討</span></td></tr>
+          <tr><td>🏃‍♀️SHIFT AI junior 交流部屋</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num num-neutral">0</td><td class="num">1</td><td class="num num-neutral">−</td><td><span class="action-pill action-delete">即削除</span></td></tr>
+
+          <!-- 秘密 -->
+          <tr class="section-row"><td colspan="6">■ 秘密チャンネル（パスコード限定）</td></tr>
+          <tr><td>🧬AIエージェントゼミ 交流ルーム</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num">4</td><td class="num">142</td><td class="num num-up">+3,450%</td><td><span class="action-pill action-keep">最優先強化</span></td></tr>
+          <tr><td>🧬AIエージェントゼミ 資格確認</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num num-neutral">−</td><td class="num">138</td><td class="num num-neutral">−</td><td><span class="action-pill action-keep">継続</span></td></tr>
+          <tr><td>📹SNS宿題部屋</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">134</td><td class="num">15</td><td class="num num-down">−89%</td><td><span class="action-pill action-merge">SNS交流と統合</span></td></tr>
+          <tr><td>📹SNS運用代行 交流ルーム</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">76</td><td class="num">18</td><td class="num num-down">−76%</td><td><span class="action-pill action-merge">宿題部屋と統合</span></td></tr>
+          <tr><td>🎨AIアートラボ 交流ルーム</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">74</td><td class="num">13</td><td class="num num-down">−82%</td><td><span class="action-pill action-fix">コース対応確認</span></td></tr>
+          <tr><td>💰マネタイズゼミ 交流ルーム</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">47</td><td class="num">13</td><td class="num num-down">−72%</td><td><span class="action-pill action-fix">コース対応確認</span></td></tr>
+          <tr><td>💻AI開発ゼミ 交流ルーム</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">8</td><td class="num">4</td><td class="num num-down">−50%</td><td><span class="action-pill action-merge">経験者向けと統合</span></td></tr>
+          <tr><td>💻AI開発ゼミ 経験者向け</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">3</td><td class="num">2</td><td class="num num-down">−33%</td><td><span class="action-pill action-merge">通常交流と統合</span></td></tr>
+
+          <!-- フォーラム（主要のみ） -->
+          <tr class="section-row"><td colspan="6">■ フォーラム内スレッド（主要）</td></tr>
+          <tr><td>🔰初心者さんいらっしゃ～い</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num">38</td><td class="num">60</td><td class="num num-up">+58%</td><td><span class="action-pill action-keep">継続・強化</span></td></tr>
+          <tr><td>画像生成しよう</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num">32</td><td class="num">164</td><td class="num num-up">+413%</td><td><span class="action-pill action-keep">継続・強化</span></td></tr>
+          <tr><td>2026年4月組あつまれ</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num num-neutral">−</td><td class="num">175</td><td class="num num-neutral">新規</td><td><span class="action-pill action-keep">定着施策を急ぐ</span></td></tr>
+          <tr><td>2026年3月組あつまれ</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">120</td><td class="num">16</td><td class="num num-down">−87%</td><td><span class="action-pill action-fix">4月組への誘導</span></td></tr>
+          <tr><td>AIコンサルタント-共有雑談</td><td><span class="status-badge status-watch">🟡 要テコ入れ</span></td><td class="num">20</td><td class="num">58</td><td class="num num-up">+190%</td><td><span class="action-pill action-keep">伸びしろあり</span></td></tr>
+          <tr><td>Claude Code（クロードコード）</td><td><span class="status-badge status-core">🟢 コア資産</span></td><td class="num">31</td><td class="num">13</td><td class="num num-down">−58%</td><td><span class="action-pill action-keep">AIエージェントと連携</span></td></tr>
+          <tr><td>Gemini</td><td><span class="status-badge status-decline">🔴 衰退中</span></td><td class="num">38</td><td class="num">3</td><td class="num num-down">−92%</td><td><span class="action-pill action-delete">削除検討</span></td></tr>
+          <tr><td>建築・現場・その他専門職</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">10</td><td class="num">0</td><td class="num num-down">−100%</td><td><span class="action-pill action-delete">即削除</span></td></tr>
+          <tr><td>Microsoft Copilot</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">5</td><td class="num">0</td><td class="num num-down">−100%</td><td><span class="action-pill action-delete">即削除</span></td></tr>
+          <tr><td>Sora2（ソラツー）</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">10</td><td class="num">0</td><td class="num num-down">−100%</td><td><span class="action-pill action-delete">即削除</span></td></tr>
+          <tr><td>Antigravity（アンチグラビティ）</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">38</td><td class="num">0</td><td class="num num-down">−100%</td><td><span class="action-pill action-delete">即削除</span></td></tr>
+          <tr><td>n8n（エヌエイトエヌ）</td><td><span class="status-badge status-dead">⚫ 休眠</span></td><td class="num">11</td><td class="num">0</td><td class="num num-down">−100%</td><td><span class="action-pill action-delete">即削除</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== USER SEGMENTS ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">👥</span>ユーザーセグメント分析</div>
+    <p style="font-size:12px;color:var(--text-sub);margin-bottom:18px">4週間の行動データから導出した3つの主要ユーザー層。施策設計の際はセグメントを意識した対応が必要。</p>
+    <div class="segment-grid">
+      <div class="segment-card s1">
+        <div class="seg-icon">📚</div>
+        <div class="seg-name">継続学習層</div>
+        <div class="seg-desc">日報・週報を毎週使い、アクションノートで進捗を記録するコア会員。発言数は安定しているが<strong>リアクション率が急減（−73%）</strong>しており、「作業化・義務感」が出始めている可能性がある。</div>
+        <div>
+          <span class="seg-tag">🙋日報（週130人以上）</span>
+          <span class="seg-tag">📊週報（週34〜69人）</span>
+          <span class="seg-tag">🗾地域交流</span>
+        </div>
+        <div class="seg-risk risk-low">離脱リスク：中 ／ コミュニティ最重要層</div>
+      </div>
+      <div class="segment-card s2">
+        <div class="seg-icon">💬</div>
+        <div class="seg-name">テーマ交流層</div>
+        <div class="seg-desc">☕テーマ別交流や都道府県チャンネルで活発に発言する層。週200〜240人が継続的に参加し、<strong>コミュニティの骨格を担う</strong>。AI関連の最新トピックへの感度が高く、画像生成・AIエージェントへの流入も多い。</div>
+        <div>
+          <span class="seg-tag">☕テーマ交流（週200人超）</span>
+          <span class="seg-tag">🖼️画像生成</span>
+          <span class="seg-tag">🤖AIエージェント</span>
+        </div>
+        <div class="seg-risk risk-low">離脱リスク：低 ／ エンゲージメントの核</div>
+      </div>
+      <div class="segment-card s3">
+        <div class="seg-icon">🎓</div>
+        <div class="seg-name">ゼミ受講層</div>
+        <div class="seg-desc">SNS運用代行・AIアートラボ等のゼミ専用チャンネルを中心に動く層。コース終盤〜終了後に<strong>急激に離脱</strong>する傾向が明確（SNS宿題部屋：134→15、AIアートラボ：74→13）。ゼミ終了後の「次の場所」への誘導が機能していない。</div>
+        <div>
+          <span class="seg-tag">📹SNS宿題部屋</span>
+          <span class="seg-tag">🎨AIアートラボ</span>
+          <span class="seg-tag">💰マネタイズゼミ</span>
+        </div>
+        <div class="seg-risk risk-high">離脱リスク：高 ／ ゼミ後の定着施策が急務</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SWOT ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔬</span>SWOT 分析 ― 改修後コミュニティの現状評価</div>
+    <div class="swot-grid">
+      <div class="swot-card strength">
+        <div class="swot-label">💪 Strength ― 強み</div>
+        <div class="swot-item">☕テーマ交流が週570発言と圧倒的No.1を維持。コミュニティの核として機能</div>
+        <div class="swot-item">🧬AIエージェントゼミが唯一+3,450%成長。次世代の主役コンテンツ</div>
+        <div class="swot-item">🌱自己紹介チャンネルが毎週100人超を維持。ベース流入は確保</div>
+        <div class="swot-item">画像生成スレッドが週164発言と成長中。実践系コンテンツへの需要あり</div>
+      </div>
+      <div class="swot-card weakness">
+        <div class="swot-label">⚠️ Weakness ― 弱み</div>
+        <div class="swot-item">全体リアクション−39%はエンゲージメント形骸化の深刻なシグナル</div>
+        <div class="swot-item">SNS関連チャンネルが−84%。旗艦コンテンツの一つが機能停止状態</div>
+        <div class="swot-item">ゼミ受講者のゼミ終了後離脱が顕著。コース→コミュニティへの動線が未整備</div>
+        <div class="swot-item">6チャンネルが実質休眠。チャンネル数の多さがノイズになっている</div>
+      </div>
+      <div class="swot-card opportunity">
+        <div class="swot-label">🚀 Opportunity ― 機会</div>
+        <div class="swot-item">AIエージェント領域への投資集中で差別化可能。競合コミュニティには少ないテーマ</div>
+        <div class="swot-item">4月組（175発言）が好調スタート。定着施策を打てば新たな核になりうる</div>
+        <div class="swot-item">AIコンサルタント系スレッドが+190%成長。ビジネス活用層の取り込み余地あり</div>
+        <div class="swot-item">チャンネル整理によって「どこに投稿すればいいか」の混乱を解消できる</div>
+      </div>
+      <div class="swot-card threat">
+        <div class="swot-label">🌪 Threat ― 脅威</div>
+        <div class="swot-item">新規参入者数が−42%継続中。このペースが続けば3ヶ月後に会員層が高齢化</div>
+        <div class="swot-item">SNSゼミ等の旗艦コース受講者の離脱は、収益指標にも波及する可能性</div>
+        <div class="swot-item">日報のリアクション激減は「義務感」「疲れ」の蓄積を示す可能性。退会につながるリスク</div>
+        <div class="swot-item">AIツール界隈の変化が速く、GeminiやSora等のチャンネルがすぐ陳腐化する構造</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACTION LIST ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🗑</span>チャンネル削除・統合 推奨リスト</div>
+
+    <div class="action-group">
+      <div class="action-group-title">
+        <span class="action-pill action-delete">即削除推奨</span>
+        <span style="font-size:12px;color:var(--text-sub)">4週間を通じて発言がほぼゼロ。存在がノイズになっている。</span>
+      </div>
+      <div class="action-card delete">
+        <div class="action-card-icon">🏗</div>
+        <div class="action-card-body">
+          <div class="action-card-title">建築・現場・その他専門職</div>
+          <div class="action-card-reason">W2〜W4：発言者数0名。リアクションもわずか。業種特化スレッドとして需要が存在しなかった。</div>
+          <div class="action-card-alt"><strong>代替：</strong>削除後、「IT・クリエイティブ」スレッドに誘導。または「職種別雑談」へ統合</div>
+        </div>
+      </div>
+      <div class="action-card delete">
+        <div class="action-card-icon">🎬</div>
+        <div class="action-card-body">
+          <div class="action-card-title">Sora2（ソラツー）・Antigravity・n8n・Microsoft Copilot</div>
+          <div class="action-card-reason">4ツール共通：W4で発言ゼロ。ツールブームが去った・もしくはユーザーが少なく定着しなかった。</div>
+          <div class="action-card-alt"><strong>代替：</strong>「生成AIツール別チャンネル」のフォーラム内スレッドへ吸収。需要が戻ったとき再開容易</div>
+        </div>
+      </div>
+      <div class="action-card delete">
+        <div class="action-card-icon">🏃</div>
+        <div class="action-card-body">
+          <div class="action-card-title">🏃‍♀️SHIFT AI junior 交流部屋</div>
+          <div class="action-card-reason">W3: 26発言 → W4: 1発言（−96%）。運営の手が離れた途端に崩壊。設計に問題あり。</div>
+          <div class="action-card-alt"><strong>代替：</strong>「🔰初心者さんいらっしゃ～い」スレッドに統合。初心者向けは1箇所に集約</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-group">
+      <div class="action-group-title">
+        <span class="action-pill action-merge">統合推奨</span>
+        <span style="font-size:12px;color:var(--text-sub)">類似・重複チャンネルを統合し、ユーザーの行き先を明確化する。</span>
+      </div>
+      <div class="action-card merge">
+        <div class="action-card-icon">📹</div>
+        <div class="action-card-body">
+          <div class="action-card-title">SNS運用代行 交流ルーム ＋ SNS宿題部屋 → 統合</div>
+          <div class="action-card-reason">両チャンネル合計で−84%。分割することでユーザーが分散し活動が滞っている。</div>
+          <div class="action-card-alt"><strong>統合後：</strong>「📹SNS運用代行 活動・交流」1チャンネルに集約。投稿種別はスレッドで整理</div>
+        </div>
+      </div>
+      <div class="action-card merge">
+        <div class="action-card-icon">💻</div>
+        <div class="action-card-body">
+          <div class="action-card-title">AI開発ゼミ 交流ルーム ＋ 経験者向け交流ルーム → 統合</div>
+          <div class="action-card-reason">2チャンネルを合わせても週6発言以下。分ける意味がない規模。</div>
+          <div class="action-card-alt"><strong>統合後：</strong>「💻AI開発ゼミ 交流」1本化。経験者向けは「上級者タグ」で識別</div>
+        </div>
+      </div>
+      <div class="action-card merge">
+        <div class="action-card-icon">⚙️</div>
+        <div class="action-card-body">
+          <div class="action-card-title">⚙️生成AIツール別チャンネル（親チャンネル）→ フォーラム内に吸収</div>
+          <div class="action-card-reason">発言−66%。ツール別の個別スレッドがフォーラム内に既にあり、親チャンネルが冗長。</div>
+          <div class="action-card-alt"><strong>統合後：</strong>フォーラム内「🛠️ツール別スレッド」へ誘導。親チャンネルは廃止</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-group">
+      <div class="action-group-title">
+        <span class="action-pill action-fix">施策介入推奨</span>
+        <span style="font-size:12px;color:var(--text-sub)">削除ではなく、運営の手を入れることで復活できる可能性があるチャンネル。</span>
+      </div>
+      <div class="action-card fix">
+        <div class="action-card-icon">🎥</div>
+        <div class="action-card-body">
+          <div class="action-card-title">🎥ウェビナーごとの行動共有・交流</div>
+          <div class="action-card-reason">W4で1発言のみ。しかしリアクション68はW1〜W2で続いており、コンテンツ自体への反応はある。</div>
+          <div class="action-card-alt"><strong>提案：</strong>ウェビナー後48h以内に運営がまとめ投稿をする仕組みを作ると活性化できる可能性あり</div>
+        </div>
+      </div>
+      <div class="action-card fix">
+        <div class="action-card-icon">🌱</div>
+        <div class="action-card-body">
+          <div class="action-card-title">🌱まずは自己紹介をしよう</div>
+          <div class="action-card-reason">205→118人（−42%）。新規流入の減少が直撃。投稿しても反応が得られないと次のアクションに繋がらない。</div>
+          <div class="action-card-alt"><strong>提案：</strong>「自己紹介したら必ず誰かが反応する」ウェルカムbot or 運営対応の仕組みを導入</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEXT STEPS ===== -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎯</span>次期施策提案 — 優先度別アクションプラン</div>
+    <p style="font-size:12px;color:var(--text-sub);margin-bottom:18px">優先度はコミュニティの健全性への影響度とスピードで判定しています。</p>
+    <div class="priority-grid">
+      <div class="priority-card">
+        <div class="priority-tag priority-high">🔴 HIGH 優先</div>
+        <div class="priority-title">AIエージェントゼミへの投資集中</div>
+        <div class="priority-desc">唯一の成長領域（+3,450%）に資源を集中。専用イベント開催・コンテンツ拡充・メンバー特典の強化で他ゼミからの流入を促進する。</div>
+        <div class="priority-metric"><strong>目標：</strong>AIエージェント関連発言 W8で週200発言超</div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-tag priority-high">🔴 HIGH 優先</div>
+        <div class="priority-title">チャンネル整理の即実行</div>
+        <div class="priority-desc">休眠6チャンネル削除・統合3セット実施。チャンネル数が多すぎることが迷いを生み、結果として「どこでもない場所」になっている状態を解消する。</div>
+        <div class="priority-metric"><strong>目標：</strong>総チャンネル数を現在比 −30%（2週間以内に実施）</div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-tag priority-high">🔴 HIGH 優先</div>
+        <div class="priority-title">日報の形骸化を止める</div>
+        <div class="priority-desc">リアクション−73%（1,100→294）は「義務投稿」化のサイン。フォーマット刷新（例：「今週1つの勝ち」形式）と運営からの週次ハイライトで再熱を促す。</div>
+        <div class="priority-metric"><strong>目標：</strong>W8でリアクション数を600以上に回復</div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-tag priority-medium">🟡 MEDIUM 優先</div>
+        <div class="priority-title">2026年4月組の定着施策</div>
+        <div class="priority-desc">好調スタート（175発言）の4月組に、3月組の轍を踏まないよう「入会後30日以内の行動促進ルーティン」を設計。最初の1ヶ月で習慣化させる。</div>
+        <div class="priority-metric"><strong>目標：</strong>4月組のW8発言者数 120人以上維持</div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-tag priority-medium">🟡 MEDIUM 優先</div>
+        <div class="priority-title">新規参入フローの再設計</div>
+        <div class="priority-desc">自己紹介者−42%を止めるために、「入会直後のウェルカム体験」を再設計。自己紹介後24h以内に複数のリアクションが来る仕組みをbotまたは運営シフトで構築。</div>
+        <div class="priority-metric"><strong>目標：</strong>自己紹介投稿者数をW8で150人以上に回復</div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-tag priority-medium">🟡 MEDIUM 優先</div>
+        <div class="priority-title">ゼミ卒業後の「次の場所」設計</div>
+        <div class="priority-desc">ゼミ終了後の参加者がどこへ行けばいいか分からず離脱している。ゼミ卒業時に☕テーマ交流や画像生成スレッドへ「卒業後のおすすめ行動」を提示する仕組みを作る。</div>
+        <div class="priority-metric"><strong>目標：</strong>ゼミ終了後60日後も在籍率 70%以上</div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-tag priority-low">🟢 LOW 優先</div>
+        <div class="priority-title">リアクション文化の復活キャンペーン</div>
+        <div class="priority-desc">全体リアクション−39%の回復施策。「#いいね週間」などの軽いキャンペーンで心理的ハードルを下げる。大きな効果は望めないが継続すれば底上げになる。</div>
+        <div class="priority-metric"><strong>目標：</strong>月次でリアクション数+10%</div>
+      </div>
+      <div class="priority-card" style="grid-column: span 1;">
+        <div class="priority-tag priority-low">🟢 LOW 優先</div>
+        <div class="priority-title">AIツール別チャンネルの定期メンテ化</div>
+        <div class="priority-desc">Gemini・Copilot等は急速に陳腐化する。半期ごとに利用状況を確認し、3ヶ月連続で発言ゼロなら自動的に削除するルールを設ける。</div>
+        <div class="priority-metric"><strong>目標：</strong>休眠チャンネルの「ゼロ管理」体制を確立</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p>ShiftAI Discord — チャンネル改修後 分析レポート｜集計期間：2026.3.15〜4.12｜作成：2026.4.14</p>
+    <p style="margin-top:4px">データソース：チャンネル一覧 週次集計CSV ／ フレームワーク：North Star Metric・SWOT・User Segmentation（PM Toolkit準拠）</p>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ===== KPI TREND CHART =====
+const ctx = document.getElementById('trendChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['W1\n3/15-3/22', 'W2\n3/23-3/29', 'W3\n3/30-4/5', 'W4\n4/6-4/12'],
+    datasets: [
+      {
+        label: '発言数',
+        data: [2058, 1943, 1892, 1837],
+        borderColor: '#7c6af7',
+        backgroundColor: 'rgba(124,106,247,0.1)',
+        borderWidth: 3,
+        pointRadius: 6, pointHoverRadius: 9,
+        tension: 0.35, fill: false,
+        yAxisID: 'y',
+      },
+      {
+        label: 'リアクション数',
+        data: [11246, 8321, 7443, 6874],
+        borderColor: '#f87171',
+        backgroundColor: 'rgba(248,113,113,0.08)',
+        borderWidth: 3,
+        pointRadius: 6, pointHoverRadius: 9,
+        tension: 0.35, fill: false,
+        yAxisID: 'y2',
+      },
+      {
+        label: 'AIエージェントゼミ（発言数）',
+        data: [4, 40, 109, 142],
+        borderColor: '#22d3a0',
+        borderWidth: 2.5,
+        borderDash: [6, 3],
+        pointRadius: 5, pointHoverRadius: 8,
+        tension: 0.35, fill: false,
+        yAxisID: 'y',
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { color: '#94a3b8', font: { size: 11 }, padding: 16, boxWidth: 14 }
+      },
+      tooltip: {
+        backgroundColor: '#1e2235',
+        borderColor: '#2e3450',
+        borderWidth: 1,
+        titleColor: '#e2e8f0',
+        bodyColor: '#94a3b8',
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#1e2235' },
+        ticks: { color: '#64748b', font: { size: 11 } }
+      },
+      y: {
+        position: 'left',
+        beginAtZero: false,
+        grid: { color: 'rgba(46,52,80,0.5)' },
+        ticks: { color: '#64748b', font: { size: 11 }, callback: v => v.toLocaleString() },
+        title: { display: true, text: '発言数', color: '#64748b', font: { size: 10 } }
+      },
+      y2: {
+        position: 'right',
+        beginAtZero: false,
+        grid: { drawOnChartArea: false },
+        ticks: { color: '#64748b', font: { size: 11 }, callback: v => v.toLocaleString() },
+        title: { display: true, text: 'リアクション数', color: '#64748b', font: { size: 10 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

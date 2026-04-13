@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftAI Discord レポート一覧</title>
+  <style>
+    :root {
+      --bg: #0f1117; --bg2: #1a1d2e; --card: #1e2235;
+      --border: #2e3450; --text: #e2e8f0; --text-sub: #94a3b8;
+      --text-dim: #64748b; --primary: #7c6af7; --primary-light: #a89bfa;
+      --success: #22d3a0; --warning: #f59e0b; --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); font-family: 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif; color: var(--text); font-size: 14px; line-height: 1.6; }
+    .page { max-width: 860px; margin: 0 auto; padding: 40px 20px 64px; }
+
+    .header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 70%, #6b21a8 100%);
+      border-radius: 20px; padding: 40px 48px; margin-bottom: 32px; position: relative; overflow: hidden;
+    }
+    .header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 80% 50%, rgba(124,106,247,0.25) 0%, transparent 60%); }
+    .header-inner { position: relative; z-index: 1; }
+    .header-eyebrow { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:99px; padding:4px 14px; font-size:11px; font-weight:700; letter-spacing:0.08em; color:rgba(255,255,255,0.85); margin-bottom:14px; }
+    .header h1 { font-size:24px; font-weight:900; color:#fff; margin-bottom:8px; }
+    .header p { font-size:13px; color:rgba(255,255,255,0.65); }
+
+    .section-title { font-size:12px; font-weight:800; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+
+    .report-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:32px; }
+    .report-card {
+      background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px 24px;
+      text-decoration:none; color:var(--text); display:block; transition:border-color 0.15s, transform 0.15s;
+      position:relative; overflow:hidden;
+    }
+    .report-card:hover { border-color:var(--primary); transform:translateY(-2px); }
+    .report-card.featured { border-color:var(--primary); background:rgba(124,106,247,0.07); }
+    .report-card.featured::before { content:'NEW'; position:absolute; top:14px; right:14px; background:var(--primary); color:#fff; font-size:9px; font-weight:800; letter-spacing:0.1em; padding:2px 8px; border-radius:99px; }
+    .card-category { font-size:10px; font-weight:700; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; }
+    .card-title { font-size:15px; font-weight:800; margin-bottom:6px; line-height:1.3; }
+    .card-desc { font-size:12px; color:var(--text-sub); line-height:1.6; margin-bottom:14px; }
+    .card-meta { display:flex; gap:10px; align-items:center; }
+    .card-date { font-size:11px; color:var(--text-dim); }
+    .card-badge { display:inline-block; padding:2px 8px; border-radius:99px; font-size:10px; font-weight:700; }
+    .badge-strategy { background:rgba(124,106,247,0.15); color:var(--primary-light); }
+    .badge-weekly { background:rgba(34,211,160,0.12); color:var(--success); }
+    .badge-monthly { background:rgba(56,189,248,0.12); color:#38bdf8; }
+
+    .footer { text-align:center; margin-top:40px; font-size:11px; color:var(--text-dim); }
+
+    @media (max-width:600px) { .report-grid { grid-template-columns:1fr; } .header { padding:24px 20px; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-eyebrow">📊 ShiftAI Discord Team</div>
+      <h1>Discord レポート一覧</h1>
+      <p>Discordチームの分析レポート・週次レポートをまとめたポータルページです。</p>
+    </div>
+  </div>
+
+  <div class="section-title">戦略分析レポート</div>
+  <div class="report-grid">
+    <a class="report-card featured" href="discord-channel-analytics.html">
+      <div class="card-category">チャンネル改修後 分析</div>
+      <div class="card-title">Discord チャンネル大改修（3/15）後<br>4週間の効果検証と次期施策提言</div>
+      <div class="card-desc">改修後のチャンネル健全性評価・SWOT分析・削除統合推奨・ユーザーセグメント分析・次期施策提案をまとめた上長向け戦略レポート。</div>
+      <div class="card-meta">
+        <span class="card-date">📅 2026.3.15〜4.12（4週分）</span>
+        <span class="card-badge badge-strategy">戦略レポート</span>
+      </div>
+    </a>
+    <a class="report-card" href="discord-monthly-report-202603.html">
+      <div class="card-category">月次レポート</div>
+      <div class="card-title">Discord 3月度 月次分析レポート</div>
+      <div class="card-desc">2026年3月のDiscordコミュニティ月次レポート。OKR進捗・KPI達成状況・チャンネル別評価。</div>
+      <div class="card-meta">
+        <span class="card-date">📅 2026年3月</span>
+        <span class="card-badge badge-monthly">月次レポート</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="section-title">週次レポート（Weekly Report）</div>
+  <div class="report-grid">
+    <a class="report-card" href="discord-report-20260329.html">
+      <div class="card-category">週次レポート</div>
+      <div class="card-title">Week 3｜2026.3.23〜3.29</div>
+      <div class="card-desc">OKRカード・KPI推移・TOP5チャンネル・運営所見を含む週次レポート。</div>
+      <div class="card-meta">
+        <span class="card-date">📅 2026.3.23〜3.29</span>
+        <span class="card-badge badge-weekly">週次レポート</span>
+      </div>
+    </a>
+    <a class="report-card" href="discord-report-20260322.html">
+      <div class="card-category">週次レポート</div>
+      <div class="card-title">Week 2｜2026.3.15〜3.22</div>
+      <div class="card-desc">チャンネル大改修直後の初週。改修前後の比較と初期評価を含む週次レポート。</div>
+      <div class="card-meta">
+        <span class="card-date">📅 2026.3.15〜3.22</span>
+        <span class="card-badge badge-weekly">週次レポート</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>ShiftAI — コミュニティ事業部 Discordチーム｜内部資料</p>
+  </div>
+</div>
+</body>
+</html>
