@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>おさかなだお長崎 DAO憲章（案・コメント反映版）</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #0f766e;
+      --accent-soft: #ecfeff;
+      --note: #fff7ed;
+      --note-line: #fdba74;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      line-height: 1.8;
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+    }
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+    header {
+      padding: 40px 40px 28px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fffe 100%);
+    }
+    h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.35; }
+    .subtitle { color: var(--muted); font-size: 14px; margin: 0; }
+    main { padding: 12px 40px 40px; }
+    h2 { margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #eef2f7; font-size: 22px; }
+    h3 { margin: 24px 0 10px; font-size: 17px; }
+    p { margin: 10px 0; }
+    ol, ul { padding-left: 24px; }
+    li { margin: 6px 0; }
+    .lead { font-size: 15px; color: var(--muted); margin-top: 8px; }
+    .note {
+      margin: 16px 0 24px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--note-line);
+      background: var(--note);
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    .reflected {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      vertical-align: middle;
+      border: 1px solid #bae6fd;
+    }
+    .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+    .card { border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: #fcfcfd; }
+    footer { padding: 24px 40px 40px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); background: #fafafa; }
+    @media (max-width: 720px) {
+      header, main, footer { padding-left: 20px; padding-right: 20px; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="paper">
+      <header>
+        <h1>おさかなだお長崎 DAO憲章（案）<span class="reflected">コメント反映版</span></h1>
+        <p class="subtitle">共創を前提にしつつ、運営責任と意思決定の枠組みを明確にしたHTMLドラフトです。</p>
+        <p class="lead">この文書は、元原稿のコメント・懸念点を踏まえ、憲章に残すべき内容とガイドラインに委ねる内容を整理した案です。</p>
+      </header>
+
+      <main>
+        <section>
+          <h2>前文</h2>
+          <p>おさかなだお長崎（以下「本コミュニティ」といいます。）は、「長崎のうまいサカナの未来をつくる」という目的のもと、地域・海・食・人のつながりを育みながら、メンバーが共に学び、挑戦し、価値を生み出すための共創コミュニティです。</p>
+          <p>本憲章は、本コミュニティの基本的な考え方、構成、意思決定の枠組みおよび運営上の原則を定めるものであり、詳細な運用ルールは別途ガイドラインに定めるものとします。</p>
+          <div class="note"><strong>反映した意図：</strong> 元原稿では、理念・運用・法務説明が混在していたため、まず前文で「何のための文書か」を定義し、本文で役割分担を明確にする構成へ整理しました。</div>
+        </section>
+
+        <section>
+          <h2>第1条（位置づけ）</h2>
+          <p>本憲章は、本コミュニティの基本方針およびガバナンスの枠組みを定める最上位文書とします。</p>
+          <p>本憲章に定めのない具体的な運用方法、参加手続、投票方法、各種申請手順その他の実務上の事項は、ガイドラインその他事務局が定めるルールに従うものとします。</p>
+          <div class="note"><strong>コメント反映：</strong> 「憲章に置く内容」と「ガイドラインに逃がす内容」を分離しました。元原稿で重複していた参加方法・休止手続・投票細則は原則としてガイドライン側に寄せる前提です。</div>
+        </section>
+
+        <section>
+          <h2>第2条（目的）</h2>
+          <p>本コミュニティは、長崎のうまいサカナの未来をつくることを目的とし、次に掲げる事項を基本目的とします。</p>
+          <ol>
+            <li>長崎×おさかなをテーマにした新たな価値や楽しさを生み出すこと</li>
+            <li>海および漁業を守る取り組みを広げること</li>
+            <li>挑戦やアイデアを応援し合うコミュニティをつくること</li>
+          </ol>
+          <h3>行動指針</h3>
+          <ul>
+            <li>いつでもウェルカムであること</li>
+            <li>楽しさと、ちょっとした刺激を大切にすること</li>
+            <li>肩の力を抜いて関われる雰囲気を育てること</li>
+            <li>みんなでつくり、みんなで支えること</li>
+            <li>海にもコミュニティにもやさしくあること</li>
+          </ul>
+          <div class="note"><strong>コメント反映：</strong> 元原稿の理念部分は活かしつつ、「目的」と「行動指針」を分けて読みやすくしました。</div>
+        </section>
+
+        <section>
+          <h2>第3条（基本的事項）</h2>
+          <ol>
+            <li>本コミュニティは、メンバーにより構成される法人格のない任意団体です。</li>
+            <li>本コミュニティの運営全体については、東急不動産ホールディングス株式会社が事務局として担います。</li>
+            <li>本コミュニティは、原則として2025年2月1日から2026年1月31日までをプロジェクト期間とし、2026年2月1日から2026年3月31日まで、またはSeason3への移行が行われた日のいずれか早い日までをプロジェクト移行期間とします。</li>
+            <li>プロジェクト移行期間中は、本憲章およびガイドラインに基づく一部の権利行使を停止または制限できるものとし、詳細は事務局が別途定めます。</li>
+          </ol>
+          <div class="note"><strong>コメント反映：</strong> 元原稿の「事務局が運営」「移行期間」「管理権限の移行」は重要なので残しました。ただし、文が重複・錯綜していたため条文化して整理しました。</div>
+        </section>
+
+        <section>
+          <h2>第4条（構成員）</h2>
+          <h3>1. メンバー</h3>
+          <p>本コミュニティに参加する者は、すべて「メンバー」とします。</p>
+          <h3>2. ホルダー</h3>
+          <p>メンバーのうち、所定の条件を満たし、意思決定への参加権を付与された者を「ホルダー」とします。</p>
+          <p>ホルダーの取得条件、申請方法、休止、再開その他の手続はガイドラインに定めるものとします。</p>
+          <div class="note"><strong>コメント反映：</strong> 「ホルダー権利取得」「一時休止」が本文で重複していたため、憲章では定義だけを残し、プロセスはガイドラインへ移す前提にしました。</div>
+        </section>
+
+        <section>
+          <h2>第5条（権限と役割）</h2>
+          <div class="grid">
+            <div class="card">
+              <h3>事務局</h3>
+              <ul>
+                <li>本コミュニティの運営責任を負います。</li>
+                <li>日常運営、例外対応、緊急対応その他の最終判断を行います。</li>
+                <li>法令遵守、ブランド毀損防止、運営継続性確保の観点から必要な措置を講じることができます。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>ホルダー</h3>
+              <ul>
+                <li>事務局が定める範囲で提案、議論、投票に参加することができます。</li>
+                <li>分科会の立案その他、コミュニティの改善提案を行うことができます。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>メンバー</h3>
+              <ul>
+                <li>コミュニティ内で情報共有、議論、企画提案、イベント参加を行うことができます。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="note"><strong>コメント反映：</strong> 元原稿で最も揉めやすい「DAOなのに事務局が強い」点を曖昧なままにせず、事務局が最終責任を負う構造を明示しました。</div>
+        </section>
+
+        <section>
+          <h2>第6条（意思決定）</h2>
+          <p>本コミュニティの意思決定は、次の区分に従って行うものとします。</p>
+          <ol>
+            <li><strong>日常運営事項</strong>：事務局が判断します。</li>
+            <li><strong>重要事項</strong>：ホルダーによる議論または投票を経て決定します。</li>
+            <li><strong>緊急事項</strong>：事務局が暫定的に判断し、事後に共有します。</li>
+          </ol>
+          <p>重要事項の範囲、投票対象、投票方法、成立要件その他の詳細はガイドラインに定めるものとします。</p>
+          <p>ただし、法令遵守、ブランド保護、重大な運営リスク回避その他やむを得ない事情がある場合、事務局は投票結果または提案内容の全部または一部について調整または停止を行うことができます。</p>
+          <div class="note"><strong>コメント反映：</strong> 「投票結果の強さが不明」「事務局がどこまで介入するか不明」という弱点を補うため、例外介入の条件を明記しました。</div>
+        </section>
+
+        <section>
+          <h2>第7条（分科会および提案）</h2>
+          <p>本コミュニティは、必要に応じて分科会その他の議論の場を設けることができます。</p>
+          <p>分科会の設置、提案の起案方法、共同提案者数、解散条件その他の運用ルールはガイドラインに定めるものとします。</p>
+          <div class="note"><strong>コメント反映：</strong> 元原稿では分科会の詳細が細かく書かれていましたが、現段階で憲章に固定すると後で動きにくくなるため、枠組みだけ残しています。</div>
+        </section>
+
+        <section>
+          <h2>第8条（権利および制約）</h2>
+          <ol>
+            <li>本コミュニティの運営に関する収支は、すべて事務局に帰属します。</li>
+            <li>メンバーおよびホルダーは、本コミュニティの収益、財産または持分に関するいかなる権利も有しません。</li>
+            <li>会員証NFTは、ホルダーであることおよび本憲章等に定める権利を行使できる地位を示すデジタル証書であり、経済的利益または権益を主張する根拠となるものではありません。</li>
+            <li>メンバーおよびホルダーは、本コミュニティまたは事務局に対し、収益分配、財産分与その他これに類する請求を行うことはできません。</li>
+          </ol>
+          <div class="note"><strong>コメント反映：</strong> ここは法務・リスク管理上重要なので、元原稿の趣旨を維持して明文化しました。</div>
+        </section>
+
+        <section>
+          <h2>第9条（退会・休止）</h2>
+          <p>メンバーの退会、ホルダー資格の休止、再開、停止または除名に関する具体的条件および手続は、ガイドラインその他関連規約に定めるものとします。</p>
+          <p>なお、退会後または資格停止後も、別途定める守秘義務その他退会後も存続すべき義務は継続して適用されるものとします。</p>
+          <div class="note"><strong>コメント反映：</strong> 元原稿の退会・休止条項は詳細はあるものの重複が多かったため、憲章では原則だけ残す形に整理しました。</div>
+        </section>
+
+        <section>
+          <h2>第10条（プロジェクト移行期間の特則）</h2>
+          <p>プロジェクト移行期間中は、次に掲げる事項を停止または制限することがあります。</p>
+          <ul>
+            <li>新規参画または新規のホルダー付与</li>
+            <li>会員証NFTの発行または利用</li>
+            <li>コミュニティ投票</li>
+            <li>ガイドライン変更その他事務局が必要と認める事項</li>
+          </ul>
+          <p>プロジェクト移行期間中に本憲章またはガイドラインに定めのない事項が生じた場合、事務局は必要な範囲でこれを定めることができます。</p>
+          <div class="note"><strong>コメント反映：</strong> 元原稿に散在していた「移行期間中の停止事項」を一か所にまとめました。</div>
+        </section>
+
+        <section>
+          <h2>第11条（改定）</h2>
+          <p>本憲章は、ホルダーによる提案および所定の手続、または事務局の判断により改定することができます。</p>
+          <p>改定内容は、コミュニティに対して適切に共有するものとします。</p>
+          <div class="note"><strong>コメント反映：</strong> 「共創するが、最終的に止める責任は事務局が持つ」という現在の設計思想に合わせています。</div>
+        </section>
+      </main>
+
+      <footer>
+        <p><strong>注記：</strong> このHTML版は、元の憲章案に含まれていたコメントや修正意図を踏まえて、構造を整理したドラフトです。法務確定版ではありません。</p>
+        <p>次の作業としては、①ガイドラインへ移す項目の確定、②投票ルールの詳細化、③ホルダー取得・休止要件の整備、の順が妥当です。</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
