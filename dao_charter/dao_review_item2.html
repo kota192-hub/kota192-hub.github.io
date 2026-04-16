@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAO憲章 見直し — 項目2：組織目的と目的</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; font-size: 15px; line-height: 1.8; background: #f5f6f8; color: #333; }
+    header { background: #1a3a5c; color: white; padding: 24px 32px; }
+    header h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    header p { font-size: 13px; color: #a8c4e0; }
+    .badge { display: inline-block; background: #e8f0fe; color: #1a56a4; font-size: 12px; font-weight: bold; border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; }
+    .nav-bar { max-width: 960px; margin: 16px auto 0; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-bar a { font-size: 13px; color: #1a56a4; text-decoration: none; padding: 6px 14px; border-radius: 6px; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .nav-bar a:hover { background: #e8f0fe; }
+    .container { max-width: 960px; margin: 32px auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    .doc-panel { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px; }
+    .doc-panel h2 { font-size: 18px; font-weight: bold; color: #1a3a5c; border-bottom: 3px solid #1a3a5c; padding-bottom: 8px; margin-bottom: 24px; }
+    .section-label { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; margin-top: 24px; }
+    .doc-text { background: #f9fafb; border-left: 4px solid #c5d8f0; border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 12px; position: relative; }
+    .doc-text p { margin-bottom: 6px; }
+    .doc-text p:last-child { margin-bottom: 0; }
+    .comment-mark { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: bold; color: white; margin-left: 6px; vertical-align: middle; cursor: default; }
+    .mark-a { background: #e05252; } .mark-b { background: #d97c0a; } .mark-c { background: #3a8c3a; } .mark-d { background: #7c3aed; }
+    .highlight-a { background: #fff0f0; border-left-color: #e05252; }
+    .highlight-b { background: #fff8ee; border-left-color: #d97c0a; }
+    .highlight-c { background: #f0fff0; border-left-color: #3a8c3a; }
+    .highlight-d { background: #f5f0ff; border-left-color: #7c3aed; }
+    ul.doc-list { list-style: disc; padding-left: 20px; }
+    ul.doc-list li { margin-bottom: 4px; }
+    .comment-panel { position: sticky; top: 24px; }
+    .comment-panel h2 { font-size: 15px; font-weight: bold; color: #444; margin-bottom: 16px; }
+    .comment-card { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px 20px; margin-bottom: 16px; border-top: 4px solid; }
+    .comment-card.card-a { border-color: #e05252; } .comment-card.card-b { border-color: #d97c0a; } .comment-card.card-c { border-color: #3a8c3a; } .comment-card.card-d { border-color: #7c3aed; }
+    .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .comment-header .label { font-size: 13px; font-weight: bold; color: #555; }
+    .comment-header .scope { font-size: 12px; color: #999; margin-left: auto; }
+    .comment-body { font-size: 14px; color: #444; line-height: 1.7; }
+    .comment-body strong { color: #222; }
+    .comment-body ul { list-style: disc; padding-left: 18px; margin-top: 6px; }
+    .comment-body ul li { margin-bottom: 4px; }
+    .tag { display: inline-block; font-size: 11px; border-radius: 3px; padding: 1px 7px; margin-left: 6px; font-weight: bold; }
+    .tag-restructure { background: #e8f0fe; color: #1a56a4; }
+    .tag-revise      { background: #fef3e2; color: #a05000; }
+    .tag-clarify     { background: #e8f8e8; color: #2a6a2a; }
+    .tag-confirm     { background: #f5f0ff; color: #5b21b6; }
+    .summary-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 24px; }
+    .summary-box h3 { font-size: 14px; font-weight: bold; color: #1a3a5c; margin-bottom: 12px; }
+    .stat-row { display: flex; gap: 16px; }
+    .stat { flex: 1; text-align: center; padding: 10px; background: #f5f6f8; border-radius: 8px; }
+    .stat .num { font-size: 22px; font-weight: bold; color: #1a3a5c; }
+    .stat .desc { font-size: 11px; color: #888; margin-top: 2px; }
+    .decision-section { max-width: 960px; margin: 0 auto 32px; padding: 0 16px; }
+    .decision-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px 28px; }
+    .decision-box h2 { font-size: 16px; font-weight: bold; color: #1a3a5c; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8ecf1; }
+    .decision-point { background: #fafbfc; border-left: 4px solid #1a56a4; border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 14px; }
+    .dp-label { font-size: 11px; font-weight: bold; color: #1a56a4; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .dp-q { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 6px; }
+    .dp-desc { font-size: 13px; color: #555; }
+    .judge-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .judge-btn { font-size: 12px; font-weight: bold; padding: 6px 18px; border-radius: 6px; cursor: default; border: 2px solid; }
+    .judge-adopt  { border-color: #3a8c3a; color: #3a8c3a; background: #f0fff0; }
+    .judge-revise { border-color: #d97c0a; color: #d97c0a; background: #fff8ee; }
+    .judge-hold   { border-color: #999; color: #777; background: #f5f5f5; }
+    .draft-box { background: #f0f8ff; border: 1px solid #b8d4f0; border-radius: 8px; padding: 16px 20px; margin-top: 20px; }
+    .draft-box h3 { font-size: 13px; font-weight: bold; color: #1a56a4; margin-bottom: 10px; }
+    .draft-box p, .draft-box li { font-size: 13px; color: #333; margin-bottom: 6px; }
+    .draft-box ul { padding-left: 20px; }
+    .draft-text { font-size: 13px; background: white; border: 1px solid #d0e4f8; border-radius: 6px; padding: 12px 16px; margin-top: 8px; color: #222; line-height: 1.9; }
+    .draft-text ol { padding-left: 20px; }
+    footer { text-align: center; color: #aaa; font-size: 12px; padding: 24px 0 40px; }
+    @media (max-width: 700px) { .container { grid-template-columns: 1fr; } .comment-panel { position: static; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">DAO憲章 見直し 2026</div>
+  <h1>項目 2：組織目的と目的</h1>
+  <p>現在の草案内容とメンバーコメントの整理 — おさかなだお長崎</p>
+</header>
+
+<div class="nav-bar">
+  <a href="dao_review_item1.html">← 前：項目1 基本的事項</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <a href="dao_review_item3.html">次：項目3 コミュニティ構成 →</a>
+</div>
+
+<div class="container">
+
+  <!-- 左カラム：本文 -->
+  <div class="doc-panel">
+    <h2>現在の草案（項目2）</h2>
+
+    <!-- コミュニティ定義 -->
+    <div class="section-label">コミュニティ定義</div>
+    <div class="doc-text highlight-a">
+      <p>「おさかなだお長崎」は、メンバーにより構成される法人格のないコミュニティであり、任意団体です。</p>
+      <p>「おさかなだお長崎」は、Local web3 lab.@渋谷プロジェクトに属するDAO組織です。</p>
+      <p style="color:#888; font-size:13px;">→ 憲章へ移動（草案上のメモ）</p>
+      <span class="comment-mark mark-a">D</span>
+      <span class="comment-mark mark-a">E</span>
+    </div>
+
+    <!-- テーマ -->
+    <div class="section-label">コミュニティテーマ</div>
+    <div class="doc-text">
+      <p>「おさかなだお長崎」は、「長崎のうまいサカナの未来をつくる」をテーマに活動するコミュニティです。</p>
+    </div>
+
+    <!-- 基本目的 -->
+    <div class="section-label">基本目的</div>
+    <div class="doc-text highlight-b">
+      <p>おさかなだお長崎は、長崎のうまいさかなの未来をみんなでつくるをテーマに以下の項目を基本目的と制定します。</p>
+      <ul class="doc-list" style="margin-top:8px;">
+        <li>「長崎×おさかな」で"楽しい"を生み出す</li>
+        <li>海と漁業を守る取り組みを広げる</li>
+        <li>挑戦やアイデアを応援し合うコミュニティをつくる</li>
+      </ul>
+      <span class="comment-mark mark-b">G</span>
+    </div>
+
+    <!-- 行動指針 -->
+    <div class="section-label">行動指針</div>
+    <div class="doc-text highlight-b">
+      <p>おさかなだお長崎のこの目的を実現するための行動指針は以下の通りとなります。</p>
+      <ul class="doc-list" style="margin-top:8px;">
+        <li>いつでもウェルカム</li>
+        <li>楽しさと、ちょっとした刺激</li>
+        <li>肩の力を抜いてやる雰囲気</li>
+        <li>みんなでつくって、みんなでサポート</li>
+        <li>海にもコミュニティにもやさしく</li>
+      </ul>
+      <span class="comment-mark mark-b">F</span>
+    </div>
+
+    <!-- 住み分け方針 -->
+    <div class="section-label">構成に関するコメント</div>
+    <div class="doc-text highlight-c">
+      <p style="font-size:13px; color:#555;">コメント[h]：MVVやWhy-What-Howは憲章に記載、ルールはガイドラインの住み分けがわかりやすい</p>
+      <span class="comment-mark mark-c">H</span>
+    </div>
+  </div>
+
+  <!-- 右カラム：コメント -->
+  <div class="comment-panel">
+
+    <div class="summary-box">
+      <h3>コメント概要</h3>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">5</div>
+          <div class="desc">コメント数</div>
+        </div>
+        <div class="stat">
+          <div class="num">3</div>
+          <div class="desc">対象箇所</div>
+        </div>
+        <div class="stat">
+          <div class="num">1</div>
+          <div class="desc">Tyche👍</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>メンバーコメント</h2>
+
+    <!-- コメント D・E -->
+    <div class="comment-card card-a">
+      <div class="comment-header">
+        <span class="comment-mark mark-a">D</span>
+        <span class="comment-mark mark-a">E</span>
+        <span class="label">コメント D・E</span>
+        <span class="tag tag-restructure">構成変更</span>
+      </div>
+      <div class="comment-body">
+        <strong>提案：項目2を憲章第1章に繰り上げる</strong>
+        <ul>
+          <li>[D] 第1章に繰り上げ</li>
+          <li>[E] ガイドラインには含めず、<strong>憲章の第1章 第1項として掲載</strong></li>
+        </ul>
+        <p style="margin-top:8px; color:#777; font-size:13px;">→ 項目1（基本的事項のルール部分）を削除した後、項目2をトップに持ってくる</p>
+      </div>
+    </div>
+
+    <!-- コメント F・G -->
+    <div class="comment-card card-b">
+      <div class="comment-header">
+        <span class="comment-mark mark-b">F</span>
+        <span class="comment-mark mark-b">G</span>
+        <span class="label">コメント F・G</span>
+        <span class="tag tag-revise">文言修正</span>
+        <span class="scope">Tyche👍</span>
+      </div>
+      <div class="comment-body">
+        <strong>提案：行動指針・基本目的を番号付きリストに整形</strong>
+        <p style="margin-top:6px; font-size:13px; color:#555;">【行動指針の改定文言 [F]】</p>
+        <ol style="padding-left:18px; font-size:13px; margin-top:4px;">
+          <li>いつでもウェルカムであること。</li>
+          <li>楽しさと、ちょっとした刺激を大切にすること。</li>
+          <li>肩の力を抜いて取り組める雰囲気をつくること。</li>
+          <li>みんなでつくり、みんなで支えること。</li>
+          <li>海にもコミュニティにもやさしくあること。</li>
+        </ol>
+        <p style="margin-top:10px; font-size:13px; color:#555;">【基本目的の改定文言 [G]】</p>
+        <ol style="padding-left:18px; font-size:13px; margin-top:4px;">
+          <li>「長崎×おさかな」を通じて楽しさを生み出すこと。</li>
+          <li>海および漁業を守る取組を広げること。</li>
+          <li>挑戦やアイデアを応援し合うコミュニティを形成すること。</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- コメント H -->
+    <div class="comment-card card-c">
+      <div class="comment-header">
+        <span class="comment-mark mark-c">H</span>
+        <span class="label">コメント H</span>
+        <span class="tag tag-confirm">方針確認</span>
+      </div>
+      <div class="comment-body">
+        <strong>MVV・ルールの住み分けを明確に</strong>
+        <ul>
+          <li>MVV・Why-What-How → <strong>憲章</strong>に記載</li>
+          <li>ルール・手続き → <strong>ガイドライン</strong>に記載</li>
+        </ul>
+        <p style="margin-top:8px; color:#777; font-size:13px;">→ 「わかりやすい」との賛同コメント</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 論点セクション -->
+<div class="decision-section">
+  <div class="decision-box">
+    <h2>ここで決めたいこと（論点）</h2>
+
+    <div class="decision-point">
+      <div class="dp-label">論点 1 — 構成変更</div>
+      <div class="dp-q">項目2（MVV・行動指針・基本目的）を憲章の第1章に格上げするか？</div>
+      <div class="dp-desc">
+        コメント[D][E]より：項目1のルール部分をGLに移動した後、
+        このMVV部分を憲章の冒頭第1章として位置づける。
+        方針[H]への賛同も多く、方向性は固まっている。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-adopt">採用</span>
+        <span class="judge-btn judge-revise">要修正</span>
+        <span class="judge-btn judge-hold">保留</span>
+      </div>
+    </div>
+
+    <div class="decision-point">
+      <div class="dp-label">論点 2 — 文言修正（Tyche👍）</div>
+      <div class="dp-q">行動指針・基本目的の文言をコメント[F][G]の番号付きリスト形式に変更するか？</div>
+      <div class="dp-desc">
+        Tycheさんが👍しており、採用優先度は高い。
+        箇条書きから「〜すること。」形式の番号付きリストにすることで、
+        より憲章らしい正式な文体になる。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-adopt">採用</span>
+        <span class="judge-btn judge-revise">要修正</span>
+        <span class="judge-btn judge-hold">保留</span>
+      </div>
+    </div>
+
+    <!-- 改定案ドラフト -->
+    <div class="draft-box">
+      <h3>改定案ドラフト（参考）</h3>
+      <p>論点1・2を採用した場合、憲章第1章は以下の構成になります。</p>
+      <div class="draft-text">
+        <strong>第1章 目的および行動指針</strong><br><br>
+        第1条（目的）<br>
+        本コミュニティは、「長崎のうまいサカナの未来をつくる」をテーマに、
+        次の各号を基本目的とする。<br>
+        <ol style="margin: 6px 0 6px 20px;">
+          <li>「長崎×おさかな」を通じて楽しさを生み出すこと。</li>
+          <li>海および漁業を守る取組を広げること。</li>
+          <li>挑戦やアイデアを応援し合うコミュニティを形成すること。</li>
+        </ol>
+        第2条（行動指針）<br>
+        本コミュニティの行動指針は、次のとおりとする。<br>
+        <ol style="margin: 6px 0 0 20px;">
+          <li>いつでもウェルカムであること。</li>
+          <li>楽しさと、ちょっとした刺激を大切にすること。</li>
+          <li>肩の力を抜いて取り組める雰囲気をつくること。</li>
+          <li>みんなでつくり、みんなで支えること。</li>
+          <li>海にもコミュニティにもやさしくあること。</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="nav-bar" style="margin-bottom: 24px;">
+  <a href="dao_review_item1.html">← 前：項目1 基本的事項</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <a href="dao_review_item3.html">次：項目3 コミュニティ構成 →</a>
+</div>
+
+<footer>
+  おさかなだお長崎 — DAO憲章見直しワーキング | 2026-04-16
+</footer>
+
+</body>
+</html>

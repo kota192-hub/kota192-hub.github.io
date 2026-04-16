@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAO憲章 見直し — 項目4：ロールの権限およびガイドライン</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; font-size: 15px; line-height: 1.8; background: #f5f6f8; color: #333; }
+    header { background: #1a3a5c; color: white; padding: 24px 32px; }
+    header h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    header p { font-size: 13px; color: #a8c4e0; }
+    .badge { display: inline-block; background: #e8f0fe; color: #1a56a4; font-size: 12px; font-weight: bold; border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; }
+    .nav-bar { max-width: 960px; margin: 16px auto 0; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-bar a { font-size: 13px; color: #1a56a4; text-decoration: none; padding: 6px 14px; border-radius: 6px; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .nav-bar a:hover { background: #e8f0fe; }
+    .container { max-width: 960px; margin: 32px auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    .doc-panel { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px; }
+    .doc-panel h2 { font-size: 18px; font-weight: bold; color: #1a3a5c; border-bottom: 3px solid #1a3a5c; padding-bottom: 8px; margin-bottom: 24px; }
+    .section-label { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; margin-top: 24px; }
+    .doc-text { background: #f9fafb; border-left: 4px solid #c5d8f0; border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 12px; }
+    .doc-text p { margin-bottom: 6px; } .doc-text p:last-child { margin-bottom: 0; }
+    .comment-mark { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: bold; color: white; margin-left: 6px; vertical-align: middle; }
+    .mark-a { background: #e05252; } .mark-b { background: #d97c0a; } .mark-c { background: #888; }
+    .highlight-a { background: #fff0f0; border-left-color: #e05252; }
+    .highlight-c { background: #f8f8f8; border-left-color: #bbb; }
+    ul.doc-list { list-style: disc; padding-left: 20px; } ul.doc-list li { margin-bottom: 4px; }
+    .comment-panel { position: sticky; top: 24px; }
+    .comment-panel h2 { font-size: 15px; font-weight: bold; color: #444; margin-bottom: 16px; }
+    .comment-card { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px 20px; margin-bottom: 16px; border-top: 4px solid; }
+    .comment-card.card-a { border-color: #e05252; } .comment-card.card-b { border-color: #d97c0a; } .comment-card.card-c { border-color: #bbb; }
+    .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .comment-header .label { font-size: 13px; font-weight: bold; color: #555; }
+    .comment-header .scope { font-size: 12px; color: #999; margin-left: auto; }
+    .comment-body { font-size: 14px; color: #444; line-height: 1.7; }
+    .comment-body strong { color: #222; }
+    .comment-body ul { list-style: disc; padding-left: 18px; margin-top: 6px; }
+    .comment-body ul li { margin-bottom: 4px; }
+    .tag { display: inline-block; font-size: 11px; border-radius: 3px; padding: 1px 7px; margin-left: 6px; font-weight: bold; }
+    .tag-restructure { background: #e8f0fe; color: #1a56a4; }
+    .tag-revise { background: #fef3e2; color: #a05000; }
+    .tag-reopen { background: #fff0f0; color: #c02020; }
+    .summary-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 24px; }
+    .summary-box h3 { font-size: 14px; font-weight: bold; color: #1a3a5c; margin-bottom: 12px; }
+    .stat-row { display: flex; gap: 16px; }
+    .stat { flex: 1; text-align: center; padding: 10px; background: #f5f6f8; border-radius: 8px; }
+    .stat .num { font-size: 22px; font-weight: bold; color: #1a3a5c; }
+    .stat .desc { font-size: 11px; color: #888; margin-top: 2px; }
+    .decision-section { max-width: 960px; margin: 0 auto 32px; padding: 0 16px; }
+    .decision-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px 28px; }
+    .decision-box h2 { font-size: 16px; font-weight: bold; color: #1a3a5c; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8ecf1; }
+    .decision-point { background: #fafbfc; border-left: 4px solid #1a56a4; border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 14px; }
+    .decision-point.warn { border-left-color: #d97c0a; }
+    .dp-label { font-size: 11px; font-weight: bold; color: #1a56a4; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .decision-point.warn .dp-label { color: #d97c0a; }
+    .dp-q { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 6px; }
+    .dp-desc { font-size: 13px; color: #555; }
+    .judge-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .judge-btn { font-size: 12px; font-weight: bold; padding: 6px 18px; border-radius: 6px; cursor: default; border: 2px solid; }
+    .judge-adopt  { border-color: #3a8c3a; color: #3a8c3a; background: #f0fff0; }
+    .judge-revise { border-color: #d97c0a; color: #d97c0a; background: #fff8ee; }
+    .judge-hold   { border-color: #999; color: #777; background: #f5f5f5; }
+    .draft-box { background: #f0f8ff; border: 1px solid #b8d4f0; border-radius: 8px; padding: 16px 20px; margin-top: 20px; }
+    .draft-box h3 { font-size: 13px; font-weight: bold; color: #1a56a4; margin-bottom: 10px; }
+    .draft-box p, .draft-box li { font-size: 13px; color: #333; margin-bottom: 6px; }
+    .draft-box ul { padding-left: 20px; }
+    .draft-text { font-size: 13px; background: white; border: 1px solid #d0e4f8; border-radius: 6px; padding: 12px 16px; margin-top: 8px; color: #222; line-height: 1.9; }
+    .draft-text ol { padding-left: 20px; }
+    footer { text-align: center; color: #aaa; font-size: 12px; padding: 24px 0 40px; }
+    @media (max-width: 700px) { .container { grid-template-columns: 1fr; } .comment-panel { position: static; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">DAO憲章 見直し 2026</div>
+  <h1>項目 4：ロールの権限およびガイドライン</h1>
+  <p>現在の草案内容とメンバーコメントの整理 — おさかなだお長崎</p>
+</header>
+
+<div class="nav-bar">
+  <a href="dao_review_item3.html">← 前：項目3 コミュニティ構成</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <a href="dao_review_item5.html">次：項目5 意思決定 →</a>
+</div>
+
+<div class="container">
+
+  <!-- 左カラム：本文 -->
+  <div class="doc-panel">
+    <h2>現在の草案（項目4）</h2>
+
+    <!-- メンバー権限 -->
+    <div class="section-label">メンバーの基本権限</div>
+    <div class="doc-text">
+      <ul class="doc-list">
+        <li>コミュニティチャンネルでの情報共有、議論、企画提案に参加する権利。</li>
+        <li>プロジェクト・イベントの立案および参加権利。</li>
+        <li>分科会の参加権利。</li>
+      </ul>
+    </div>
+
+    <!-- ホルダー権限 -->
+    <div class="section-label">ホルダーの追加権限</div>
+    <div class="doc-text highlight-a">
+      <ul class="doc-list">
+        <li>事務局が指定するツール上で提案を立案し、NFTを用いて投票する権利。</li>
+        <li>トークン・リワードの設計及び配布対象となる権利。</li>
+        <li>分科会の立案権利。</li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:#888;">※ プロジェクト移行期間中は、NFT投票権およびトークン・リワード配布対象権を無効とします。</p>
+      <span class="comment-mark mark-a">L</span>
+    </div>
+
+    <!-- 分科会 -->
+    <div class="section-label">分科会</div>
+    <div class="doc-text">
+      <p>分科会は、「おさかなだお長崎」の運営設計に関わる活動を行う際に設置される議論の場です。</p>
+      <p>以下の2つに該当する場合、ホルダー3名以上の共同名義で分科会の立ち上げを申請できます。</p>
+      <ul class="doc-list" style="margin-top:6px;">
+        <li>新たな運営設計の提案・ルール作成</li>
+        <li>既存のルール・仕組みの見直しおよび改善</li>
+      </ul>
+      <p style="margin-top:6px; font-size:13px; color:#666;">※ 具体的な立ち上げプロセス・解散条件は項目7参照</p>
+    </div>
+
+    <!-- 責務 -->
+    <div class="section-label">責務</div>
+    <div class="doc-text">
+      <p>チーム（プロジェクト・イベント・分科会など）のリーダーは、定例MTGでの報告またはDiscord投稿にて、活動状況と課題を報告する義務を負います。</p>
+    </div>
+
+    <!-- コメント再開中 -->
+    <div class="section-label">要確認事項</div>
+    <div class="doc-text highlight-c">
+      <p style="font-size:13px; color:#666;">コメント[M]：一度「解決済み」→ コメント[N]で「再び開いた（これを追加予定）」</p>
+      <p style="font-size:13px; color:#c05050; margin-top:6px;"><strong>追加予定の内容が未確定です。確認が必要です。</strong></p>
+      <span class="comment-mark mark-c">N</span>
+    </div>
+  </div>
+
+  <!-- 右カラム：コメント -->
+  <div class="comment-panel">
+
+    <div class="summary-box">
+      <h3>コメント概要</h3>
+      <div class="stat-row">
+        <div class="stat"><div class="num">3</div><div class="desc">コメント数</div></div>
+        <div class="stat"><div class="num">2</div><div class="desc">対象箇所</div></div>
+        <div class="stat"><div class="num">1</div><div class="desc">Tyche👍</div></div>
+      </div>
+    </div>
+
+    <h2>メンバーコメント</h2>
+
+    <!-- コメント L -->
+    <div class="comment-card card-a">
+      <div class="comment-header">
+        <span class="comment-mark mark-a">L</span>
+        <span class="label">コメント L</span>
+        <span class="tag tag-revise">文言修正</span>
+        <span class="scope">Tyche👍</span>
+      </div>
+      <div class="comment-body">
+        <strong>提案：ホルダー権限を法令文体に整形</strong>
+        <div style="background:#f9fafb; border-left:3px solid #ccc; padding:10px 14px; margin-top:8px; font-size:13px; border-radius:0 4px 4px 0;">
+          ホルダーは、メンバーとしての権限に加え、次の権限を有する。<br>
+          1. 事務局が指定する方法により提案を行い、会員証NFTに基づき投票すること。<br>
+          2. トークンまたはリワードの設計に関する議論または決定に参加すること。<br>
+          3. 分科会の設置を提案すること。
+        </div>
+      </div>
+    </div>
+
+    <!-- コメント M・N -->
+    <div class="comment-card card-c">
+      <div class="comment-header">
+        <span class="comment-mark mark-c">M</span>
+        <span class="comment-mark mark-c">N</span>
+        <span class="label">コメント M・N</span>
+        <span class="tag tag-reopen">要確認</span>
+      </div>
+      <div class="comment-body">
+        <strong>ステータス：解決済み → 再び開いた</strong>
+        <ul>
+          <li>[M] 解決済みにしました（一度クローズ）</li>
+          <li>[N] 再び開きました — 「これを追加予定」</li>
+        </ul>
+        <p style="margin-top:8px; color:#c05050; font-size:13px; font-weight:bold;">
+          ⚠ 追加する内容が明記されていません。<br>
+          関係者に確認が必要です。
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 論点セクション -->
+<div class="decision-section">
+  <div class="decision-box">
+    <h2>ここで決めたいこと（論点）</h2>
+
+    <div class="decision-point">
+      <div class="dp-label">論点 1 — 文言修正（Tyche👍）</div>
+      <div class="dp-q">ホルダー権限の文言をコメント[L]の法令文体に変更するか？</div>
+      <div class="dp-desc">
+        Tycheさんが👍。「次の権限を有する。1. 〜 2. 〜 3. 〜」という形式に整形。
+        「トークン・リワードの設計及び配布対象となる権利」という曖昧な表現を
+        「設計に関する議論または決定に参加すること」と具体化している点も改善。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-adopt">採用</span>
+        <span class="judge-btn judge-revise">要修正</span>
+        <span class="judge-btn judge-hold">保留</span>
+      </div>
+    </div>
+
+    <div class="decision-point warn">
+      <div class="dp-label">論点 2 — 要確認（未解決）</div>
+      <div class="dp-q">コメント[N]「これを追加予定」の内容は何か？</div>
+      <div class="dp-desc">
+        コメント[M]で解決済みとされた後、[N]で再開されています。
+        追加予定の具体的な内容が不明です。
+        該当箇所はホルダー権限セクション付近と思われます。
+        関係者（コメント投稿者）に確認してください。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-hold">確認待ち</span>
+      </div>
+    </div>
+
+    <div class="draft-box">
+      <h3>改定案ドラフト（論点1採用の場合）</h3>
+      <div class="draft-text">
+        <strong>第X条（ホルダーの権限）</strong><br>
+        ホルダーは、メンバーとしての権限に加え、次の権限を有する。<br>
+        <ol style="margin: 6px 0 0 20px;">
+          <li>事務局が指定する方法により提案を行い、会員証NFTに基づき投票すること。</li>
+          <li>トークンまたはリワードの設計に関する議論または決定に参加すること。</li>
+          <li>分科会の設置を提案すること。</li>
+        </ol>
+        <br>
+        ※ 但し、プロジェクト移行期間中は、第1号および第2号に定める権限を停止する。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="nav-bar" style="margin-bottom: 24px;">
+  <a href="dao_review_item3.html">← 前：項目3 コミュニティ構成</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <a href="dao_review_item5.html">次：項目5 意思決定 →</a>
+</div>
+
+<footer>
+  おさかなだお長崎 — DAO憲章見直しワーキング | 2026-04-16
+</footer>
+
+</body>
+</html>

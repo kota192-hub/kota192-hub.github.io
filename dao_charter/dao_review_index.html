@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAO憲章 見直しポータル — おさかなだお長崎 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      background: #f5f6f8;
+      color: #333;
+    }
+
+    header {
+      background: #1a3a5c;
+      color: white;
+      padding: 28px 40px;
+    }
+    header .eyebrow {
+      font-size: 12px;
+      color: #7aabcf;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    header h1 { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+    header p { font-size: 13px; color: #a8c4e0; }
+
+    .container { max-width: 960px; margin: 36px auto; padding: 0 20px; }
+
+    /* 方針バナー */
+    .policy-banner {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 20px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .policy-banner .icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .policy-banner h2 {
+      font-size: 15px;
+      font-weight: bold;
+      color: #1a3a5c;
+      margin-bottom: 8px;
+    }
+    .policy-banner ul {
+      list-style: none;
+      font-size: 13px;
+      color: #555;
+    }
+    .policy-banner ul li::before {
+      content: "→ ";
+      color: #1a56a4;
+      font-weight: bold;
+    }
+    .policy-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .policy-link {
+      display: inline-block;
+      font-size: 12px;
+      background: #e8f0fe;
+      color: #1a56a4;
+      border-radius: 4px;
+      padding: 4px 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .policy-link:hover { background: #d0e3fb; }
+
+    /* セクションタイトル */
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    /* 項目カードグリッド */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .item-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 20px 22px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border-top: 4px solid #c5d8f0;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .item-card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+    .item-card.restructure { border-top-color: #e05252; }
+    .item-card.revise      { border-top-color: #d97c0a; }
+    .item-card.hold        { border-top-color: #999; }
+    .item-card.done        { border-top-color: #3a8c3a; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .item-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1a3a5c;
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-title-block { flex: 1; }
+    .card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #1a3a5c;
+      line-height: 1.4;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .card-stats {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .stat-chip {
+      font-size: 12px;
+      background: #f0f3f8;
+      color: #555;
+      border-radius: 20px;
+      padding: 3px 10px;
+    }
+    .stat-chip span {
+      font-weight: bold;
+      color: #1a3a5c;
+    }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .status-active   { background: #fef3e2; color: #a05000; }
+    .status-pending  { background: #e8f0fe; color: #1a56a4; }
+    .status-hold     { background: #f0f0f0; color: #777; }
+    .status-done     { background: #e8f8e8; color: #2a6a2a; }
+
+    .card-decision {
+      font-size: 12px;
+      color: #666;
+      background: #fafbfc;
+      border-left: 3px solid #c5d8f0;
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 8px;
+    }
+    .card-decision strong { color: #1a3a5c; }
+
+    /* 全体進捗 */
+    .progress-bar-wrap {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 20px 28px;
+      margin-bottom: 32px;
+    }
+    .progress-bar-wrap h2 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #1a3a5c;
+      margin-bottom: 14px;
+    }
+    .progress-legend {
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+    }
+    .progress-bar {
+      height: 12px;
+      border-radius: 6px;
+      background: #e8ecf1;
+      overflow: hidden;
+      display: flex;
+    }
+    .bar-seg {
+      height: 100%;
+      transition: width 0.3s;
+    }
+    .bar-active  { background: #d97c0a; }
+    .bar-pending { background: #1a56a4; }
+    .bar-hold    { background: #bbb; }
+    .bar-done    { background: #3a8c3a; }
+
+    footer {
+      text-align: center;
+      color: #aaa;
+      font-size: 12px;
+      padding: 24px 0 40px;
+    }
+
+    @media (max-width: 600px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .policy-banner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">おさかなだお長崎 — DAO憲章見直しワーキング 2026</div>
+  <h1>DAO憲章 見直しポータル</h1>
+  <p>2026年版への改定に向けた項目別レビュー。各カードをクリックして議論を進めてください。</p>
+</header>
+
+<div class="container">
+
+  <!-- 方針バナー -->
+  <div class="policy-banner">
+    <div class="icon">📋</div>
+    <div>
+      <h2>見直しの基本方針</h2>
+      <ul>
+        <li>憲章 = 思想・原則・定義（Why/What）　ガイドライン = ルール・手続き・プロセス（How）</li>
+        <li>Tycheさん👍済みコメントを優先採用。意見が割れているものは各HTMLで議論する</li>
+        <li>MVV・行動指針・基本目的を憲章の冒頭（旧項目2）に格上げする方向で検討</li>
+      </ul>
+      <div class="policy-links">
+        <a class="policy-link" href="dao_revision_policy.md">見直し方針 (MD)</a>
+        <a class="policy-link" href="dao_review_prompt.md">分析プロンプト (MD)</a>
+        <a class="policy-link" href="dao_charter_2026_draft.md">憲章原文 (MD)</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 進捗バー -->
+  <div class="progress-bar-wrap">
+    <h2>全体進捗</h2>
+    <div class="progress-legend">
+      <span><span class="legend-dot" style="background:#d97c0a;"></span>議論中 7</span>
+      <span><span class="legend-dot" style="background:#1a56a4;"></span>確認待ち 0</span>
+      <span><span class="legend-dot" style="background:#bbb;"></span>保留 1</span>
+      <span><span class="legend-dot" style="background:#3a8c3a;"></span>完了 0</span>
+    </div>
+    <div class="progress-bar">
+      <div class="bar-seg bar-active"  style="width:70%"></div>
+      <div class="bar-seg bar-pending" style="width:0%"></div>
+      <div class="bar-seg bar-hold"    style="width:10%"></div>
+      <div class="bar-seg bar-done"    style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- 項目カード -->
+  <div class="section-title">各項目の議論状況</div>
+  <div class="card-grid">
+
+    <!-- 項目1 -->
+    <a class="item-card restructure" href="dao_review_item1.html">
+      <div class="card-header">
+        <div class="item-num">1</div>
+        <div class="card-title-block">
+          <div class="card-title">基本的事項</div>
+          <div class="card-subtitle">コミュニティ定義・財産権・移行期間</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>3件</span></span>
+        <span class="stat-chip">論点 <span>3件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>第1章全文をガイドラインへ移動するか？
+      </div>
+    </a>
+
+    <!-- 項目2 -->
+    <a class="item-card restructure" href="dao_review_item2.html">
+      <div class="card-header">
+        <div class="item-num">2</div>
+        <div class="card-title-block">
+          <div class="card-title">組織目的と目的</div>
+          <div class="card-subtitle">MVV・テーマ・行動指針</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>5件</span></span>
+        <span class="stat-chip">論点 <span>2件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>MVV・行動指針を憲章第1章に格上げするか？
+      </div>
+    </a>
+
+    <!-- 項目3 -->
+    <a class="item-card revise" href="dao_review_item3.html">
+      <div class="card-header">
+        <div class="item-num">3</div>
+        <div class="card-title-block">
+          <div class="card-title">コミュニティ構成</div>
+          <div class="card-subtitle">ロール定義・ホルダー取得・休止・退会</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>3件</span></span>
+        <span class="stat-chip">論点 <span>2件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>参加手続き詳細をガイドラインへ分離するか？
+      </div>
+    </a>
+
+    <!-- 項目4 -->
+    <a class="item-card revise" href="dao_review_item4.html">
+      <div class="card-header">
+        <div class="item-num">4</div>
+        <div class="card-title-block">
+          <div class="card-title">ロールの権限およびGL</div>
+          <div class="card-subtitle">メンバー/ホルダー権限・分科会・責務</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>3件</span></span>
+        <span class="stat-chip">論点 <span>2件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>ホルダー権限の文言を改定案に変更するか？
+      </div>
+    </a>
+
+    <!-- 項目5 -->
+    <a class="item-card revise" href="dao_review_item5.html">
+      <div class="card-header">
+        <div class="item-num">5</div>
+        <div class="card-title-block">
+          <div class="card-title">意思決定方法</div>
+          <div class="card-subtitle">投票対象範囲・制約条件</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>7件</span></span>
+        <span class="stat-chip">論点 <span>4件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>リワード制定への投票要否（意見割れあり）
+      </div>
+    </a>
+
+    <!-- 項目6 -->
+    <a class="item-card revise" href="dao_review_item6.html">
+      <div class="card-header">
+        <div class="item-num">6</div>
+        <div class="card-title-block">
+          <div class="card-title">投票ルールおよびプロセス</div>
+          <div class="card-subtitle">通常決議・定足数・手続き</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>5件</span></span>
+        <span class="stat-chip">論点 <span>3件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>投票プロセス詳細をガイドラインへ移動するか？
+      </div>
+    </a>
+
+    <!-- 項目7 -->
+    <a class="item-card revise" href="dao_review_item7.html">
+      <div class="card-header">
+        <div class="item-num">7</div>
+        <div class="card-title-block">
+          <div class="card-title">投票ルール（ルール変更）</div>
+          <div class="card-subtitle">特別決議・分科会プロセス</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>1件</span></span>
+        <span class="stat-chip">論点 <span>1件</span></span>
+      </div>
+      <span class="status-badge status-active">議論中</span>
+      <div class="card-decision">
+        <strong>最大論点：</strong>「特別決議」として再定義するか？（Tyche👍）
+      </div>
+    </a>
+
+    <!-- 項目8 -->
+    <a class="item-card hold" href="dao_review_item8.html">
+      <div class="card-header">
+        <div class="item-num">8</div>
+        <div class="card-title-block">
+          <div class="card-title">トークンに関する事項</div>
+          <div class="card-subtitle">コミュニティトークン・移行後の扱い</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>0件</span></span>
+        <span class="stat-chip">論点 <span>1件</span></span>
+      </div>
+      <span class="status-badge status-hold">保留</span>
+      <div class="card-decision">
+        <strong>方針：</strong>Season3移行方針が決まるまで現状維持
+      </div>
+    </a>
+
+    <!-- 附則 -->
+    <a class="item-card" href="dao_review_annex.html">
+      <div class="card-header">
+        <div class="item-num" style="background:#555;">附</div>
+        <div class="card-title-block">
+          <div class="card-title">附則</div>
+          <div class="card-subtitle">改正要件・施行日</div>
+        </div>
+      </div>
+      <div class="card-stats">
+        <span class="stat-chip">コメント <span>0件</span></span>
+        <span class="stat-chip">論点 <span>1件</span></span>
+      </div>
+      <span class="status-badge status-pending">確認待ち</span>
+      <div class="card-decision">
+        <strong>確認事項：</strong>施行日（令和8年＊月＊日）の確定
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+<footer>
+  おさかなだお長崎 — DAO憲章見直しワーキング | 2026-04-16
+</footer>
+
+</body>
+</html>

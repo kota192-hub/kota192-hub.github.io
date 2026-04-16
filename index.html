@@ -45,6 +45,20 @@
     .badge-strategy { background:rgba(124,106,247,0.15); color:var(--primary-light); }
     .badge-weekly { background:rgba(34,211,160,0.12); color:var(--success); }
     .badge-monthly { background:rgba(56,189,248,0.12); color:#38bdf8; }
+    .badge-dao { background:rgba(26,58,92,0.4); color:#7aabcf; }
+
+    .dao-card {
+      background: linear-gradient(135deg, #0f2340 0%, #1a3a5c 100%);
+      border: 1px solid #2a5080; border-radius: 14px; padding: 28px 32px;
+      text-decoration: none; color: var(--text); display: block;
+      transition: border-color 0.15s, transform 0.15s; margin-bottom: 32px;
+    }
+    .dao-card:hover { border-color: #4a90c0; transform: translateY(-2px); }
+    .dao-card .dao-eyebrow { font-size:10px; font-weight:700; color:#7aabcf; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; }
+    .dao-card .dao-title { font-size:18px; font-weight:900; color:#fff; margin-bottom:8px; }
+    .dao-card .dao-desc { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:18px; line-height:1.7; }
+    .dao-item-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .dao-item-chip { font-size:11px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:3px 10px; color:rgba(255,255,255,0.75); }
 
     .footer { text-align:center; margin-top:40px; font-size:11px; color:var(--text-dim); }
 
@@ -61,6 +75,24 @@
       <p>Discordチームの分析レポート・週次レポートをまとめたポータルページです。</p>
     </div>
   </div>
+
+  <div class="section-title">DAO ガバナンス</div>
+  <a class="dao-card" href="dao_charter/dao_review_index.html">
+    <div class="dao-eyebrow">おさかなだお長崎 — DAO憲章見直しワーキング 2026</div>
+    <div class="dao-title">DAO憲章 見直しポータル</div>
+    <div class="dao-desc">2026年版への改定に向けた項目別レビュー。原文・メンバーコメント・論点・改定案ドラフトを項目ごとに整理しています。</div>
+    <div class="dao-item-list">
+      <span class="dao-item-chip">項目1：基本的事項</span>
+      <span class="dao-item-chip">項目2：組織目的</span>
+      <span class="dao-item-chip">項目3：コミュニティ構成</span>
+      <span class="dao-item-chip">項目4：ロール権限</span>
+      <span class="dao-item-chip">項目5：意思決定</span>
+      <span class="dao-item-chip">項目6：投票ルール</span>
+      <span class="dao-item-chip">項目7：特別決議</span>
+      <span class="dao-item-chip">項目8：トークン</span>
+      <span class="dao-item-chip">附則</span>
+    </div>
+  </a>
 
   <div class="section-title">戦略分析レポート</div>
   <div class="report-grid">

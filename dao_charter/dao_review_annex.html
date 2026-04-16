@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAO憲章 見直し — 附則</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; font-size: 15px; line-height: 1.8; background: #f5f6f8; color: #333; }
+    header { background: #3a5a3a; color: white; padding: 24px 32px; }
+    header h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    header p { font-size: 13px; color: #b0d0b0; }
+    .badge { display: inline-block; background: #e8f8e8; color: #2a6a2a; font-size: 12px; font-weight: bold; border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; }
+    .nav-bar { max-width: 960px; margin: 16px auto 0; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-bar a { font-size: 13px; color: #1a56a4; text-decoration: none; padding: 6px 14px; border-radius: 6px; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .nav-bar a:hover { background: #e8f0fe; }
+    .container { max-width: 960px; margin: 32px auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    .doc-panel { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px; }
+    .doc-panel h2 { font-size: 18px; font-weight: bold; color: #1a3a5c; border-bottom: 3px solid #1a3a5c; padding-bottom: 8px; margin-bottom: 24px; }
+    .section-label { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; margin-top: 24px; }
+    .doc-text { background: #f9fafb; border-left: 4px solid #c5d8f0; border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 12px; }
+    .doc-text p { margin-bottom: 6px; } .doc-text p:last-child { margin-bottom: 0; }
+    .highlight-b { background: #fff8ee; border-left-color: #d97c0a; }
+    ol.doc-list { padding-left: 20px; } ol.doc-list li { margin-bottom: 6px; }
+    .comment-panel { position: sticky; top: 24px; }
+    .pending-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 20px; border-top: 4px solid #1a56a4; }
+    .pending-box h3 { font-size: 15px; font-weight: bold; color: #1a3a5c; margin-bottom: 12px; }
+    .pending-box p { font-size: 14px; color: #555; }
+    .summary-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 24px; }
+    .summary-box h3 { font-size: 14px; font-weight: bold; color: #1a3a5c; margin-bottom: 12px; }
+    .stat-row { display: flex; gap: 16px; }
+    .stat { flex: 1; text-align: center; padding: 10px; background: #f5f6f8; border-radius: 8px; }
+    .stat .num { font-size: 22px; font-weight: bold; color: #1a3a5c; }
+    .stat .desc { font-size: 11px; color: #888; margin-top: 2px; }
+    .decision-section { max-width: 960px; margin: 0 auto 32px; padding: 0 16px; }
+    .decision-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px 28px; }
+    .decision-box h2 { font-size: 16px; font-weight: bold; color: #1a3a5c; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8ecf1; }
+    .decision-point { background: #fafbfc; border-left: 4px solid #1a56a4; border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 14px; }
+    .dp-label { font-size: 11px; font-weight: bold; color: #1a56a4; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .dp-q { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 6px; }
+    .dp-desc { font-size: 13px; color: #555; }
+    .judge-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .judge-btn { font-size: 12px; font-weight: bold; padding: 6px 18px; border-radius: 6px; cursor: default; border: 2px solid; }
+    .judge-adopt  { border-color: #3a8c3a; color: #3a8c3a; background: #f0fff0; }
+    .judge-hold   { border-color: #999; color: #777; background: #f5f5f5; }
+    .timeline { margin-top: 12px; }
+    .timeline-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; font-size: 13px; }
+    .tl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .tl-done { background: #3a8c3a; }
+    .tl-pending { background: #d97c0a; }
+    footer { text-align: center; color: #aaa; font-size: 12px; padding: 24px 0 40px; }
+    @media (max-width: 700px) { .container { grid-template-columns: 1fr; } .comment-panel { position: static; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">DAO憲章 見直し 2026 — 確認待ち</div>
+  <h1>附則</h1>
+  <p>改正要件・施行日の確認 — おさかなだお長崎</p>
+</header>
+
+<div class="nav-bar">
+  <a href="dao_review_item8.html">← 前：項目8 トークン</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <span style="font-size:13px; color:#aaa; padding: 6px 14px;">（最終項目）</span>
+</div>
+
+<div class="container">
+
+  <!-- 左カラム -->
+  <div class="doc-panel">
+    <h2>現在の草案（附則）</h2>
+
+    <div class="section-label">改正要件</div>
+    <div class="doc-text">
+      <p>当DAO憲章の改正には、総メンバーの<strong>20%を定足数</strong>とし、<strong>51%以上の賛成</strong>を必要とする。</p>
+    </div>
+
+    <div class="section-label">施行日の記録</div>
+    <div class="doc-text highlight-b">
+      <ol class="doc-list">
+        <li>当DAO憲章は令和6年2月1日に施行の「NFT投票による意思決定」を元に改正し、<strong>令和7年6月5日</strong>より施行する。</li>
+        <li>（令和8年1月30日改定）令和7年6月5日施行のDAO憲章の一部を改定し、<strong>令和8年2月1日</strong>より施行する。</li>
+        <li>（令和8年<strong style="color:#d97c0a;">＊月＊日</strong>改定）令和7年6月5日施行のDAO憲章の一部を改定し、令和<strong style="color:#d97c0a;">＊年＊月＊日</strong>より施行する。</li>
+      </ol>
+    </div>
+
+    <div class="section-label">最終更新日</div>
+    <div class="doc-text">
+      <p>［最終更新日］2026年4月30日 改定</p>
+    </div>
+  </div>
+
+  <!-- 右カラム -->
+  <div class="comment-panel">
+
+    <div class="summary-box">
+      <h3>コメント概要</h3>
+      <div class="stat-row">
+        <div class="stat"><div class="num">0</div><div class="desc">コメント数</div></div>
+        <div class="stat"><div class="num">1</div><div class="desc">要確認</div></div>
+        <div class="stat"><div class="num">確認待</div><div class="desc">ステータス</div></div>
+      </div>
+    </div>
+
+    <div class="pending-box">
+      <h3>確認が必要な事項</h3>
+      <p>第3号の施行日（令和＊年＊月＊日）が未確定です。</p>
+      <p style="margin-top:8px;">今回の見直し完了後、正式な施行日を確定して記入してください。</p>
+    </div>
+
+    <!-- 施行日タイムライン -->
+    <div style="background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px 20px;">
+      <div style="font-size: 13px; font-weight: bold; color: #444; margin-bottom: 12px;">施行日タイムライン</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-dot tl-done"></div>
+          <div><strong>令和7年6月5日（2025年6月5日）</strong><br>初回施行</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot tl-done"></div>
+          <div><strong>令和8年2月1日（2026年2月1日）</strong><br>一部改定施行（令和8年1月30日改定）</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot tl-pending"></div>
+          <div><strong style="color:#d97c0a;">令和8年＊月＊日（未確定）</strong><br>今回の見直し分の施行予定</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 論点セクション -->
+<div class="decision-section">
+  <div class="decision-box">
+    <h2>ここで決めたいこと（確認事項）</h2>
+
+    <div class="decision-point">
+      <div class="dp-label">確認事項 1</div>
+      <div class="dp-q">今回の見直しの施行日（第3号：令和＊年＊月＊日）をいつにするか？</div>
+      <div class="dp-desc">
+        見直し作業の完了後、投票プロセスを経て正式な施行日を確定します。
+        施行日が決まったら附則の「＊」部分を具体的な日付に変更してください。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-hold">施行日確定後に記入</span>
+      </div>
+    </div>
+
+    <div class="decision-point">
+      <div class="dp-label">確認事項 2</div>
+      <div class="dp-q">附則の改正要件（総メンバー20%定足数、51%以上）は今回も変更しないか？</div>
+      <div class="dp-desc">
+        他の項目では「有効ホルダー数（休眠除く）」という考え方が出ていますが、
+        附則の改正要件は「総メンバー」ベースです。統一するかどうか確認が必要です。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-adopt">現状維持</span>
+        <span class="judge-btn judge-hold">要確認</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="nav-bar" style="margin-bottom: 24px;">
+  <a href="dao_review_item8.html">← 前：項目8 トークン</a>
+  <a href="dao_review_index.html">全項目ポータル（一覧へ戻る）</a>
+  <span style="font-size:13px; color:#aaa; padding: 6px 14px;">（最終項目）</span>
+</div>
+
+<footer>
+  おさかなだお長崎 — DAO憲章見直しワーキング | 2026-04-16
+</footer>
+
+</body>
+</html>

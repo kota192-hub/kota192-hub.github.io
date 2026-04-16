@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAO憲章 見直し — 項目6：投票ルールおよびプロセス</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; font-size: 15px; line-height: 1.8; background: #f5f6f8; color: #333; }
+    header { background: #1a3a5c; color: white; padding: 24px 32px; }
+    header h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    header p { font-size: 13px; color: #a8c4e0; }
+    .badge { display: inline-block; background: #e8f0fe; color: #1a56a4; font-size: 12px; font-weight: bold; border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; }
+    .nav-bar { max-width: 960px; margin: 16px auto 0; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-bar a { font-size: 13px; color: #1a56a4; text-decoration: none; padding: 6px 14px; border-radius: 6px; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .nav-bar a:hover { background: #e8f0fe; }
+    .container { max-width: 960px; margin: 32px auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    .doc-panel { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px; }
+    .doc-panel h2 { font-size: 18px; font-weight: bold; color: #1a3a5c; border-bottom: 3px solid #1a3a5c; padding-bottom: 8px; margin-bottom: 24px; }
+    .section-label { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; margin-top: 24px; }
+    .doc-text { background: #f9fafb; border-left: 4px solid #c5d8f0; border-radius: 0 6px 6px 0; padding: 14px 18px; margin-bottom: 12px; }
+    .doc-text p { margin-bottom: 6px; } .doc-text p:last-child { margin-bottom: 0; }
+    .comment-mark { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: bold; color: white; margin-left: 6px; vertical-align: middle; }
+    .mark-a { background: #e05252; } .mark-b { background: #d97c0a; } .mark-c { background: #3a8c3a; }
+    .highlight-a { background: #fff0f0; border-left-color: #e05252; }
+    .highlight-b { background: #fff8ee; border-left-color: #d97c0a; }
+    .highlight-c { background: #f0fff0; border-left-color: #3a8c3a; }
+    ul.doc-list { list-style: disc; padding-left: 20px; } ul.doc-list li { margin-bottom: 4px; }
+    ol.proc-list { padding-left: 20px; } ol.proc-list li { margin-bottom: 6px; }
+    .comment-panel { position: sticky; top: 24px; }
+    .comment-panel h2 { font-size: 15px; font-weight: bold; color: #444; margin-bottom: 16px; }
+    .comment-card { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px 20px; margin-bottom: 16px; border-top: 4px solid; }
+    .comment-card.card-a { border-color: #e05252; } .comment-card.card-b { border-color: #d97c0a; } .comment-card.card-c { border-color: #3a8c3a; }
+    .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .comment-header .label { font-size: 13px; font-weight: bold; color: #555; }
+    .comment-header .scope { font-size: 12px; color: #999; margin-left: auto; }
+    .comment-body { font-size: 14px; color: #444; line-height: 1.7; }
+    .comment-body strong { color: #222; }
+    .comment-body ul { list-style: disc; padding-left: 18px; margin-top: 6px; }
+    .comment-body ul li { margin-bottom: 4px; }
+    .tag { display: inline-block; font-size: 11px; border-radius: 3px; padding: 1px 7px; margin-left: 4px; font-weight: bold; }
+    .tag-revise { background: #fef3e2; color: #a05000; }
+    .tag-restructure { background: #e8f0fe; color: #1a56a4; }
+    .tag-reopen { background: #fff0f0; color: #c02020; }
+    .tag-clarify { background: #e8f8e8; color: #2a6a2a; }
+    .summary-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 24px; }
+    .summary-box h3 { font-size: 14px; font-weight: bold; color: #1a3a5c; margin-bottom: 12px; }
+    .stat-row { display: flex; gap: 12px; }
+    .stat { flex: 1; text-align: center; padding: 8px; background: #f5f6f8; border-radius: 8px; }
+    .stat .num { font-size: 20px; font-weight: bold; color: #1a3a5c; }
+    .stat .desc { font-size: 10px; color: #888; margin-top: 2px; }
+    .decision-section { max-width: 960px; margin: 0 auto 32px; padding: 0 16px; }
+    .decision-box { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px 28px; }
+    .decision-box h2 { font-size: 16px; font-weight: bold; color: #1a3a5c; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8ecf1; }
+    .decision-point { background: #fafbfc; border-left: 4px solid #1a56a4; border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 14px; }
+    .decision-point.warn { border-left-color: #d97c0a; }
+    .dp-label { font-size: 11px; font-weight: bold; color: #1a56a4; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .decision-point.warn .dp-label { color: #d97c0a; }
+    .dp-q { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 6px; }
+    .dp-desc { font-size: 13px; color: #555; }
+    .judge-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .judge-btn { font-size: 12px; font-weight: bold; padding: 6px 18px; border-radius: 6px; cursor: default; border: 2px solid; }
+    .judge-adopt  { border-color: #3a8c3a; color: #3a8c3a; background: #f0fff0; }
+    .judge-revise { border-color: #d97c0a; color: #d97c0a; background: #fff8ee; }
+    .judge-hold   { border-color: #999; color: #777; background: #f5f5f5; }
+    .draft-box { background: #f0f8ff; border: 1px solid #b8d4f0; border-radius: 8px; padding: 16px 20px; margin-top: 20px; }
+    .draft-box h3 { font-size: 13px; font-weight: bold; color: #1a56a4; margin-bottom: 10px; }
+    .draft-box p, .draft-box li { font-size: 13px; color: #333; margin-bottom: 6px; }
+    .draft-box ul, .draft-box ol { padding-left: 20px; }
+    .draft-text { font-size: 13px; background: white; border: 1px solid #d0e4f8; border-radius: 6px; padding: 12px 16px; margin-top: 8px; color: #222; line-height: 1.9; }
+    footer { text-align: center; color: #aaa; font-size: 12px; padding: 24px 0 40px; }
+    @media (max-width: 700px) { .container { grid-template-columns: 1fr; } .comment-panel { position: static; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">DAO憲章 見直し 2026</div>
+  <h1>項目 6：投票ルールおよびプロセス（通常決議）</h1>
+  <p>現在の草案内容とメンバーコメントの整理 — おさかなだお長崎</p>
+</header>
+
+<div class="nav-bar">
+  <a href="dao_review_item5.html">← 前：項目5 意思決定</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <a href="dao_review_item7.html">次：項目7 投票ルール（ルール変更） →</a>
+</div>
+
+<div class="container">
+
+  <!-- 左カラム -->
+  <div class="doc-panel">
+    <h2>現在の草案（項目6）</h2>
+
+    <div class="section-label">適用対象</div>
+    <div class="doc-text">
+      <p>以下の項目に該当した際に適応：</p>
+      <ul class="doc-list" style="margin-top:4px;">
+        <li>名称の対外使用・発信に関する事項</li>
+        <li>タスクおよびリワードの制定・改定に関する事項</li>
+        <li>その他、NFT投票によって決定することが好ましいと事務局が判断する事項</li>
+      </ul>
+    </div>
+
+    <!-- 投票ルール -->
+    <div class="section-label">投票ルール（通常決議）</div>
+    <div class="doc-text highlight-a">
+      <ul class="doc-list">
+        <li>NFT1個 ＝ 1票</li>
+        <li>ホルダー3名以上の共同名義で投票立案可能</li>
+        <li>定足割合：ホルダー総数の<strong>10%以上</strong><span class="comment-mark mark-a">V</span></li>
+        <li>投票期間：<strong>5日間</strong>（24時間×5）</li>
+        <li>可決要件：有効票の<strong>51%以上</strong>の賛成</li>
+        <li>効力：投票結果が開示された時点で発生</li>
+      </ul>
+    </div>
+
+    <!-- 投票プロセス -->
+    <div class="section-label">投票プロセス（1〜5）</div>
+    <div class="doc-text highlight-b">
+      <p><strong>1. 起案・討議</strong></p>
+      <p>① Discord内でホルダー3名以上が賛同 → ② 事務局指定ツールにアクセス → ③ VOTE機能で提案</p>
+      <span class="comment-mark mark-b">W</span>
+      <span class="comment-mark mark-b">Y</span>
+      <span class="comment-mark mark-b">Z</span>
+      <p style="margin-top:10px;"><strong>2. 提案の作成（フォーマット）</strong></p>
+      <p style="font-size:13px; color:#666;">起案日時 / 投票スケジュール / 提案者 / ホルダー承認者 / 提案内容 / 提案背景 / 可決時の影響範囲 / 可決時の行動主体者 / 報酬概算 / 投票ルール（定足数10%）</p>
+      <p style="margin-top:10px;"><strong>3. 投票開始</strong></p>
+      <p style="font-size:13px;">開始日＝提案登録翌日、終了日＝5日後。@everyoneメンションで告知。</p>
+      <p style="margin-top:10px;"><strong>4. 投票実施</strong> — 事務局指定ツールでVOTE</p>
+      <p style="margin-top:10px;"><strong>5. 投票結果</strong> — 可決：実施 / 否決：棄却</p>
+    </div>
+
+    <!-- 緊急手続 -->
+    <div class="section-label">緊急手続</div>
+    <div class="doc-text">
+      <p>自然災害その他の緊急事態により通常手続が困難な場合、事務局の判断で暫定措置を講じることができます。暫定措置は次回定例MTGで追認を行います。</p>
+    </div>
+  </div>
+
+  <!-- 右カラム -->
+  <div class="comment-panel">
+
+    <div class="summary-box">
+      <h3>コメント概要</h3>
+      <div class="stat-row">
+        <div class="stat"><div class="num">5</div><div class="desc">コメント数</div></div>
+        <div class="stat"><div class="num">2</div><div class="desc">対象箇所</div></div>
+        <div class="stat"><div class="num">1</div><div class="desc">Tyche👍</div></div>
+        <div class="stat"><div class="num">1</div><div class="desc">要確認</div></div>
+      </div>
+    </div>
+
+    <h2>メンバーコメント</h2>
+
+    <!-- コメント V -->
+    <div class="comment-card card-a">
+      <div class="comment-header">
+        <span class="comment-mark mark-a">V</span>
+        <span class="label">コメント V</span>
+        <span class="tag tag-revise">文言修正</span>
+        <span class="scope">Tyche👍</span>
+      </div>
+      <div class="comment-body">
+        <strong>提案：定足数の定義に「休眠ホルダー除く」を明記</strong>
+        <div style="background:#f9fafb; border-left:3px solid #ccc; padding:10px 14px; margin-top:8px; font-size:13px; border-radius:0 4px 4px 0;">
+          通常決議の定足数は、有効ホルダー数の10%以上とする。<br>
+          <span style="color:#3a8c3a;">（休眠ホルダー除く）</span>
+        </div>
+        <p style="margin-top:8px; color:#777; font-size:13px;">→ 現状は「ホルダー総数の10%」だが、休眠ホルダーを除いた有効数に変更。実態に合う。</p>
+      </div>
+    </div>
+
+    <!-- コメント W・Y・Z -->
+    <div class="comment-card card-b">
+      <div class="comment-header">
+        <span class="comment-mark mark-b">W</span>
+        <span class="comment-mark mark-b">Y</span>
+        <span class="comment-mark mark-b">Z</span>
+        <span class="label">コメント W・Y・Z</span>
+        <span class="tag tag-restructure">GL移動＋簡略化</span>
+        <span class="tag tag-reopen">再開中</span>
+      </div>
+      <div class="comment-body">
+        <strong>提案：投票プロセス詳細をGLに移動し、憲章を簡略化</strong>
+        <ul>
+          <li>[W] 「提案、投票開始、告知その他投票実施に関する具体的手続は、ガイドラインに定める。」</li>
+          <li>[X] 解決済み → [Y] 再び開いた → 「これを追加」</li>
+        </ul>
+        <p style="margin-top:8px; font-size:13px; color:#555;"><strong>[Z] プロセス簡略化案：</strong></p>
+        <div style="background:#f9fafb; border-left:3px solid #ccc; padding:10px 14px; margin-top:4px; font-size:13px; border-radius:0 4px 4px 0;">
+          1. ホルダー3名が賛同<br>
+          2. 起案者が投票ツールにて提案<br>
+          ※ 具体的なツールは、事務局がDiscordで明示する
+        </div>
+        <p style="margin-top:8px; color:#c05050; font-size:13px;">⚠ [Y]の「追加予定」内容が未確定です。</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 論点セクション -->
+<div class="decision-section">
+  <div class="decision-box">
+    <h2>ここで決めたいこと（論点）</h2>
+
+    <div class="decision-point">
+      <div class="dp-label">論点 1 — 文言修正（Tyche👍）</div>
+      <div class="dp-q">定足数の定義に「休眠ホルダー除く（有効ホルダー数）」を明記するか？</div>
+      <div class="dp-desc">
+        コメント[V]、Tycheさんが👍。現行の「ホルダー総数10%」から「有効ホルダー数10%」に変更。
+        休眠ホルダーが多い場合に定足数が実質高くなりすぎる問題を解決できる。
+        項目3の休止ルールと合わせて整合性を取る必要あり。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-adopt">採用</span>
+        <span class="judge-btn judge-revise">要修正</span>
+        <span class="judge-btn judge-hold">保留</span>
+      </div>
+    </div>
+
+    <div class="decision-point">
+      <div class="dp-label">論点 2 — GL移動</div>
+      <div class="dp-q">投票プロセス（1〜5）の詳細をガイドラインに移動するか？</div>
+      <div class="dp-desc">
+        コメント[W]より：「提案・投票開始・告知その他投票実施に関する具体的手続はGLに定める」。
+        コメント[Z]の簡略化案のように、憲章には概要（3名賛同→起案→投票）のみ残し、
+        ツール名・フォーマット詳細はGLで管理する形が望ましい。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-adopt">採用</span>
+        <span class="judge-btn judge-revise">要修正</span>
+        <span class="judge-btn judge-hold">保留</span>
+      </div>
+    </div>
+
+    <div class="decision-point warn">
+      <div class="dp-label">論点 3 — 要確認</div>
+      <div class="dp-q">コメント[Y]「再び開いた・追加予定」の内容は何か？</div>
+      <div class="dp-desc">
+        [X]で解決済みとされた後[Y]で再開。「これを追加」とあるが具体的な追加内容が不明。
+        関係者に確認してください。
+      </div>
+      <div class="judge-row">
+        <span class="judge-btn judge-hold">確認待ち</span>
+      </div>
+    </div>
+
+    <div class="draft-box">
+      <h3>改定案ドラフト（論点1・2採用の場合）</h3>
+      <div class="draft-text">
+        <strong>第X条（通常決議のルール）</strong><br>
+        通常決議は、次の各号に定めるルールにより実施する。<br>
+        <ol style="margin: 6px 0 6px 20px;">
+          <li>投票権はホルダー1名につき1票（会員証NFT1個当たり1票）とする。</li>
+          <li>投票の立案は、ホルダー3名以上の共同名義により行うことができる。</li>
+          <li>定足数は、有効ホルダー数（休眠ホルダーを除く）の10%以上とする。</li>
+          <li>投票期間は5日間とし、有効票の過半数（51%以上）の賛成をもって可決とする。</li>
+          <li>可決された提案は、投票結果が開示された時点で効力を生じる。</li>
+        </ol>
+        提案・投票開始・告知その他投票実施に関する具体的手続は、ガイドラインに定める。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="nav-bar" style="margin-bottom: 24px;">
+  <a href="dao_review_item5.html">← 前：項目5 意思決定</a>
+  <a href="dao_review_index.html">全項目ポータル</a>
+  <a href="dao_review_item7.html">次：項目7 投票ルール（ルール変更） →</a>
+</div>
+
+<footer>
+  おさかなだお長崎 — DAO憲章見直しワーキング | 2026-04-16
+</footer>
+
+</body>
+</html>
