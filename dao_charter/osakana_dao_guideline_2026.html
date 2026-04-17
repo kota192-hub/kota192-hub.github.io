@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おさかなだお長崎 ガイドライン（改定案・2026年版）</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --paper:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#0f766e;
+      --accent-soft:#ecfeff;
+      --warn:#fff7ed;
+      --warn-line:#fb923c;
+      --ok:#f0fdf4;
+      --ok-line:#22c55e;
+      --del:#fef2f2;
+      --del-line:#ef4444;
+      --orig:#f5f3ff;
+      --orig-line:#8b5cf6;
+      --proposal:#fefce8;
+      --proposal-line:#ca8a04;
+      --charter:#f0fdfa;
+      --charter-line:#0d9488;
+      --new-bg:#f0fdf4;
+      --new-line:#16a34a;
+      --shadow:0 12px 30px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.8;
+    }
+    .wrap{max-width:1100px;margin:32px auto;padding:0 20px 60px}
+    .paper{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;}
+    header{padding:40px 42px 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#ffffff 0%,#f0fdfa 100%);}
+    h1{margin:0 0 10px;font-size:30px;line-height:1.35}
+    .sub{margin:0;color:var(--muted);font-size:14px}
+    .tag{display:inline-block;margin-top:14px;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;border:1px solid #bae6fd;}
+    .tag-warn{display:inline-block;margin-top:8px;margin-left:6px;padding:4px 10px;border-radius:999px;background:var(--warn);color:#b45309;font-size:12px;border:1px solid var(--warn-line);}
+    main{padding:18px 42px 42px}
+    h2{margin:34px 0 14px;padding-bottom:8px;border-bottom:2px solid #eef2f7;font-size:22px}
+    h3{margin:24px 0 10px;font-size:17px}
+    p{margin:10px 0}
+    ol,ul{padding-left:24px}
+    li{margin:6px 0}
+    .lead{color:var(--muted);font-size:15px}
+    .note,.adopt,.delete,.orig,.proposal,.charter,.added{
+      margin:14px 0 20px;padding:14px 16px;border-radius:12px;font-size:14px;
+    }
+    .note{background:var(--warn);border-left:4px solid var(--warn-line)}
+    .adopt{background:var(--ok);border-left:4px solid var(--ok-line)}
+    .delete{background:var(--del);border-left:4px solid var(--del-line)}
+    .orig{background:var(--orig);border-left:4px solid var(--orig-line)}
+    .proposal{background:var(--proposal);border-left:4px solid var(--proposal-line)}
+    .proposal strong{color:#78350f}
+    .charter{background:var(--charter);border-left:4px solid var(--charter-line)}
+    .charter strong{color:#0f766e}
+    .added{background:var(--new-bg);border-left:4px solid var(--new-line)}
+    .added strong{color:#15803d}
+    .divider{margin:20px 0 8px;border:none;border-top:2px dashed #d1d5db}
+    .divider-label{display:block;text-align:center;margin:-12px auto 16px;width:fit-content;background:#fcfcfd;padding:0 12px;font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.05em;}
+    .article{margin-top:18px;padding:18px 20px 12px;border:1px solid var(--line);border-radius:16px;background:#fff;}
+    .article.changed{border-color:#fde68a;background:#fffdf5;}
+    .article.new-article{border-color:#bbf7d0;background:#f0fdf4;}
+    .article.problem{border-color:#fca5a5;background:#fef2f2;}
+    .article h3{margin-top:0}
+    .badge-changed{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--proposal);color:#78350f;font-size:11px;font-weight:700;vertical-align:middle;border:1px solid #fde68a;}
+    .badge-new{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--new-bg);color:#15803d;font-size:11px;font-weight:700;vertical-align:middle;border:1px solid #86efac;}
+    .badge-problem{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:#fef2f2;color:#b91c1c;font-size:11px;font-weight:700;vertical-align:middle;border:1px solid #fca5a5;}
+    details{margin:16px 0 12px;border:1px solid var(--line);border-radius:14px;background:#fcfcfd;overflow:hidden;}
+    summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:700;background:#f8fafc;border-bottom:1px solid transparent;display:flex;align-items:center;gap:10px;}
+    summary::-webkit-details-marker{display:none}
+    details[open] summary{border-bottom-color:var(--line)}
+    .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600;}
+    .detail-body{padding:2px 16px 2px}
+    pre{white-space:pre-wrap;word-break:break-word;background:#ffffff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.7;overflow:auto;}
+    footer{padding:24px 42px 34px;border-top:1px solid var(--line);color:var(--muted);background:#fafafa;font-size:13px;}
+    code.inline{background:#f3f4f6;padding:1px 6px;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;}
+    .alignment-index{margin:0 0 28px;padding:18px 22px;border-radius:14px;background:var(--charter);border:1px solid #99f6e4;}
+    .alignment-index h4{margin:0 0 12px;font-size:15px;color:#0f766e}
+    .alignment-index table{width:100%;border-collapse:collapse;font-size:13px}
+    .alignment-index th{text-align:left;padding:6px 10px;border-bottom:2px solid #99f6e4;color:#0f766e;font-size:12px}
+    .alignment-index td{padding:6px 10px;border-bottom:1px solid #ccfbf1;vertical-align:top}
+    .alignment-index tr:last-child td{border-bottom:none}
+    .problem-index{margin:0 0 28px;padding:18px 22px;border-radius:14px;background:#fef2f2;border:1px solid #fca5a5;}
+    .problem-index h4{margin:0 0 12px;font-size:15px;color:#b91c1c}
+    .problem-index ul{margin:0;padding-left:20px;font-size:14px}
+    .problem-index li{margin:5px 0}
+    @media(max-width:720px){
+      header,main,footer{padding-left:20px;padding-right:20px}
+      h1{font-size:24px}
+      h2{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+<div class="paper">
+<header>
+  <h1>おさかなだお長崎 ガイドライン（改定案・2026年版）</h1>
+  <p class="sub">草案（パブコメ版）をベースに、メンバーコメントおよび憲章との整合確認を加えた版です。</p>
+  <div class="tag">折りたたみレビュー付き / メンバーコメント記録保持</div>
+  <div class="tag-warn">条番号の重複・未記載項目あり → 要確認</div>
+</header>
+
+<main>
+  <section>
+    <h2>0. この文書の前提</h2>
+    <p class="lead">各条文の下に折りたたみ式でレビューを配置しています。</p>
+    <div class="note">
+      <strong>レビューの構成：</strong><br>
+      <span style="color:#15803d">●</span> <strong>採用した部分</strong>：草案から維持する内容<br>
+      <span style="color:#dc2626">●</span> <strong>削除・統合した部分</strong>：草案にあったが整理した内容<br>
+      <span style="color:#ea580c">●</span> <strong>どう変えたか</strong>：メンバーコメントを経た判断<br>
+      <span style="color:#7c3aed">●</span> <strong>原案</strong>：変更前の元テキスト<br>
+      <span style="color:#0d9488">●</span> <strong>憲章との整合</strong>：対応する憲章の委任条文<br>
+      <span style="color:#ca8a04">●</span> <strong>さらなる改定提案</strong>：DAO設計観点での追加提案
+    </div>
+
+    <div class="problem-index">
+      <h4>草案の構造的問題点（要対応）</h4>
+      <ul>
+        <li><strong>条番号の重複：</strong> 第3条が2つ（DAOへの参画・ホルダー と 財産や収益の帰属）、第5条が2つ（会員証NFTの利用 と 脱退）存在する</li>
+        <li><strong>内容の重複：</strong> 第7条（資格停止）と第10条（資格停止事由）が実質同じ内容を重複して規定している</li>
+        <li><strong>退会の重複：</strong> 第5条（脱退）と第8条（退会）で同じ手続きが重複している</li>
+        <li><strong>憲章委任事項の欠落：</strong> 憲章第4条・第5条が委任する「ホルダーの一時休止手続き」がガイドラインに存在しない</li>
+        <li><strong>憲章委任事項の欠落：</strong> 憲章第7条8項・第8条6項が委任する「投票の具体的実施手続き」がガイドラインに存在しない</li>
+        <li><strong>第1条の方向性：</strong> 現行の第1条は憲章に移行済の内容が多い（[a]コメント）。ガイドライン独自の目的条文が必要</li>
+      </ul>
+    </div>
+
+    <div class="alignment-index">
+      <h4>憲章 ↔ ガイドライン 対応表</h4>
+      <table>
+        <tr><th>憲章の委任条文</th><th>委任内容</th><th>ガイドラインの対応条文</th><th>状況</th></tr>
+        <tr><td>第4条4項・第5条4項</td><td>メンバー資格の取得方法</td><td>第2条</td><td>あり</td></tr>
+        <tr><td>第4条4項・第5条4項</td><td>ホルダー資格の取得手続</td><td>第3条</td><td>あり（要整理）</td></tr>
+        <tr><td>第4条4項・第5条4項</td><td>ホルダー資格の変更・休止・再開</td><td>—</td><td>⚠️ 未記載</td></tr>
+        <tr><td>第4条4項・第5条4項</td><td>退会手続</td><td>第5条・第8条（重複）</td><td>⚠️ 要整理</td></tr>
+        <tr><td>第7条8項</td><td>通常決議の具体的手続</td><td>—</td><td>⚠️ 未記載</td></tr>
+        <tr><td>第8条6項</td><td>特別決議の具体的手続</td><td>—</td><td>⚠️ 未記載</td></tr>
+        <tr><td>第11条3項（改定提案）</td><td>ガイドラインの変更手続</td><td>第12条</td><td>あり（要確認）</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 前文 -->
+  <section>
+    <h2>前文</h2>
+    <p>本ガイドラインは、おさかなだお長崎 DAO憲章（以下「憲章」という。）の定めに基づき、メンバーの参加手続、ホルダー資格の取得・管理、会員証NFTの発行・利用、投票の実施手続その他コミュニティ運営に関する実務的事項を定めるものである。</p>
+    <p>本ガイドラインに定めのない基本原則については、憲章および利用規約の定めによる。</p>
+  </section>
+
+  <!-- 第1条 -->
+  <section class="article changed" id="art1">
+    <h3>第1条（目的）<span class="badge-changed">構成変更</span></h3>
+    <p>1　本ガイドラインは、おさかなだお長崎の運営に関し、メンバー登録、ホルダー申請、会員証NFTの発行・管理、投票手続、分科会運営その他の実務的事項を定めることを目的とする。</p>
+    <p>2　本ガイドラインに定めのない基本原則については、憲章および利用規約の定めによる。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="delete"><strong>削除・移行した部分：</strong> 草案第1条の内容（任意団体の定義、事務局の定義、プロジェクト期間、収支帰属など）はすべて憲章に移行済み。第1条本文としてガイドラインに残すべき内容ではない。</div>
+        <div class="note"><strong>どう変えたか：</strong> [a]コメント「全部憲章でいいかも」を受け、第1条はガイドライン自身の目的条文に差し替えた。メンバーのコメントで提案された内容をそのまま採用。</div>
+        <div class="orig"><strong>原案：</strong><pre>第1条（基本的事項）[a]→全部憲章でいいかも
+1.「おさかなだお長崎」は、Local web3 lab.@渋谷プロジェクトに属するDAO組織です。→憲章へ移動
+2.「おさかなだお長崎」は、「長崎のうまいサカナの未来をつくる」をテーマに活動するコミュニティです。→これも憲章移動
+3.「おさかなだお長崎」の運営は…ホルダー全員のコミュニティ投票により制定・改定することができるものとします。
+4.「おさかなだお長崎」は、2026年4月1日以降有効に存在するものとし…（プロジェクト期間・移行期間）
+（プロジェクト移行期間中の扱い）
+5〜9. DAOへの新規参画停止・コミュニティ投票停止 等</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[a]（dai）：</strong>「ここはルール部分なので、ガイドラインに1本化。DAO憲章では第1章を全文削除。MVVやWhy-What-Howは憲章に記載、ルールはガイドラインの住み分けがわかりやすいかと思います。」→ <strong>第1条（目的）</strong>として改訂する案を提示。✅ 採用。</div>
+        <div class="note"><strong>[b][c][d]：</strong> 「ガイドラインの変更範囲を一部コミュニティに委ねることで、何か事案があった場合はコミュニティが対処責務を負う解釈になり得る」「改定の投票前に変更の要点を丁寧にコミュニティに説明する必要がある」</div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第1条2項：</strong>「本憲章に定めのない具体的な運用方法、参加手続、投票方法等の実務上の事項は、ガイドラインに従うものとする」→ ガイドラインが存在する法的根拠。第1条にその委任関係を明記することで整合する。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第2条 -->
+  <section class="article changed" id="art2">
+    <h3>第2条（メンバー参加）<span class="badge-changed">構成変更</span></h3>
+    <p>1　コミュニティへの参加を希望する者は、事務局が指定するDiscordサーバーに参加し、所定の自己紹介を行い、本ガイドラインへの同意を示すことでメンバーとなることができる。</p>
+    <p>2　メンバーは、次のいずれかに該当する長崎×おさかなに関する活動をコミュニティ内で共有することが推奨される。</p>
+    <ol>
+      <li>リアルイベントへの参加</li>
+      <li>長崎訪問</li>
+      <li>長崎のお魚を調理・食事するなどリソースを割いた行動</li>
+    </ol>
+    <p>3　メンバー資格の詳細な取得方法・参加フローは、事務局が別途定め、Discordにて開示する。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> メンバー参加条件3つ（リアルイベント・長崎訪問・お魚活動）、活動のコミュニティ内共有を維持。</div>
+        <div class="note"><strong>どう変えたか：</strong> [f]コメント「メンバーの定義が不足。現状ではDiscordに参加し自己紹介を行ったらメンバー」を受け、Discord参加＋自己紹介＋同意でメンバーになれることを明記した。活動3つは「条件」ではなく「推奨」として位置づけを変更。</div>
+        <div class="orig"><strong>原案：</strong><pre>第2条（DAOへの参画）
+メンバーになるには以下の3つのうち最低1つに該当した場合とします。
+・リアルイベントへの参加証明
+・長崎訪問履歴
+・長崎のお魚を調理もしくは食事など、リソースを割いた行動の実施
+活動を行ったことをDiscord等で報告してください。</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[f]：</strong>「メンバーの定義が不足。現状では、Discordに参加し、自己紹介を行ったらメンバー。」→ Discord参加フローを正式に条文化。✅ 採用。</div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第4条4項：</strong>「メンバー資格の取得方法その他参加手続の詳細は、ガイドラインに定める」→ 本条がその委任先。整合あり。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第3条 -->
+  <section class="article changed" id="art3">
+    <h3>第3条（ホルダー申請）<span class="badge-changed">条文名・内容変更</span></h3>
+    <p>1　メンバーは、入会後1か月を経過した後、事務局が定める方法によりホルダー資格を申請することができる。</p>
+    <p>2　ホルダー資格の申請にあたっては、次の各号に掲げる事項を満たすものとする。</p>
+    <ol>
+      <li>本コミュニティの目的および行動指針への賛同を明示すること。</li>
+      <li>事務局が指定するオンボード活動（オンライン歓迎会）に参加すること。</li>
+      <li>長崎×おさかなに関する具体的な体験または行動をコミュニティ内で共有すること。</li>
+      <li>動機および今後の関わり方を記載した所定の申請内容を提出すること。</li>
+    </ol>
+    <p>3　事務局は、提出内容を確認のうえ、適当と認めた者にホルダー資格を付与することができる。</p>
+    <p>4　次のいずれかに該当する者はホルダーとなることができない。</p>
+    <ol>
+      <li>本コミュニティの目的または行動指針に明らかに反する者</li>
+      <li>過去にホルダー資格を取り消され、または申請を拒絶された者</li>
+      <li>反社会的勢力等に該当し、またはこれと関与を有する者</li>
+      <li>会員証NFTまたは関連権利の転売のみを目的とする者</li>
+      <li>前各号のほか、事務局が不適当と認める者</li>
+    </ol>
+    <p>5　移行期間中は、ホルダー資格の付与を停止することができる。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> 入会後1ヶ月、4つの申請条件、移行期間中の停止、を継承。欠格事由[m]を第4項として追加統合。</div>
+        <div class="delete"><strong>削除・整理した部分：</strong> 原案に含まれていたウォレット取得の詳細手順（ERC1155・公開鍵・Unyte）は技術的仕様のため別途技術ガイドに移す。「当初のホルダーの受け入れ審査は事務局が任意の裁量で」という表現は削除（[l]の指摘通り、申請条件を満たせば審査不要とする方が整合的）。</div>
+        <div class="note"><strong>どう変えたか：</strong> [h]コメントの改訂案をベースに条項名を「ホルダー申請」に変更。[m]コメントの欠格事由を本条4項として統合。[l]コメントの「受け入れ審査がない方が整合的」という指摘を反映し表現を変更。</div>
+        <div class="orig"><strong>原案：</strong><pre>第3条（DAOへの参画：ホルダー）[h]
+メンバーは入会後、1ヶ月経過した後、次の手続きを経てホルダーを取得できます。
+・目的と行動指針への賛同
+・公式オンボード活動（オンライン歓迎会）に参加
+・長崎×おさかなに関する具体的体験・行動を共有
+・動機と今後の関わり方を記した志望動機を提出
+※ 事務局は、提出内容を形式確認のうえ、ホルダーロールを付与します。
+1. ホルダー候補者は、事務局にDAOのホルダーとなることの申込みを行うものとします。
+2. ERC1155プロトコルに従ったプライベート・ウォレットの公開鍵をUnyte上で生成し、事務局に開示するものとします。[i][j][k]
+3. 当初のホルダーの受入れ審査は、事務局が行い、任意の裁量により選定することができるものとします。[l]
+4. 以下の者（非適格者）は、ホルダーとなることはできません。[m]
+（反社会的勢力・転売目的等の欠格事由リスト）</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[h]（dai）：</strong> 「第3条の条項名を『ホルダー申請』と改め、申請条件と付与手続を整理した案」を提示。✅ 採用。</div>
+        <div class="adopt"><strong>[l]：</strong>「第3条（ホルダー申請）を満たしていれば、受け入れ審査はないのでは？利用規約→反社などはメンバー登録不可、ガイドライン内で禁止事項を規程、禁止事項発覚した場合は資格を停止、という順番が明確に示されていることが大事」✅ 採用。</div>
+        <div class="adopt"><strong>[m]：</strong> 欠格事由の整理案を提示。✅ 採用（第4項に統合）。</div>
+        <div class="note"><strong>[i][j][k]：</strong> 「今後ERC-20などに変更される可能性はないか」「MetaMask等を使ったノンカストディアルの取得を義務付け？」→ 技術仕様の変更可能性があるため、条文に具体的なプロトコル名を記載するのはリスクあり。技術詳細は別途「技術ガイド」に委ねることを推奨。</div>
+        <div class="note"><strong>[n]：</strong>「メンバーとホルダーの判別方法は？Discordのロール？」→ 運用ガイドに記載すべき。事務局がDiscordロールで管理する旨を別途明示する必要あり。</div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第4条4項・第5条4項：</strong>「ホルダー資格の取得・変更・休止・再開および退会手続の詳細は、ガイドラインに定める」→ 本条（取得）が委任先。整合あり。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第4条 -->
+  <section class="article changed" id="art4">
+    <h3>第4条（会員証NFTの発行・管理）<span class="badge-changed">構成変更</span></h3>
+    <p>1　ホルダーとして承認された者に対し、事務局は会員証NFTを発行する。</p>
+    <p>2　会員証NFTの発行方法、受領方法、管理方法その他技術的事項は、事務局が別途定め、Discordにて開示する。</p>
+    <p>3　ホルダーは、会員証NFTの管理に必要なウォレットその他認証情報を自己の責任において適切に管理するものとする。秘密鍵の漏えい・紛失その他の取扱いに起因する事故について、事務局は責任を負わない。</p>
+    <p>4　会員証NFTは、ホルダー資格を証明し、本ガイドラインに定める権利行使を可能とするデジタル証書に過ぎず、財産的権利（経済的利益・収益分配請求権・残余財産分配請求権等）を基礎づけるものではない。</p>
+    <p>5　会員証NFTは、1保有単位につき1票の投票権として利用することができる。利用可能期間その他の権利内容は憲章の定めによる。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> NFT発行は事務局が実施、財産的権利の否定、1票としての利用、ウォレット管理の自己責任を継承。</div>
+        <div class="delete"><strong>削除・整理した部分：</strong> 草案の「第3条（財産や収益の帰属）」「第4条（財産や収益の帰属）」「第5条（会員証NFTの利用）」の3つが重複・散在していたものを本条に統合。知的財産権の帰属（商標等）は第4条の内容だったが、これは憲章第9条（収支・財産・NFT）に対応する事項のため、ガイドラインではなく憲章に記載が適切。</div>
+        <div class="note"><strong>どう変えたか：</strong> [p]の改訂案「会員証NFTの発行方法・受領方法・管理方法は事務局が別途定める」を採用し、技術詳細の柔軟性を確保。[r]「財産的権利を生じさせるものではない旨を明記」を採用。[s]「会員証NFTの利用方法条文」を統合。</div>
+        <div class="orig"><strong>原案：</strong><pre>（草案 第3条・第4条・第5条に分散していた内容）
+第3条（財産や収益の帰属：NFT管理部分）
+・会員証NFTはERC1155プロトコルに従ったNFT
+・ホルダーはウォレットの秘密鍵を厳格に管理するものとします
+・秘密鍵にまつわる事故に伴い生ずる事項について、事務局は責任を負えません
+
+第4条（財産や収益の帰属：財産権否定）
+1.「おさかなだお長崎」の商標・知的財産権は事務局に帰属
+2. コミュニティの運営収支はすべて事務局に帰属
+3.「おさかなだお長崎」は一切の財産を保有しません
+4. 会員証NFTは経済的な利益や権益を主張する根拠となりません
+
+第5条（会員証NFTの利用）[s]
+1. 会員証NFTは1個当たり1票の投票権として利用できます
+2. 利用はプロジェクト期間中に限ります</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[p]：</strong>「会員証NFTの発行方法、受領方法、管理方法その他技術的事項は、事務局が別途定める」という改訂案。✅ 採用。</div>
+        <div class="adopt"><strong>[q]：</strong>「ツール変更や発行方法変更があるたびに改定が必要になるからやめといたほうがよき」→ 技術詳細を条文から切り離し、別途開示する形にした。✅ 採用。</div>
+        <div class="adopt"><strong>[r]：</strong>「財産的権利を生じさせるものではない旨を明記」→ 第4項として採用。✅</div>
+        <div class="adopt"><strong>[s]：</strong>「ホルダーは事務局が指定する方法により、会員証NFTを用いて投票その他の所定手続を行うことができる」改訂案。→ 第5項として統合。✅</div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第9条5項：</strong>「会員証NFTは、ホルダー資格を証明し、本憲章に定める権利行使を可能とするデジタル証書に過ぎず、財産的権利を基礎づけるものではない」→ 本条4項が同趣旨。整合あり（ガイドラインは「本ガイドラインに定める権利」という表現で整合させる）。</div>
+        <div class="charter"><strong>憲章第7条2項：</strong>「ホルダーは会員証NFTに基づき1保有単位につき1票の投票権を有する」→ 本条5項が対応。整合あり。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第5条 -->
+  <section class="article new-article" id="art5">
+    <h3>第5条（ホルダーの一時休止）<span class="badge-new">新規追加（憲章委任）</span></h3>
+    <p>1　ホルダーは、次のいずれかの方法により一時休止状態となることができる。</p>
+    <ol>
+      <li>本人による自主的な休止申請</li>
+      <li>事務局が定める活動意思確認フォームへの未回答（6か月ごとに実施）</li>
+    </ol>
+    <p>2　活動意思確認フォームへの回答期限内に回答がない場合、当該ホルダーの投票権は「休眠」状態となり、投票の定足数計算上除外される。メンバー資格は維持される。</p>
+    <p>3　有効ホルダー数（定足数算出の基礎）は、全ホルダー総数から休眠ホルダー数を差し引いた数とする。算出は事務局が行う。</p>
+    <p>4　休眠状態のホルダーが活動を再開する場合、事務局が定める方法により届け出ることで即時復帰することができる。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="added"><strong>新規追加の理由：</strong> 本条は草案には存在しなかったが、憲章第4条4項・第5条4項が「ホルダー資格の変更・休止・再開の手続はガイドラインに定める」と委任しているにも関わらず、その受け皿となる条文がガイドライン草案に存在しない。また憲章第7条・第8条の「有効ホルダー数（休眠状態のホルダーを除く。）」という記述が意味をなすためにも、休眠の判定手続きが必要。</div>
+        <div class="orig"><strong>原案：</strong><pre>（草案に該当条文なし）
+
+なお、元の草案（2026【憲章】案 index.html）には以下の記述があった：
+「ホルダーの一時休止
+ホルダーは、2つの方法によりホルダーの休止となります。
+・自主的な休止（自主的な辞退）
+・コミュニティからの休止（6か月ごとのフォーム未回答で休眠）
+休眠会員の投票権はツール上では自動判別できないため、
+「有効投票数＝全ホルダー総数 − 休眠ホルダー数」を事務局が手動で算出します。」
+
+これがガイドライン草案に転記されていなかった。</pre></div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第4条4項：</strong>「ホルダー資格の変更・休止・再開の手続の詳細はガイドラインに定める」→ 本条が委任先。⚠️ 草案に不在だったため追加。</div>
+        <div class="charter"><strong>憲章第7条3項・第8条2項：</strong>「有効ホルダー数（休眠状態のホルダーを除く。）の10%（または20%）以上」→ 休眠判定手続きなしには定足数計算が成立しない。本条3項で算出方法を明記することで整合。</div>
+        <div class="proposal"><strong>運用上の課題：</strong> 「ツール上では自動判別できないため事務局が手動で算出」という元の記述通り、ホルダー数が増加した場合の管理負荷が線形増加する。将来的にはツール側での自動化も検討が必要。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第6条 -->
+  <section class="article changed" id="art6">
+    <h3>第6条（退会）<span class="badge-changed">重複統合・整理</span></h3>
+    <p>1　メンバーまたはホルダーは、事務局が定める方法により退会を申し出ることができる。</p>
+    <p>2　ホルダーが退会する場合、会員証NFTの返還または失効処理その他事務局が定める手続を行うものとする。</p>
+    <p>3　退会後は、メンバーおよびホルダーとしての全ての権利および権限を失う。ただし、第9条（守秘義務）は退会後も継続して適用される。</p>
+    <p>4　退会者は、本コミュニティおよび事務局に対して、財産分与その他いかなる権利も主張することができない。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> NFT返還・権利喪失・財産分与不可・守秘義務継続の考え方を維持。</div>
+        <div class="delete"><strong>削除・整理した部分：</strong> 草案では第5条（脱退）と第8条（退会）の2か所に実質同じ内容が記載されていた。重複を排除し本条に統合。「脱退」と「退会」の用語を「退会」に統一。</div>
+        <div class="note"><strong>どう変えたか：</strong> [t]コメントの改訂案「退会手続、権利喪失その他の効果は憲章・利用規約の定めによる」を参考に整理。NFTの物理的なTransferを義務付ける表現は[u]の指摘「実運用として可能か？」を踏まえ「返還または失効処理」に変更。</div>
+        <div class="orig"><strong>原案：</strong><pre>【第5条（脱退）と第8条（退会）の2か所に重複記載】
+第5条（脱退）[t]
+1. 脱退を希望するものは、保有する会員証NFTを事務局に返還することで脱退できます。[u]
+2. 脱退者はすべての権利・権限を失います。
+3. 財産分与その他なんらの権利も主張することができません。
+
+第8条（退会）
+1. 退会を希望するものは、会員証NFTを事務局に返還することで脱退できます。
+2. 退会者はすべての権利・権限を失いますが、守秘義務は退会後も継続して適用される。
+3. 脱退者は財産分与その他なんらの権利も主張することはできません。</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[t]：</strong>「第7条（退会手続）として退会申し出方法・NFT返還処理・権利喪失効果を整理した改訂案」✅ 採用（条番号は第6条として整理）。</div>
+        <div class="note"><strong>[u]：</strong>「個人のWalletから会員証NFTのTransferが条件となっているが、実運用として可能か？」→ 「返還または失効処理」という表現にして柔軟性を持たせた。</div>
+        <div class="note"><strong>[al]：</strong>「★これを憲章に移動」というコメントがある。ただし退会手続きは実務的手順のためガイドラインに残すことが適切。憲章には「退会によりホルダー資格を失う」という原則のみ記載する整理が推奨。</div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第4条4項・第5条4項：</strong>「退会手続の詳細はガイドラインに定める」→ 本条が委任先。整合あり。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第7条 -->
+  <section class="article changed" id="art7">
+    <h3>第7条（禁止事項）<span class="badge-changed">構成変更</span></h3>
+    <p>1　メンバーおよびホルダーは、次の各号に掲げる行為をしてはならない。</p>
+    <ol>
+      <li>会員証NFTまたはこれに基づく議決権を、不正に売買し、貸与し、または第三者に行使させる行為</li>
+      <li>荒らし・侮辱・ハラスメント・ヘイトスピーチ・性的嫌がらせ・つきまとい・ストーカーその他他者の人格・身体・精神・プライバシーを侵害する行為</li>
+      <li>本人の明示的な承諾なく個人情報を公開する行為</li>
+      <li>詐欺・犯罪の助長・違法行為または暴力的要求行為</li>
+      <li>法令に違反する行為</li>
+      <li>前各号のほか、事務局がコミュニティ運営上不適切と認める行為</li>
+    </ol>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> [v]コメントの改訂案（メンバー・ホルダー双方に適用、6項目の禁止行為リスト）を採用。</div>
+        <div class="delete"><strong>削除・整理した部分：</strong> 草案では「第6条（ホルダーの禁止事項）」として「ホルダー」のみに適用していたが、メンバーにも適用すべき内容（ハラスメント等）が含まれているため「メンバーおよびホルダー」に変更。</div>
+        <div class="note"><strong>どう変えたか：</strong> [v]の改訂案をベースに、[w]「被害者保護の必要性を先においた方がいい」という観点を踏まえてハラスメント行為を第2号に配置。</div>
+        <div class="orig"><strong>原案：</strong><pre>第６条（ホルダーの禁止事項）[v]
+1.事務局は、以下の資格停止事由に該当するホルダーについて…（←これは禁止事項条文ではなく資格停止条文）
+2. ホルダーは、以下の事項を行ってはいけないものとします。
+1. トークンの譲渡によらない議決権の売買や貸し出し
+2. 荒らし・侮辱的または軽蔑的な行為・ハラスメント等
+3. 個人情報を本人の明示的な許可なく公開すること
+4. 詐欺行為・犯罪に結びつく行為・暴力的な要求行為
+5. 法令に違反する行為
+6. 前各号のほか、ガイドラインまたは事務局が定める禁止事項</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[v]：</strong> 6項目の禁止行為に整理した改訂案。✅ 採用。</div>
+        <div class="note"><strong>[w]：</strong>「コミュニティ活動との関連性・被害者保護の必要性を先においた方がいいかもです」→ ハラスメント等を第2号に配置する順序変更で対応。</div>
+        <div class="note"><strong>[x]：</strong>「メンバーの定義やホルダーの定義を扱うガイドラインにあるのが適切」→ 適切な場所に配置済み。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第8条 -->
+  <section class="article changed" id="art8">
+    <h3>第8条（資格停止・除名）<span class="badge-changed">重複統合・整理</span></h3>
+    <p>1　事務局は、メンバーまたはホルダーが前条の禁止事項その他憲章、利用規約または本ガイドラインに違反した場合、資格停止または除名の措置をとることができる。</p>
+    <p>2　資格停止を受けた者は、事務局が定める期間、メンバーまたはホルダーとしての権利の全部または一部を行使することができない。</p>
+    <p>3　事務局は、資格停止または除名を行うにあたり、原則として当該者に弁明の機会を与えるものとする。</p>
+    <p>4　ただし、重大なハラスメント行為・個人情報侵害・反社会的勢力との関与その他緊急性が高いと事務局が判断した場合は、弁明の機会に先立ち、暫定的措置または即時措置を講ずることができる。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> [ae]コメントの改訂案（違反→資格停止・除名、弁明機会の付与、緊急措置の例外）をベースに採用。</div>
+        <div class="delete"><strong>削除・整理した部分：</strong> 草案の「第7条（資格停止および除名）」と「第10条（資格停止事由）」が実質同じ内容を重複していた。本条に統合。コミュニティ投票による資格停止期間決定という記述は、事務局が定める方式に変更（コミュニティ投票は「制定・改定」に使うもので、個別処分には不向き）。</div>
+        <div class="note"><strong>どう変えたか：</strong> [ae]の改訂案「弁明の機会を与えるものとする」「緊急性が高い場合は即時措置可」を採用。[ac]「調査担当・一次措置・正式処分・弁明期間・不服申立て・緊急一時隔離等に言及する必要があるか？」→ 詳細は第9条（紛争解決）に委ねる設計とした。</div>
+        <div class="orig"><strong>原案：</strong><pre>【第7条と第10条に重複記載】
+第7条（資格停止および除名）[x]
+1. 以下の資格停止事由に該当するホルダーについて、事務局は停止または除名できる
+（反社・禁止事項違反等のリスト8項目）
+2. 資格停止処分を受けたホルダーは、コミュニティ投票で定める期間・権利の行使を制限される
+
+第10条（資格停止事由）[ae][af]
+1. 憲章・ガイドラインに違反した場合、資格停止または除名できる
+2. コミュニティ投票で定める期間・権利を制限される
+3. 弁明の機会を与えるものとします
+4. 緊急性が高い場合は弁明なしで即時処分可[ac]</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[ae]（dai）：</strong>「第9条（資格停止および除名）」として整理した改訂案。弁明機会の付与と緊急措置例外を明記。✅ 採用。</div>
+        <div class="note"><strong>[z][aa][ab]：</strong>「濡れ衣をどうするか」「第三者の証言など明確である場合」「個人情報・名誉・プライバシー侵害に当たらない範囲の確認が必要」「コミュニティでは禁止事項のルールを示す、通報など保護協力、懲罰については除名のみという考え方」→ 重要な指摘。細則・運用ガイドで整備が必要。</div>
+        <div class="note"><strong>[ac]：</strong>「調査担当・一次措置・正式処分・弁明期間・不服申立て・緊急一時隔離などにも言及する必要があるか？」→ 第9条（紛争解決）の紛争委員会で対応する設計とした。詳細は別途細則で整備推奨。</div>
+        <div class="note"><strong>[af]：</strong>「この辺細かいのでガイドラインという感じか」→ ガイドラインに残す判断。✅</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第9条 -->
+  <section class="article" id="art9">
+    <h3>第9条（守秘義務）</h3>
+    <p>1　メンバーおよびホルダーは、コミュニティ活動を通じて知り得た未公開の情報および個人情報について、情報主体者本人の承諾を得ることなく、第三者への開示・漏洩・目的外利用をしてはならない。</p>
+    <p>2　本条の義務は、退会後も継続して適用される。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> 未公開情報・個人情報の第三者開示禁止、退会後の継続適用を維持。</div>
+        <div class="note"><strong>どう変えたか：</strong> [ad]コメントの改訂案「情報の適切な取扱い条項」を参考に、「憲章・利用規約・事務局の定めに従い適切に取り扱う」という表現に整理。原案の「メンバーは」という主語を「メンバーおよびホルダーは」に変更（第6条との整合）。</div>
+        <div class="orig"><strong>原案：</strong><pre>第9条（守秘義務）[ad]
+1. メンバーは、コミュニティ活動を通じて知り得た未公開の情報および個人情報について、
+情報主体者本人の承諾を得ることなく、第三者への開示・漏洩・目的外利用をしてはならない。</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[ad]：</strong>「第10条（情報の適切な取扱い）として憲章・利用規約・事務局の定めに従い適切に取り扱う旨を明記する改訂案」✅ 内容を反映。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第10条 -->
+  <section class="article changed" id="art10">
+    <h3>第10条（紛争解決手続）<span class="badge-changed">構成変更</span></h3>
+    <p>1　コミュニティ内部における紛争の解決のため、必要に応じて紛争解決委員会を設置することができる。</p>
+    <p>2　紛争解決委員会は3名の委員で構成し、その構成方法および任期は事務局が別途定める。</p>
+    <p>3　メンバー、ホルダーまたは退会者は、コミュニティ活動に関連する紛争または資格停止・除名措置に異議がある場合、紛争解決委員会に申立てをすることができる。</p>
+    <p>4　紛争解決委員会の審理方法、議決方法その他必要な事項は、別途細則で定める。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> [ag]コメントの改訂案（委員会設置・3名構成・申立て手続き・細則委任）を採用。</div>
+        <div class="delete"><strong>削除・整理した部分：</strong> 原案の「委員2名はコミュニティ投票で選出、1名は事務局」という構成を「事務局が別途定める」に変更。投票によって選ばれた委員がホルダーでないメンバーになり得るという[aj]の問題指摘を踏まえた。</div>
+        <div class="note"><strong>どう変えたか：</strong> [ag]の改訂案をベースに、実施するかどうか（[ah]「これはやるのでしょうか？」）が未確定のため、「必要に応じて設置することができる」という任意設置条項として記載した。</div>
+        <div class="orig"><strong>原案：</strong><pre>第11条（紛争解決）[ag][ah][ai]
+1. おさかなだお長崎では、コミュニティ内部の紛争解決を目的として、紛争解決委員会を設置します。[ah]
+2. 紛争解決委員会は3名の委員からなるものとし、
+   そのうち2名はコミュニティ投票により選出され、
+   残りの1名は事務局とします。[aj]
+3. ホルダーは、意見の相違や資格停止・除名に同意できない場合、
+   紛争解決委員会に裁定を求めることができます。
+4. 委員の協議の後、委員2名の賛成により決定するものとします。
+5. 裁定は最終的な決定であり、ホルダーはその内容に従うものとします。
+6. 委員会の運営細則は、委員会にて定められます。</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[ag]：</strong> 紛争解決委員会条文の改訂案。✅ ベースとして採用。</div>
+        <div class="note"><strong>[ah]：</strong>「これはやるのでしょうか？？」→ 任意設置条項（「必要に応じて設置することができる」）として記載することで対応。</div>
+        <div class="note"><strong>[ai]：</strong>「紛争委員会の設置やADRで当事者の権利を守れる仕組みがあるというのは必要かも？濁した表現では法的によくないのかもですね」→ 任意設置としつつ細則委任で詳細の柔軟性を確保。</div>
+        <div class="note"><strong>[aj]：</strong>「コミュニティ投票に参加する権利がないメンバーが選出される可能性があるのか？」→ 構成方法を「事務局が別途定める」に変更することで対応。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第11条（NEW） -->
+  <section class="article new-article" id="art11">
+    <h3>第11条（通常決議の実施手続）<span class="badge-new">新規追加（憲章委任）</span></h3>
+    <p>1　通常決議の実施手続は、次の各号に定めるプロセスにより行う。</p>
+    <ol>
+      <li><strong>起案・討議：</strong> Discord内での事前議論を経て、ホルダー3名以上の賛同を得た者が起案者となる。</li>
+      <li><strong>提案の作成：</strong> 起案者は事務局が指定するツールにて次の事項を記載した提案を作成する（起案日時・投票スケジュール・提案者・提案内容・提案背景・可決時の影響範囲・行動主体者・報酬概算）。</li>
+      <li><strong>投票の開始：</strong> 起案者は提案を登録し（投票開始日：登録翌日、終了日：登録5日後）、事務局が指定するDiscordチャンネルにて全体告知を行う。</li>
+      <li><strong>投票の実施：</strong> ホルダーは事務局が指定するツールからVOTE機能により投票を行う。</li>
+      <li><strong>投票結果：</strong> 事務局が投票結果を開示し、メンバーに案内する。可決の場合は起案者と事務局が共同で実施する。</li>
+    </ol>
+    <p>2　緊急事態により通常手続が困難な場合の対応は、憲章第6条4項の定めによる。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="added"><strong>新規追加の理由：</strong> 憲章第7条8項「提案、投票開始、告知その他投票の実施に関する具体的手続はガイドラインに定める」と委任されているが、ガイドライン草案に対応する条文が存在しない。元の草案（2026【憲章】案 index.html の第6条）にあった投票プロセスの詳細をガイドラインに移す。</div>
+        <div class="orig"><strong>参照元（2026【憲章】案 index.html 第6条より）：</strong><pre>投票プロセス
+1. 起案・討議（Discord内でホルダー3名以上の賛同で提案可能）
+2. 提案の作成（指定フォーマットで記入）
+3. 投票の開始（登録翌日開始・5日後終了、Discord告知）
+4. 投票の実施（指定ツールでVOTE）
+5. 投票結果（事務局が案内、可決なら実施）</pre></div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第7条8項：</strong>「提案、投票開始、告知その他投票の実施に関する具体的手続は、ガイドラインに定める」→ 本条が委任先。⚠️ 草案に不在だったため追加。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第12条（NEW） -->
+  <section class="article new-article" id="art12">
+    <h3>第12条（特別決議の実施手続）<span class="badge-new">新規追加（憲章委任）</span></h3>
+    <p>1　特別決議の実施手続は、次の各号に定めるプロセスにより行う。</p>
+    <ol>
+      <li><strong>分科会の発足：</strong> ホルダー3名以上の共同名義で、事務局が指定するDiscordチャンネルにて分科会の発足を申請する。事務局は個別チャンネルを用意し、事前議論を支援する。</li>
+      <li><strong>提案の作成：</strong> 通常決議と同じフォーマットにより提案を作成する（定足数欄は20%と記載）。</li>
+      <li><strong>投票の開始：</strong> 通常決議と同じ手順で告知を行う。</li>
+      <li><strong>投票の実施：</strong> 通常決議と同じ手順で実施する。</li>
+      <li><strong>投票結果：</strong> 通常決議と同じ手順で案内する。</li>
+    </ol>
+    <p>2　分科会の解散は、次のいずれかに該当する場合に、事務局の判断で行うことができる。</p>
+    <ol>
+      <li>提案の可決による目的の達成または役割終了</li>
+      <li>ホルダー3名以上の共同提案による解散投票の可決</li>
+      <li>3か月連続でのDiscord発言および活動報告の欠如</li>
+    </ol>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="added"><strong>新規追加の理由：</strong> 憲章第8条6項「投票の起案および実施に関する具体的手続はガイドラインに定める」と委任されているが、ガイドライン草案に対応する条文が存在しない。元の草案（2026【憲章】案 index.html の第7条）にあった特別決議プロセスをガイドラインに移す。</div>
+        <div class="orig"><strong>参照元（2026【憲章】案 index.html 第7条より）：</strong><pre>投票プロセス（ルール変更のためのルール設計）
+1. 分科会の発足（Discord内でホルダー3名以上で発足申請）
+2. 提案の作成（定足数20%のフォーマットで記入）
+3. 投票の開始（登録翌日開始・5日後終了、Discord告知）
+4. 投票の実施（指定ツールでVOTE）
+5. 投票結果（事務局が案内）
+分科会の解散（3条件）</pre></div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第8条6項：</strong>「投票の起案および実施に関する具体的手続は、ガイドラインに定める」→ 本条が委任先。⚠️ 草案に不在だったため追加。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第13条 -->
+  <section class="article changed" id="art13">
+    <h3>第13条（ガイドラインの変更）<span class="badge-changed">内容変更</span></h3>
+    <p>1　本ガイドラインは、憲章第11条3項に定める通常決議により変更することができる。ただし、改定後のガイドラインは憲章と整合する範囲でなければならない。</p>
+    <p>2　プロジェクト移行期間中は、事務局の判断により本ガイドラインを変更し、または補足事項を定めることができる。</p>
+    <p>3　事務局の権利または義務に関する条項は、事務局の同意なく変更することができない。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> [ak]コメントの改訂案（コミュニティ投票による変更、移行期間中は事務局判断、事務局同意要件）をベースに採用。</div>
+        <div class="note"><strong>どう変えたか：</strong> 原案の「コミュニティ投票によって変更できます。ただし第2条を除く」という表現から「憲章第11条3項に定める通常決議により変更できる」に変更。憲章と手続きの参照関係を明確にした。</div>
+        <div class="orig"><strong>原案：</strong><pre>第12条（ガイドラインの変更）[ak]
+1. このガイドラインは、第2条を除きコミュニティ投票によって変更することができます。
+   ただし、プロジェクト移行期間中は、事務局の判断に基づきガイドラインの変更ができるものとします。
+2. 事務局の権利または義務に関する条項は、事務局の同意なく変更することはできないものとします。</pre></div>
+        <hr class="divider"><span class="divider-label">メンバーコメント</span>
+        <div class="adopt"><strong>[ak]：</strong>「第12条（ガイドラインの変更）として整理した改訂案。コミュニティ投票または事務局の定める方法、移行期間中は事務局判断、事務局同意要件」✅ 採用。</div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章第11条3項（改定提案）：</strong>「ガイドラインの制定および改定は、第7条（通常決議）に定める方法により行う。ただし改定後のガイドラインは本憲章と整合する範囲でなければならない」→ 本条1項がその委任先。整合あり。</div>
+        <div class="proposal"><strong>注意：</strong> 原案にあった「第2条を除く」という除外規定の根拠が不明確。[ak]改訂案では削除されており、本改定案でも削除した。「第2条は変更不可」という意図があれば別途明記が必要。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 第14条 -->
+  <section class="article" id="art14">
+    <h3>第14条（ガイドラインに定めのない事項）</h3>
+    <p>1　本ガイドラインに定めのない事項については、コミュニティ投票により定めることができる。</p>
+    <p>2　事務局の権利または義務に関する事項の決定は、事務局の同意を要する。</p>
+    <details>
+      <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・憲章整合・改定提案</summary>
+      <div class="detail-body">
+        <div class="adopt"><strong>採用した部分：</strong> 原案の第13条をそのまま継承（条番号変更のみ）。</div>
+        <div class="orig"><strong>原案：</strong><pre>第1３条（ガイドラインに定めのない事項）
+1. ガイドラインに定めのない事項については、コミュニティ投票により定めることができる。
+2. 事務局の権利または義務に関する事項の決定は、事務局の同意を要するものとします。</pre></div>
+        <hr class="divider"><span class="divider-label">憲章との整合</span>
+        <div class="charter"><strong>憲章との整合：</strong> 問題なし。</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 附則 -->
+  <section>
+    <h2>附則</h2>
+    <p>本ガイドラインは、令和　　年　　月　　日より施行する。</p>
+    <p>本ガイドラインの改定履歴は、別途管理するものとする。</p>
+    <div class="note"><strong>要対応：</strong> 施行日が未定です。憲章の施行日と合わせて確定してください。</div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>注記：</strong> 本HTMLはガイドライン草案（パブコメ版）をベースに、メンバーコメントおよび憲章との整合を分析した改定案です。法務確定版として利用する前には法務確認を行ってください。</p>
+  <p><strong>最優先の残作業：</strong>
+    <code class="inline">第5条（ホルダー一時休止）</code>・
+    <code class="inline">第11条（通常決議手続）</code>・
+    <code class="inline">第12条（特別決議手続）</code> の3条文が草案に存在しない新規追加です。内容を確認・承認してください。
+  </p>
+  <p>元の草案の条番号重複（第3条×2、第5条×2）・内容重複（退会条文・資格停止条文）を整理しました。元の草案と対照する場合は各条文のレビューセクションの「原案」を参照してください。</p>
+</footer>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おさかなだお長崎 DAO憲章（改定案・2026年版）</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --paper:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#0f766e;
+      --accent-soft:#ecfeff;
+      --warn:#fff7ed;
+      --warn-line:#fb923c;
+      --ok:#f0fdf4;
+      --ok-line:#22c55e;
+      --del:#fef2f2;
+      --del-line:#ef4444;
+      --orig:#f5f3ff;
+      --orig-line:#8b5cf6;
+      --proposal:#fefce8;
+      --proposal-line:#ca8a04;
+      --shadow:0 12px 30px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+      line-height:1.8;
+    }
+    .wrap{max-width:1100px;margin:32px auto;padding:0 20px 60px}
+    .paper{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    header{
+      padding:40px 42px 28px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg,#ffffff 0%,#f8fffe 100%);
+    }
+    h1{margin:0 0 10px;font-size:30px;line-height:1.35}
+    .sub{margin:0;color:var(--muted);font-size:14px}
+    .tag{
+      display:inline-block;
+      margin-top:14px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:12px;
+      border:1px solid #bae6fd;
+    }
+    .tag-warn{
+      display:inline-block;
+      margin-top:8px;
+      margin-left:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--warn);
+      color:#b45309;
+      font-size:12px;
+      border:1px solid var(--warn-line);
+    }
+    main{padding:18px 42px 42px}
+    h2{
+      margin:34px 0 14px;
+      padding-bottom:8px;
+      border-bottom:2px solid #eef2f7;
+      font-size:22px;
+    }
+    h3{margin:24px 0 10px;font-size:17px}
+    p{margin:10px 0}
+    ol,ul{padding-left:24px}
+    li{margin:6px 0}
+    .lead{color:var(--muted);font-size:15px}
+    .note,.adopt,.delete,.orig,.proposal{
+      margin:14px 0 20px;
+      padding:14px 16px;
+      border-radius:12px;
+      font-size:14px;
+    }
+    .note{background:var(--warn);border-left:4px solid var(--warn-line)}
+    .adopt{background:var(--ok);border-left:4px solid var(--ok-line)}
+    .delete{background:var(--del);border-left:4px solid var(--del-line)}
+    .orig{background:var(--orig);border-left:4px solid var(--orig-line)}
+    .proposal{background:var(--proposal);border-left:4px solid var(--proposal-line)}
+    .proposal strong{color:#78350f}
+    .proposal ul{margin:8px 0 0;padding-left:20px}
+    .proposal li{margin:5px 0}
+    .divider{
+      margin:20px 0 8px;
+      border:none;
+      border-top:2px dashed #d1d5db;
+      position:relative;
+    }
+    .divider-label{
+      display:block;
+      text-align:center;
+      margin:-12px auto 16px;
+      width:fit-content;
+      background:#fcfcfd;
+      padding:0 12px;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:0.05em;
+    }
+    .article{
+      margin-top:18px;
+      padding:18px 20px 12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+    }
+    .article.changed{
+      border-color:#fde68a;
+      background:#fffdf5;
+    }
+    .article h3{margin-top:0}
+    .badge-changed{
+      display:inline-block;
+      margin-left:10px;
+      padding:2px 8px;
+      border-radius:999px;
+      background:var(--proposal);
+      color:#78350f;
+      font-size:11px;
+      font-weight:700;
+      vertical-align:middle;
+      border:1px solid #fde68a;
+    }
+    details{
+      margin:16px 0 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fcfcfd;
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      font-weight:700;
+      background:#f8fafc;
+      border-bottom:1px solid transparent;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    details[open] summary{
+      border-bottom-color:var(--line);
+    }
+    .pill{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:12px;
+      font-weight:600;
+    }
+    .detail-body{
+      padding:2px 16px 2px;
+    }
+    pre{
+      white-space:pre-wrap;
+      word-break:break-word;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:12px 14px;
+      font-size:13px;
+      line-height:1.7;
+      overflow:auto;
+    }
+    footer{
+      padding:24px 42px 34px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      background:#fafafa;
+      font-size:13px;
+    }
+    code.inline{
+      background:#f3f4f6;
+      padding:1px 6px;
+      border-radius:6px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:12px;
+    }
+    .change-index{
+      margin:0 0 28px;
+      padding:18px 22px;
+      border-radius:14px;
+      background:var(--proposal);
+      border:1px solid #fde68a;
+    }
+    .change-index h4{margin:0 0 12px;font-size:15px;color:#78350f}
+    .change-index table{width:100%;border-collapse:collapse;font-size:14px}
+    .change-index th{text-align:left;padding:6px 10px;border-bottom:2px solid #fde68a;color:#78350f;font-size:13px}
+    .change-index td{padding:6px 10px;border-bottom:1px solid #fef3c7;vertical-align:top}
+    .change-index tr:last-child td{border-bottom:none}
+    @media (max-width:720px){
+      header,main,footer{padding-left:20px;padding-right:20px}
+      h1{font-size:24px}
+      h2{font-size:20px}
+      .change-index table{font-size:13px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="paper">
+      <header>
+        <h1>おさかなだお長崎 DAO憲章（改定案・2026年版）</h1>
+        <p class="sub">最終統合版をベースに、DAO設計・ガバナンス分析による追加改定提案を加えた版です。折りたたみの中に「原案 → メンバー議論 → 統合版」の経緯と「さらなる改定提案」の両方を収録しています。</p>
+        <div class="tag">折りたたみレビュー付き / メンバー議論の記録保持</div>
+        <div class="tag-warn">施行日要確認</div>
+      </header>
+
+      <main>
+        <section>
+          <h2>0. この文書の前提</h2>
+          <p class="lead">各章の下に、折りたたみ式でレビューを配置しています。レビューの構成は次のとおりです。</p>
+          <div class="note">
+            <strong>レビューの構成：</strong><br>
+            <span style="color:#15803d">●</span> <strong>採用した部分</strong>：原案からメンバー議論を経て統合版に残った内容<br>
+            <span style="color:#dc2626">●</span> <strong>削除した部分</strong>：原案にあったが統合時に外した内容と理由<br>
+            <span style="color:#ea580c">●</span> <strong>どう変えたか</strong>：メンバー間の議論を経た判断・方針<br>
+            <span style="color:#7c3aed">●</span> <strong>原案</strong>：変更前の元テキスト<br>
+            <span style="color:#ca8a04">●</span> <strong>さらなる改定提案</strong>：統合版に対するDAO設計観点での追加提案（本バージョン新規）
+          </div>
+          <div class="change-index">
+            <h4>改定提案サマリー（本バージョンで追加・変更した条文）</h4>
+            <table>
+              <tr>
+                <th>条文</th>
+                <th>変更内容</th>
+                <th>優先度</th>
+              </tr>
+              <tr>
+                <td><strong>第3条2項</strong></td>
+                <td>事務局の構成変更時の開示義務を追加</td>
+                <td>中</td>
+              </tr>
+              <tr>
+                <td><strong>第6条1項1号</strong></td>
+                <td>名称使用における個人発信の例外を追加（メンバーが一度削除した箇所の再検討）</td>
+                <td>高</td>
+              </tr>
+              <tr>
+                <td><strong>第6条1項2号</strong></td>
+                <td>外部提供の単発リワード例外を追加（メンバーが一度削除した箇所の再検討）</td>
+                <td>高</td>
+              </tr>
+              <tr>
+                <td><strong>第6条4項</strong></td>
+                <td>緊急手続き条項を新設（原案にあり、メンバーが一度削除した箇所の再検討）</td>
+                <td>中</td>
+              </tr>
+              <tr>
+                <td><strong>第8条2項</strong></td>
+                <td>特別決議の起案要件（ホルダー3名以上）を追記</td>
+                <td>高</td>
+              </tr>
+              <tr>
+                <td><strong>第10条5項</strong></td>
+                <td>移行期間後のトークン権利失効条項を追加（原案にあったが統合時に脱落）</td>
+                <td>最高</td>
+              </tr>
+              <tr>
+                <td><strong>第11条3項</strong></td>
+                <td>ガイドライン改定手続き（通常決議による）を明記</td>
+                <td>高</td>
+              </tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>前文</h2>
+          <p>おさかなだお長崎（以下「本コミュニティ」という。）は、「長崎のうまいサカナの未来をつくる」ことをテーマに、地域・海・食・人のつながりを育みながら、メンバーが共に学び、挑戦し、価値を生み出すための共創コミュニティである。</p>
+          <p>本憲章は、本コミュニティの基本方針、構成、権限、意思決定およびトークンに関する基本事項を定めるものであり、具体的な運用手続その他の詳細はガイドラインに定めるものとする。</p>
+        </section>
+
+        <!-- 第1条 -->
+        <section class="article">
+          <h3>第1条（位置づけ）</h3>
+          <p>1　本憲章は、本コミュニティの基本方針およびガバナンスの枠組みを定める最上位文書とする。</p>
+          <p>2　本憲章に定めのない具体的な運用方法、参加手続、投票方法、各種申請手順その他の実務上の事項は、ガイドラインその他事務局が定めるルールに従うものとする。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 憲章とガイドラインの役割分担を明確にし、実務の詳細はガイドラインへ委ねる構造を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 憲章本文に具体手続を混在させる構成は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 文書の役割を最初に固定することで、後続条文の粒度を揃えた。</div>
+              <div class="orig"><strong>原案：</strong><pre>※ この章は統合時に追加した整理条項であり、原案に独立した条文は存在しなかったため、各所に散在していた「ガイドラインに定める」「憲章へ移動」等の意図を統合して新設。</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：変更なし（現行維持を推奨）</strong><br>
+              憲章・ガイドラインの役割分離という判断は適切です。現行のままで問題ありません。</div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第2条 -->
+        <section class="article">
+          <h3>第2条（目的）</h3>
+          <p>1　本コミュニティは、メンバーにより構成される法人格のない任意団体であり、Local web3 lab.@渋谷プロジェクトに属するDAO組織とする。</p>
+          <p>2　本コミュニティは、「長崎のうまいサカナの未来をつくる」ことをテーマとし、次の各号を基本目的とする。</p>
+          <ol>
+            <li>「長崎×おさかな」を通じて楽しさを生み出すこと。</li>
+            <li>海および漁業を守る取組を広げること。</li>
+            <li>挑戦やアイデアを応援し合うコミュニティを形成すること。</li>
+          </ol>
+          <p>3　本コミュニティの行動指針は、次のとおりとする。</p>
+          <ol>
+            <li>いつでもウェルカムであること。</li>
+            <li>楽しさと、ちょっとした刺激を大切にすること。</li>
+            <li>肩の力を抜いて取り組める雰囲気をつくること。</li>
+            <li>みんなでつくり、みんなで支えること。</li>
+            <li>海にもコミュニティにもやさしくあること。</li>
+          </ol>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 任意団体＋DAO組織という定義、テーマ、基本目的3点、行動指針5点を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 抽象的な「テーマに活動するコミュニティです」だけの記述は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 定義 → 目的 → 行動指針の順に再構成し、理念を判断基準として使えるようにした。</div>
+              <div class="orig"><strong>原案：</strong><pre>2. 組織目的と目的
+
+１．「おさかなだお長崎」は、メンバーにより構成される法人格のないコミュニティであり、任意団体です。「おさかなだお長崎」は、Local web3 lab.@渋谷プロジェクトに属するDAO組織です。
+2. 「おさかなだお長崎」は、「長崎のうまいサカナの未来をつくる」をテーマに活動するコミュニティです。</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：変更なし（現行維持を推奨）</strong><br>
+              定義→目的→行動指針という構造は判断基準として機能します。現行のままで問題ありません。</div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第3条 -->
+        <section class="article changed">
+          <h3>第3条（基本的事項）<span class="badge-changed">改定提案あり</span></h3>
+          <p>1　本コミュニティの運営は、メンバーおよびホルダーによる共創を基本としつつ、事務局が運営責任を負うものとする。</p>
+          <p>2　事務局は、東急不動産ホールディングス株式会社が指定または承認する者により構成されるものとする。<strong>事務局の構成に変更が生じた場合、事務局は速やかにコミュニティ内で開示するものとする。</strong></p>
+          <p>3　コミュニティ内の管理、プロジェクトの実施その他の運営事項のうち重要なものについては、ホルダーによるコミュニティ投票により制定または改定することができる。</p>
+          <p>4　本コミュニティは、原則として2025年2月1日から2026年1月31日までをプロジェクト期間とし、2026年2月1日から2026年3月31日まで、またはSeason3への移行が行われた日のいずれか早い日までをプロジェクト移行期間とする。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 共創を基本にしつつ事務局が責任を負う構造、重要事項は投票で制定・改定できる点、プロジェクト期間・移行期間の考え方を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 主語が壊れていた原文、事務局説明の重複、断片的な説明は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 「DAOっぽさ」と「事務局責任」の両方を残しつつ、責任主体が読める条文に修正した。</div>
+              <div class="orig"><strong>原案：</strong><pre>「おさかなだお長崎」の運営全体は、おさかなだお長崎メンバー・ホルダーが行い、運営事務局は東急不動産ホールディングス株式会社が指定承認するメンバー・ホルダーがコミュニティマネージャーが務める・運営事務局（以下「事務局」という。）。 が行うこととし、運営の一部にあたるコミュニティ内管理に関する事項やプロジェクトの実施などについては、ホルダー全員のコミュニティ投票により制定・改定することができるものとします。
+
+プロジェクト移行期間中は、DAOへの新規参画・DAOのホルダーへの会員証NFT発行・会員証NFTの利用（投票）・コミュニティ投票は停止するものとします。
+プロジェクト移行期間中は、コミュニティ投票によるガイドラインの変更はできないものとします。
+プロジェクト移行期間中は、ガイドラインに定めのない事項については、事務局が定めることができるものとします。</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：第2項に開示義務を追加（太字部分）</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「事務局の構成に変更が生じた場合、事務局は速やかにコミュニティ内で開示するものとする。」</li>
+                  <li><strong>理由：</strong> 統合版の「指定または承認する者」という表現は柔軟性があるが、誰が事務局かをメンバー・ホルダーが確認できる仕組みがない。変更時の開示義務を課すことで、責任の所在を追跡可能にする。原案・統合版ともに議論されていなかった論点。</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第4条 -->
+        <section class="article">
+          <h3>第4条（コミュニティ構成）</h3>
+          <p>1　本コミュニティに参加する者を総称して「メンバー」という。</p>
+          <p>2　メンバーのうち、会員証NFTを保有し、かつ所定の手続を経て意思決定に参加する権利を付与された者を「ホルダー」という。</p>
+          <p>3　移行期間中は、事務局が別段の定めをしない限り、新たな会員証NFTの発行およびホルダー資格の付与を停止する。</p>
+          <p>4　メンバー資格の取得方法、ホルダー資格の取得・変更・休止・再開および退会手続その他の詳細は、ガイドラインに定める。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> メンバー／ホルダーの定義、移行期間中のホルダー付与停止、詳細手続はガイドラインに委ねる方針を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 入会後1か月、歓迎会参加、志望動機提出、具体的行動条件、休眠フォーム、手動算出などの詳細運用は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 憲章では「誰が誰か」だけ定義し、取得・休止・再開・退会の方法は全部ガイドライン側へ寄せた。</div>
+              <div class="orig"><strong>原案：</strong><pre>3. コミュニティ構成
+ロール構成
+おさかなだお長崎に参加する人は、すべて「メンバー」と総称されます。
+メンバーのうち、会員証NFT（以下NFTという） を保有し意思決定に参加する権利を得た者を「ホルダー」と呼称します。但し、プロジェクト移行期間中は、会員証NFTの受付発行は停止するものとします。
+メンバー登録は、Discord の招待リンクを通じて随時受け付けます。
+登録時にガイドラインへ同意した時点でメンバー資格を取得し、おさかなだお長崎に入会し、コミュニティ活動に参加できます。
+ホルダー登録は次項以下およびガイドラインに規定する方法により実施することができます。
+
+ホルダー権利取得
+メンバーは入会後、1ヶ月経過した後、次の手続きを経てホルダーを取得できます。
+おさかなだお長崎の目的と行動指針への賛同を明示すること。
+公式オンボード活動（オンライン歓迎会）に参加すること。
+長崎×おさかなに関する具体的体験・行動をコミュニティで共有すること。
+動機と今後の関わり方を記した志望動機を提出すること。
+…（以下、休止・退会詳細）</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：変更なし（現行維持を推奨）</strong><br>
+              「誰が誰か」だけ憲章に残してガイドラインに委任するという方針は適切です。現行のままで問題ありません。ただし、ガイドラインへ移した「休眠ホルダーの判定・定足数計算」は事務局の手動作業になる点を注意してください。スケールしたときの負荷をガイドライン側で設計しておくことを推奨します。</div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第5条 -->
+        <section class="article">
+          <h3>第5条（ロールの権限）</h3>
+          <p>1　メンバーは、次の権限を有する。</p>
+          <ol>
+            <li>コミュニティ内における情報共有、議論および企画提案への参加</li>
+            <li>プロジェクト、イベントおよび分科会への参加</li>
+          </ol>
+          <p>2　ホルダーは、メンバーとしての権限に加え、次の権限を有する。</p>
+          <ol>
+            <li>事務局が指定する方法により提案を行い、会員証NFTに基づき投票すること</li>
+            <li>トークンまたはリワードの設計に関する議論または決定に参加すること</li>
+            <li>分科会の設置を提案すること</li>
+          </ol>
+          <p>3　移行期間中は、事務局が別段の定めをしない限り、ホルダーの投票権およびリワードに関する権利は停止されるものとする。</p>
+          <p>4　ホルダー資格の取得、変更、休止、再開、退会その他の手続の詳細は、ガイドラインに定める。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> メンバーの基本権限、ホルダーの追加権限、移行期間中の権利停止、手続の詳細はガイドラインという構造を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> ホルダー権利取得の詳細、休止フロー、退会時のNFT返還方法、分科会の細かい設置条件、利用規約参照、報告義務の細目は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 権限だけを条文に残し、方法論は削った。親切さより可変性を優先した。</div>
+              <div class="orig"><strong>原案：</strong><pre>4. ロールの権限およびガイドライン
+ロール権限
+メンバーの基本権限
+・コミュニティチャンネルでの情報共有、議論、企画提案に参加する権利。
+・プロジェクト・イベントの立案および参加権利。
+・分科会の参加権利。
+
+ホルダーの追加権限
+・事務局が指定するツール 上で提案を立案し、NFTを用いて投票する権利。
+・トークン・リワードの設計及び配布対象となる権利。
+・分科会の立案権利。
+※ 但し、プロジェクト移行期間中は…
+…（以下、取得・休止・退会・分科会詳細・参考規約・責務）</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：変更なし（現行維持を推奨）</strong><br>
+              権限の列挙は適切です。現行のままで問題ありません。</div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第6条 -->
+        <section class="article changed">
+          <h3>第6条（意思決定）<span class="badge-changed">改定提案あり</span></h3>
+          <p>1　本コミュニティにおいて投票により意思決定を行う事項は、次の各号に掲げるものとする。</p>
+          <ol>
+            <li>「おさかなだお長崎」の名称の対外使用または対外発信に関する事項。<strong>ただし、メンバーが個人として本コミュニティへの参加や活動を紹介する場合はこの限りではない。</strong></li>
+            <li>トークンまたはリワードの設計、配分その他価値移転に関する重要事項。<strong>ただし、外部から単発的に提供されるリワードについては、事務局の判断で実施することができる。</strong></li>
+            <li>ルールまたは役割分担の制定、改定その他コミュニティ管理に関する重要事項</li>
+            <li>前各号のほか、事務局が投票による決定が相当であると認める事項</li>
+          </ol>
+          <p>2　前項各号に該当しない日常的運営事項については、事務局が必要に応じて決定し、実施することができる。</p>
+          <p>3　プロジェクト移行期間中は、事務局が必要と認める場合、投票に代替する方法を採用し、または投票を停止することができる。</p>
+          <p>4　<strong>自然災害その他の緊急事態により通常の意思決定手続が困難な場合、事務局の判断をもって暫定措置を講じることができる。当該暫定措置は、次回のコミュニティへの報告の場において追認を行うものとする。</strong></p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 投票対象の列挙、日常運営は事務局決定、移行期間中は代替方法または停止が可能、という骨格を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 名称使用の細かな例外、単発リワード例外、重複する注意書きは削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 投票の意味を「何を民意で決めるか」に限定し、それ以外は事務局が回す形へ整理した。</div>
+              <div class="orig"><strong>原案：</strong><pre>5. 意思決定方法
+投票にて意思決定を行う場合は、次に掲げる事項に限定して実施します。
+「おさかなだお長崎」名称の対外使用・発信に関する事項。
+タスクおよびリワードの制定・改定に関する事項。
+ルールや役割分担の制定や改訂など、コミュニティの管理に関する事項。
+その他、NFT投票によって決定することが好ましいと事務局が判断する事項。
+上記以外の事項は、コミュニティの承認なしで実施可能とします。
+※ NFT投票による決定は…
+※ 但し、プロジェクト移行期間中は、コミュニティ投票は代替方法を許容するほか、停止できるするものとします。</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案①：名称使用の個人発信例外を再追加（1項1号・太字部分）</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「ただし、メンバーが個人として本コミュニティへの参加や活動を紹介する場合はこの限りではない。」</li>
+                  <li><strong>経緯について：</strong> メンバー議論では「名称使用の細かな例外は削除」という判断がなされました。しかし現行の条文のままでは、メンバーが個人ブログ・SNS・登壇資料でコミュニティ名を言及するだけで投票が必要になる解釈が生まれます。原案（2026年版）にも「くまさんコメント：講演、SNS等でメンバーとして活動紹介する場合はこの限りではない」という記録があり、現場の実態に合わせた例外と考えます。削除した判断を覆す提案になりますが、再検討を推奨します。</li>
+                </ul>
+              </div>
+              <div class="proposal"><strong>提案②：単発リワード例外を再追加（1項2号・太字部分）</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「ただし、外部から単発的に提供されるリワードについては、事務局の判断で実施することができる。」</li>
+                  <li><strong>経緯について：</strong> こちらもメンバー議論で「単発リワード例外は削除」と判断されました。しかし外部スポンサーや協賛者からのリワード提供のたびに投票を必要とすると、コミュニティの機動性が著しく下がります。「年度を通したリワード設計には投票が必要、外部からの単発提供は事務局判断でOK」という区別は合理的です。原案の考え方を復活させることを推奨します。</li>
+                </ul>
+              </div>
+              <div class="proposal"><strong>提案③：緊急手続き条項を追加（4項・太字部分）</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「自然災害その他の緊急事態により通常の意思決定手続が困難な場合、事務局の判断をもって暫定措置を講じることができる。当該暫定措置は、次回のコミュニティへの報告の場において追認を行うものとする。」</li>
+                  <li><strong>経緯について：</strong> 緊急手続きは原案（第6・7章）にあり、メンバー統合時に「詳細は削除」として外されました。ただし条項の存在自体まで削除した結果、現行版では緊急時に事務局が動く根拠条文がありません。詳細なプロセスはガイドラインに委ねつつ、「緊急時は事務局が動ける」という根拠だけを憲章に残すことを推奨します。</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第7条 -->
+        <section class="article">
+          <h3>第7条（通常決議）</h3>
+          <p>1　投票は、前条に定める事項について実施されるものとする。</p>
+          <p>2　ホルダーは、会員証NFTに基づき、1保有単位につき1票の投票権を有する。</p>
+          <p>3　投票の定足数は、有効ホルダー数（休眠状態のホルダーを除く。）の10%以上とする。</p>
+          <p>4　投票は、投票開始から5日間（24時間×5）を経過する時点で締め切られるものとする。</p>
+          <p>5　投票は、有効投票数の過半数（51%以上）の賛成をもって可決とする。</p>
+          <p>6　投票の結果は、事務局が指定する方法により開示された時点で効力を生じるものとする。</p>
+          <p>7　投票の起案は、ホルダー3名以上の賛同により行うことができる。</p>
+          <p>8　提案、投票開始、告知その他投票の実施に関する具体的手続は、ガイドラインに定める。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 1保有単位1票、定足数10%、5日間、51%可決、3名賛同、具体手続はガイドラインというルールを採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> Discordでの事前議論、フォーマット記入項目、@everyone告知、投票開始日の指定、ツール操作手順などは削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 数字と成立条件だけ残し、手順はすべてガイドラインへ移した。</div>
+              <div class="orig"><strong>原案：</strong><pre>6. 投票ルールおよびプロセス
+…（対象事項）
+投票ルール
+・ホルダーは、NFT1個当たり1票
+・ホルダー3名以上の共同名義
+・定足割合10%以上
+・投票期間は5日間
+・有効票の過半数（51％）以上の賛成
+・結果開示時点で効力
+投票プロセス
+1. 起案・討議
+2. 提案の作成
+3. 投票の開始
+4. 投票の実施
+5. 投票結果
+緊急手続
+…</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：変更なし（現行維持を推奨）</strong><br>
+              数字と成立条件に絞った整理は適切です。手順はガイドラインに委任する方針を維持してください。第7項に起案要件（3名以上）が明記されている点も良好です。</div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第8条 -->
+        <section class="article changed">
+          <h3>第8条（特別決議）<span class="badge-changed">改定提案あり</span></h3>
+          <p>1　コミュニティ管理に関する重要事項、ルールの制定または改定その他本コミュニティの基本運営に関わる事項は、特別決議により行うものとする。</p>
+          <p>2　特別決議の定足数は、有効ホルダー数（休眠状態のホルダーを除く。）の20%以上とする。</p>
+          <p>3　特別決議は、有効投票数の過半数（51%以上）の賛成をもって可決とする。</p>
+          <p>4　投票期間は、投票開始から5日間（24時間×5）とする。</p>
+          <p>5　<strong>特別決議の起案は、ホルダー3名以上の賛同により行うことができる。</strong></p>
+          <p>6　投票の起案および実施に関する具体的手続は、ガイドラインに定める。</p>
+          <p>7　プロジェクト移行期間中は、特別決議を停止することができる。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> ルール改定等は特別決議、定足数20%、51%可決、5日間、移行期間中は停止可、という最小構成を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 分科会発足フロー、解散条件、Discord手順、チャンネル設置、フォーマット詳細、緊急手続の詳細は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 「ルールを変えるためのルール」だけ残し、それ以外は全部切った。</div>
+              <div class="orig"><strong>原案：</strong><pre>7. 投票ルールおよびプロセス（ルール変更のためのルール設計）
+…コミュニティ管理に関する事項
+投票ルール
+・NFT1個当たり1票
+・ホルダー3名以上
+・定足割合20%以上
+・投票期間5日間
+・過半数（51%）以上
+・結果開示時点で効力
+※ 移行期間中は停止
+投票プロセス
+1. 分科会の発足
+2. 提案の作成
+3. 投票の開始
+4. 投票の実施
+5. 投票結果
+分科会の解散
+緊急手続
+…</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：起案要件（5項・太字部分）を追加</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「特別決議の起案は、ホルダー3名以上の賛同により行うことができる。」（旧5項以降を1項繰り下げ）</li>
+                  <li><strong>理由：</strong> 通常決議（第7条7項）には「ホルダー3名以上の賛同」という起案要件が明記されていましたが、特別決議には対応する記述がありませんでした。メンバーの整理では「ルールを変えるためのルール」だけを残したことでこの点が抜け落ちています。両決議で起案要件を揃えることで、「誰でも特別決議を起案できる」「誰も起案できないと解釈される」という両極端の事態を防ぎます。</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第9条 -->
+        <section class="article">
+          <h3>第9条（収支・財産・NFT）</h3>
+          <p>1　本コミュニティの運営に関して生ずる収支その他の管理は、事務局に帰属する。</p>
+          <p>2　ホルダーおよびメンバーは、これらについて一切の権利または権限を有しない。</p>
+          <p>3　本コミュニティは、独自の財産を保有しない。</p>
+          <p>4　ホルダーおよびメンバーは、コミュニティ活動に関し、経済的持分権その他これに類する権利を有しない。</p>
+          <p>5　会員証NFTは、ホルダー資格を証明し、本憲章に定める権利行使を可能とするデジタル証書に過ぎず、経済的利益、収益分配請求権、残余財産分配請求権その他一切の財産的権利を基礎づけるものではない。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 収支は事務局帰属、コミュニティは独自財産を持たない、メンバー・ホルダーに経済的権利はない、NFTは地位証明にすぎない、という整理を採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 同趣旨の重複表現、長い説明文は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 法務的に重要な否定条項だけを短く明確にした。</div>
+              <div class="orig"><strong>原案：</strong><pre>コミュニティの運営の収支はすべて事務局に帰属します。ホルダーは、これらの収支につき一切の権利または権限を持ちません。
+「おさかなだお長崎」は、一切の財産を保有しません。ホルダーは、コミュニティの内部で発生する運営の収支その他活動について、一切の経済的な持分権を持つものではありません。
+ホルダーは、「おさかなだお長崎」または事務局に対して、収益や財産の分配を求めることはできません。会員証NFTは…経済的な利益や権益を主張する根拠となるものではありません。</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：変更なし（現行維持を推奨）</strong><br>
+              法務的に重要な否定条項が簡潔に整理されています。現行のままで問題ありません。</div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第10条 -->
+        <section class="article changed">
+          <h3>第10条（トークンに関する事項）<span class="badge-changed">改定提案あり</span></h3>
+          <p>1　本コミュニティにおけるトークンの設計、配布および管理は、別途コミュニティ内で共有されるトークン配布ガイドラインに基づくものとする。</p>
+          <p>2　トークンに関するルールは、必要に応じて分科会での議論および投票を経て変更することができる。</p>
+          <p>3　プロジェクト移行期間後は、トークンの取扱いおよびトークン・リワードに関する権利内容が変更される場合がある。</p>
+          <p>4　プロジェクト移行期間中に、事務局がトークンの移管先を定めた場合、ホルダーが保有するトークンは当該移管先において同等の内容として引き継がれるものとする。</p>
+          <p>5　<strong>プロジェクト移行期間後は、既存のツールで管理するトークンに関する全ての権利は失効するものとする。ただし、前項に基づき移管先が定められた場合はこの限りではない。</strong></p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> トークン配布ガイドライン参照、必要に応じて議論・投票で変更可能、移行期間後の変更可能性、移管先が決まった場合の引継ぎを採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> トークン名称未定、Google Sheets明記、ツール依存表現、未確定の名称情報は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 未確定情報を条文から抜き、ルールだけを残した。</div>
+              <div class="orig"><strong>原案：</strong><pre>8.トークンに関する事項
+おさかなだお長崎が発行を検討するコミュニティトークンの名称は現時点では未定となります。
+トークン分配のガイドラインはトークン配布ガイドラインgoogle sheetsとなります。に基づくものとします。
+今後、分科会で十分な議論を行なった後に投票プロセスを経て、変更の可能性があります。
+プロジェクト移行期間後は、トークンの取り扱いおよびトークン・リワードの配布対象となる権利が変更となる可能性があります。
+プロジェクト移行期間中にトークン移管先が事務局により決定された場合に限り、ホルダーが保有するトークンは同等のものと引き継げるものとし、プロジェクト移行期間後は既存のツールで管理するトークンに関する全ての権利は失効するものとします。</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案：失効条項を5項として追加（太字部分）</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「プロジェクト移行期間後は、既存のツールで管理するトークンに関する全ての権利は失効するものとする。ただし、前項に基づき移管先が定められた場合はこの限りではない。」</li>
+                  <li><strong>経緯について：</strong> 原案には「プロジェクト移行期間後は既存のツールで管理するトークンに関する全ての権利は失効する」という文言が明記されていました。統合時にメンバーが「未確定情報を条文から抜く」という方針でトークン名・Google Sheets等を削除した際に、この失効条項も一緒に脱落したと見られます。ただし失効条項はルールであり、未確定情報とは性質が異なります。この条項がないと、移管先が定まらなかった場合に「トークンの権利が残っている」と主張するメンバーへの対処が困難になります。原案の意図を回収する形での追加を強く推奨します。</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 第11条 -->
+        <section class="article changed">
+          <h3>第11条（附則）<span class="badge-changed">改定提案あり</span></h3>
+          <p>1　本憲章は、令和　　年　　月　　日より施行する。</p>
+          <p>2　本憲章の改定は、第8条（特別決議）に定める方法により行う。</p>
+          <p>3　<strong>ガイドラインの制定および改定は、第7条（通常決議）に定める方法により行う。ただし、改定後のガイドラインは本憲章と整合する範囲でなければならない。</strong></p>
+          <p>4　本憲章の改定履歴は、別途管理するものとする。</p>
+
+          <details>
+            <summary><span class="pill">レビューを見る</span> 採用・削除・変更点・原案・改定提案</summary>
+            <div class="detail-body">
+              <div class="adopt"><strong>採用した部分：</strong> 施行、改定方法、改定履歴管理という最低限の骨格のみ採用。</div>
+              <div class="delete"><strong>削除した部分：</strong> 年月日ごとの改定文言、過去文書名の列挙、最終更新日の固定記述は削除。</div>
+              <div class="note"><strong>どう変えたか：</strong> 附則を運用しやすい最小形に整理した。改定履歴は別管理とし、憲章本文を軽くした。</div>
+              <div class="orig"><strong>原案：</strong><pre>附則
+当DAO憲章の改正には、総メンバーの20%を定足数とし、51%以上の賛成を必要とする。
+当DAO憲章は令和6年2月1日に施行の「NFT投票による意思決定」を元に改正し、令和7年6月5日より施行する。
+（令和8年1月30日改定）令和7年6月5日施行のDAO憲章の一部を改定し、令和8年2月1日より施行する。
+（令和8年＊月＊日改定）令和7年6月5日施行のDAO憲章の一部を改定し、令和＊年＊月＊日より施行する。
+以上
+［最終更新日］2026年4月30日 改定</pre></div>
+              <hr class="divider"><span class="divider-label">さらなる改定提案（DAO設計観点）</span>
+              <div class="proposal"><strong>提案①：施行日の確定（1項）</strong>
+                <ul>
+                  <li>「令和　　年　　月　　日」が空欄のままです。憲章として法的・組織的に機能するには施行日の確定が必須です。これが最優先の残作業です。</li>
+                </ul>
+              </div>
+              <div class="proposal"><strong>提案②：ガイドライン改定手続きを3項として追加（太字部分）</strong>
+                <ul>
+                  <li><strong>追加文言：</strong>「ガイドラインの制定および改定は、第7条（通常決議）に定める方法により行う。ただし、改定後のガイドラインは本憲章と整合する範囲でなければならない。」（旧3項は4項に繰り下げ）</li>
+                  <li><strong>理由：</strong> メンバー整理では「附則を最小形に」という方針で正しく整理されました。しかし「憲章の改定＝特別決議」とだけ書かれた現状では、ガイドラインの変更手続きが不明確です。重要な手続きの多くがガイドラインに委任されている以上、ガイドラインの変更は実質的な憲章変更に近い影響を持ちます。「通常決議による」「ただし憲章と整合すること」を明記することで、どの手続きで変更できるかを明確にします。</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </section>
+      </main>
+
+      <footer>
+        <p><strong>注記：</strong> 本HTMLは議論・共有・レビュー用の改定案版です。法務確定版として利用する前には、必要に応じて法務確認を行ってください。</p>
+        <p><strong>最優先の残作業：</strong> <code class="inline">第11条1項の施行日</code> を確定記入してください。施行日が空欄のままでは憲章として機能しません。</p>
+        <p>次にやるべき実務は、<code class="inline">ガイドライン</code> 側に移した手続（ホルダー取得・休眠判定・投票実施・分科会設置・トークン配布詳細・投票要否の判断基準）を別文書として確定することです。</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
