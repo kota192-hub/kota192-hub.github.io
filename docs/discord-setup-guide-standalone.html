@@ -210,11 +210,11 @@
 
     /* 警告ボックス */
     .warn { border-radius: 14px; padding: 16px 22px; margin-bottom: 18px; }
-    .warn-orange { background: #fff8f0; border: 2px solid #f0a040; }
+    .warn-orange { background: var(--soft); border: 2px solid var(--accent); }
     .warn-purple { background: #f6e9f0; border: 2px solid #dba5c5; }
     .warn-red    { background: #fff5f5; border: 2px solid #e88888; }
     .warn-ttl { font-weight: bold; font-size: .97rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .warn-orange .warn-ttl { color: #c06000; }
+    .warn-orange .warn-ttl { color: var(--primary); }
     .warn-purple .warn-ttl { color: var(--primary); }
     .warn-red    .warn-ttl { color: #c03030; }
     .warn p  { font-size: .93rem; line-height: 1.75; margin-bottom: 5px; }
@@ -235,27 +235,27 @@
     .skip-act { font-size: 1.15rem; font-weight: bold; color: var(--primary); }
 
     /* ── 困りごとセクション ── */
-    .trouble-wrap { margin-top: 36px; border-top: 2px dashed var(--border); padding-top: 26px; }
+    .trouble-wrap { margin-top: 36px; border-top: none; padding: 20px 24px; background: linear-gradient(135deg, #f6e9f0, #edd2e2); border-left: 5px solid var(--primary); border-radius: 12px; }
     .trouble-hd { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .trouble-hd-txt { font-size: 1rem; font-weight: bold; color: #a05000; }
-    .trouble-desc { font-size: .88rem; color: var(--sub); margin-bottom: 16px; }
+    .trouble-hd-txt { font-size: 1.05rem; font-weight: bold; color: var(--primary); }
+    .trouble-desc { font-size: .95rem; color: var(--text); margin-bottom: 16px; }
     .trouble-items { display: flex; flex-direction: column; gap: 8px; }
 
     .t-btn {
       width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      padding: 15px 20px; background: #fffaf5; border: 2px solid #f0c880;
+      padding: 15px 20px; background: #ffffff; border: 2px solid var(--border);
       border-radius: 12px; font-size: .93rem; font-weight: 500; color: var(--text);
       font-family: inherit; cursor: pointer; text-align: left; transition: all .2s;
     }
-    .t-btn:hover { background: #fff3e0; border-color: #f0a040; }
-    .t-btn.open  { background: #fff3e0; border-color: #f0a040; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .t-btn:hover { background: var(--soft); border-color: var(--primary); }
+    .t-btn.open  { background: var(--soft); border-color: var(--primary); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
     .t-left { display: flex; align-items: center; gap: 8px; }
-    .t-chevron { font-size: .8rem; color: #a05000; transition: transform .25s; flex-shrink: 0; }
+    .t-chevron { font-size: .8rem; color: var(--primary); transition: transform .25s; flex-shrink: 0; }
     .t-btn.open .t-chevron { transform: rotate(90deg); }
 
     .t-body {
       display: none; padding: 18px 22px 20px;
-      background: var(--white); border: 2px solid #f0a040; border-top: none;
+      background: var(--white); border: 2px solid var(--border); border-top: none;
       border-radius: 0 0 12px 12px; font-size: .92rem; line-height: 1.8;
     }
     .t-body.open { display: block; }
@@ -301,6 +301,24 @@
       .branch { flex-direction: column; }
       .b-div { justify-content: center; }
       main { padding: 24px 14px 60px; }
+    }
+
+    /* ── デバイス選択ボタン ── */
+    #device-select-wrap button {
+      border: 2px solid var(--accent) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 16px rgba(165,30,109,.10) !important;
+    }
+    #device-select-wrap button span:not([style*="font-size:2"]) {
+      color: var(--primary) !important;
+    }
+    #device-select-wrap button span[style*=".8rem"] {
+      color: var(--sub) !important;
+    }
+    #device-select-wrap button:hover {
+      border-color: var(--primary) !important;
+      box-shadow: 0 6px 24px rgba(165,30,109,.20) !important;
+      transform: translateY(-3px) !important;
     }
   </style>
 </head>
@@ -376,12 +394,38 @@
 </div>
 
 <script>
+var _devKeyMap = {
+  'スマートフォン（iOS / Android）': 'sp',
+  'Mac': 'mac',
+  'Windows': 'win'
+};
+function switchAllDevTabs(key) {
+  ['sp','mac','win'].forEach(function(k) {
+    var el;
+    el = document.getElementById('dev-tab-' + k);
+    if (el) el.classList.toggle('active', k === key);
+    el = document.getElementById('dev-s1-' + k);
+    if (el) el.classList.toggle('active', k === key);
+    el = document.getElementById('t1-' + k);
+    if (el) el.classList.toggle('active', k === key);
+    el = document.querySelector('button[onclick*="\'t1\',\'' + k + '\'"]');
+    if (el) el.classList.toggle('active', k === key);
+    ['s2','s4','s5','s7','s8','s9','s11','s12'].forEach(function(s) {
+      el = document.getElementById('dev-tab-' + s + '-' + k);
+      if (el) el.classList.toggle('active', k === key);
+      el = document.getElementById('dev-' + s + '-' + k);
+      if (el) el.classList.toggle('active', k === key);
+    });
+  });
+}
 function selectDevice(name) {
   var banner = document.getElementById('device-banner');
   var header = document.querySelector('header');
   banner.style.top = (header ? header.offsetHeight : 0) + 'px';
   document.getElementById('device-name-display').textContent = name;
   banner.style.display = 'block';
+  var key = _devKeyMap[name];
+  if (key) switchAllDevTabs(key);
   document.getElementById('s1').scrollIntoView({behavior: 'smooth'});
 }
 function resetDevice() {
@@ -400,7 +444,8 @@ function resetDevice() {
   <div class="card-body">
     <div class="tabs">
       <button class="tab active" onclick="tab(event,'t1','sp')">📱 スマートフォン（iPhone / Android）</button>
-      <button class="tab" onclick="tab(event,'t1','pc')">💻 パソコン（Windows / Mac）</button>
+      <button class="tab" onclick="tab(event,'t1','mac')">💻 Mac</button>
+      <button class="tab" onclick="tab(event,'t1','win')">🖥️ Windows</button>
     </div>
 
     <div class="tab-content active" id="t1-sp">
@@ -424,7 +469,7 @@ function resetDevice() {
       </div>
     </div>
 
-    <div class="tab-content" id="t1-pc">
+    <div class="tab-content" id="t1-mac">
       <div class="two-col">
         <div>
           <div class="img-wrap">
@@ -444,47 +489,20 @@ function resetDevice() {
       </div>
     </div>
 
-    <!-- ── STEP1 デバイス別タブ ── -->
-    <div style="margin-top:32px;">
-      <div class="tabs" id="dev-tabs-s1">
-        <button class="tab active" id="dev-tab-sp"  onclick="switchDevTab('sp')">📱 スマートフォン</button>
-        <button class="tab"        id="dev-tab-mac" onclick="switchDevTab('mac')">💻 Mac</button>
-        <button class="tab"        id="dev-tab-win" onclick="switchDevTab('win')">🖥️ Windows</button>
-      </div>
-      <div class="tab-content active" id="dev-s1-sp">
-        <p style="font-family:'Noto Sans JP',sans-serif;font-size:.95rem;color:#707070;text-align:center;padding:36px 0;">ここにスマートフォン版の手順・画像が入ります</p>
-      </div>
-      <div class="tab-content" id="dev-s1-mac">
-        <p style="font-family:'Noto Sans JP',sans-serif;font-size:.95rem;color:#707070;text-align:center;padding:36px 0;">ここにMac版の手順・画像が入ります</p>
-      </div>
-      <div class="tab-content" id="dev-s1-win">
-        <p style="font-family:'Noto Sans JP',sans-serif;font-size:.95rem;color:#707070;text-align:center;padding:36px 0;">ここにWindows版の手順・画像が入ります</p>
-      </div>
+    <div class="tab-content" id="t1-win">
+      <p style="font-family:'Noto Sans JP',sans-serif;font-size:.95rem;color:#707070;text-align:center;padding:36px 0;">ここにWindows版の手順・画像が入ります</p>
     </div>
     <script>
-    var _devKeyMap = {
-      'スマートフォン（iOS / Android）': 'sp',
-      'Mac': 'mac',
-      'Windows': 'win'
-    };
     function switchDevTab(key) {
       ['sp','mac','win'].forEach(function(k) {
         document.getElementById('dev-tab-' + k).classList.toggle('active', k === key);
         document.getElementById('dev-s1-' + k).classList.toggle('active', k === key);
       });
     }
-    (function() {
-      var _orig = window.selectDevice;
-      window.selectDevice = function(name) {
-        _orig(name);
-        var key = _devKeyMap[name];
-        if (key) switchDevTab(key);
-      };
-    })();
     </script>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -598,7 +616,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -679,7 +697,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -787,7 +805,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -870,18 +888,6 @@ function resetDevice() {
         document.getElementById('dev-s5-' + k).classList.toggle('active', k === key);
       });
     }
-    (function() {
-      var _orig = window.selectDevice;
-      window.selectDevice = function(name) {
-        _orig(name);
-        var key = {'スマートフォン（iOS / Android）':'sp','Mac':'mac','Windows':'win'}[name];
-        if (key) {
-          if (window.switchDevTabS2) switchDevTabS2(key);
-          if (window.switchDevTabS4) switchDevTabS4(key);
-          if (window.switchDevTabS5) switchDevTabS5(key);
-        }
-      };
-    })();
     </script>
 
     <div class="two-col two-col-wide">
@@ -944,7 +950,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1034,7 +1040,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1130,7 +1136,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1208,18 +1214,6 @@ function resetDevice() {
         document.getElementById('dev-s9-' + k).classList.toggle('active', k === key);
       });
     }
-    (function() {
-      var _orig = window.selectDevice;
-      window.selectDevice = function(name) {
-        _orig(name);
-        var key = {'スマートフォン（iOS / Android）':'sp','Mac':'mac','Windows':'win'}[name];
-        if (key) {
-          if (window.switchDevTabS7) switchDevTabS7(key);
-          if (window.switchDevTabS8) switchDevTabS8(key);
-          if (window.switchDevTabS9) switchDevTabS9(key);
-        }
-      };
-    })();
     </script>
 
     <div class="two-col two-col-wide">
@@ -1239,7 +1233,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1311,7 +1305,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1413,7 +1407,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1491,17 +1485,6 @@ function resetDevice() {
         document.getElementById('dev-s12-' + k).classList.toggle('active', k === key);
       });
     }
-    (function() {
-      var _orig = window.selectDevice;
-      window.selectDevice = function(name) {
-        _orig(name);
-        var key = {'スマートフォン（iOS / Android）':'sp','Mac':'mac','Windows':'win'}[name];
-        if (key) {
-          if (window.switchDevTabS11) switchDevTabS11(key);
-          if (window.switchDevTabS12) switchDevTabS12(key);
-        }
-      };
-    })();
     </script>
 
     <div class="two-col">
@@ -1525,7 +1508,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
@@ -1606,7 +1589,7 @@ function resetDevice() {
     </div>
 
     <div class="trouble-wrap">
-      <div class="trouble-hd"><span>🆘</span><span class="trouble-hd-txt">うまくいかない方へ</span></div>
+      <div class="trouble-hd"><span>🔧</span><span class="trouble-hd-txt">困ったときはこちら／よくある質問</span></div>
       <p class="trouble-desc">👇 下の項目をタップして、当てはまる状況を選んでください</p>
       <div class="trouble-items">
 
